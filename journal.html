@@ -3,259 +3,328 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>구르메 제주 저널 - 셰프를 위한 영감 노트</title>
+    <meta name="description" content="구르메 제주 저널. 셰프와 사장님을 위한 식자재 트렌드, 레시피, 비즈니스 인사이트.">
+    <meta property="og:title" content="구르메 제주 - F&B 인사이트 저널">
+    <title>Journal - 구르메 제주</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
     <style>
-        [x-cloak] { display: none!important; }
-        .font-pretendard { font-family: 'Pretendard', system-ui, sans-serif; }
-        /* Chatbot Styles */
-        .chat-bubble { position: relative; max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 0.95rem; line-height: 1.5; margin-bottom: 10px; word-break: keep-all; }
-        .chat-bubble.bot { background-color: #f3f4f6; color: #1f2937; border-top-left-radius: 4px; }
-        .chat-bubble.user { background-color: #ea580c; color: white; border-top-right-radius: 4px; margin-left: auto; }
-        .typing-indicator span { display: inline-block; width: 6px; height: 6px; background-color: #9ca3af; border-radius: 50%; animation: typing 1.4s infinite both; margin: 0 2px; }
-        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
-        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes typing { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.5); opacity: 0.5; } }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        [x-cloak] { display: none !important; }
+        body { font-family: 'Pretendard', system-ui, sans-serif; }
+        
+        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; transform: translateY(20px); }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        
+        .article-content p { margin-bottom: 1rem; line-height: 1.7; }
+        .article-content strong { color: #0f172a; font-weight: 700; }
+        .article-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
+        .article-content li { margin-bottom: 0.5rem; }
+
+        /* Scrollbar for modal */
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { 'sans': ['"Pretendard"', 'system-ui', 'sans-serif'] },
-                    colors: { 'brand-navy': '#0f172a', 'brand-gold': '#d4af37', 'brand-orange': '#ea580c' }
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: {
+                        'brand-navy': '#0f172a',
+                        'brand-gold': '#d4af37',
+                        'brand-orange': '#ea580c',
+                        'brand-light': '#f8fafc'
+                    }
                 }
             }
         }
     </script>
 </head>
-<body class="bg-white text-gray-800 font-sans antialiased" x-data="journalApp()">
+<body class="bg-brand-light text-slate-800 antialiased" x-data="journalApp()" :class="{ 'overflow-hidden': selectedJournal }">
 
-    <header class="bg-white/95 backdrop-blur-md shadow-sm fixed w-full z-50 transition-all duration-300">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-brand-navy flex items-center gap-2">
-                <i class="fa-solid fa-utensils text-brand-gold"></i> Gourmet Jeju
+    <header :class="scrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-3' : 'bg-white/95 backdrop-blur-md shadow-sm py-4'" class="fixed w-full z-50 transition-all duration-300" @scroll.window="scrolled = (window.pageYOffset > 20)">
+        <nav class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-brand-navy flex items-center gap-2 group">
+                <div class="w-10 h-10 bg-brand-navy rounded-lg flex items-center justify-center text-brand-gold group-hover:rotate-12 transition-transform duration-300">
+                    <i class="fa-solid fa-utensils text-lg"></i>
+                </div>
+                <span class="tracking-tight">Gourmet Jeju</span>
             </a>
+
             <div class="hidden md:flex items-center space-x-8">
-                <a href="index.html" class="text-gray-600 hover:text-brand-navy font-medium transition-colors">Home</a>
-                <a href="about.html" class="text-gray-600 hover:text-brand-navy font-medium transition-colors">About</a>
-                <a href="#" class="text-brand-navy font-bold transition-colors border-b-2 border-brand-navy pb-1">Journal</a>
-                <a href="products.html" class="text-gray-600 hover:text-brand-navy font-medium transition-colors">Products</a>
-                <a href="products.html" class="bg-brand-navy text-white px-5 py-2 rounded-md hover:bg-slate-800 transition-colors font-bold shadow-md">
-                    견적 문의하기
+                <a href="about.html" class="text-slate-600 hover:text-brand-navy font-medium transition-colors text-sm uppercase tracking-wide">About</a>
+                <a href="products.html" class="text-slate-600 hover:text-brand-navy font-medium transition-colors text-sm uppercase tracking-wide">Products</a>
+                <a href="journal.html" class="text-brand-navy font-bold border-b-2 border-brand-navy pb-1 text-sm uppercase tracking-wide">Journal</a>
+                <a href="products.html" class="bg-brand-orange hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-bold shadow-lg hover:shadow-orange-500/30 transition-all transform hover:-translate-y-0.5 text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> 견적 문의
                 </a>
             </div>
+
             <div class="md:hidden">
-                <button @click="open =!open" class="text-gray-800 focus:outline-none p-2"><i class="fas fa-bars text-2xl"></i></button>
-            </div>
-            <div x-show="open" x-cloak @click.away="open = false" class="md:hidden absolute top-full left-0 w-full bg-white shadow-lg py-2 z-40 border-t border-gray-100">
-                <a href="index.html" class="block px-6 py-3 text-lg border-b hover:bg-gray-50">Home</a>
-                <a href="about.html" class="block px-6 py-3 text-lg border-b hover:bg-gray-50">About</a>
-                <a href="#" class="block px-6 py-3 text-lg border-b font-bold text-brand-navy bg-gray-50">Journal</a>
-                <a href="products.html" class="block px-6 py-3 text-lg border-b hover:bg-gray-50">Products (견적)</a>
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-slate-800 focus:outline-none p-2">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
             </div>
         </nav>
+
+        <div x-show="mobileMenuOpen" x-transition.opacity x-cloak @click.away="mobileMenuOpen = false" class="md:hidden absolute top-full left-0 w-full bg-white shadow-xl border-t border-slate-100">
+            <div class="flex flex-col p-4 space-y-2">
+                <a href="about.html" class="block px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-lg font-medium">회사 소개</a>
+                <a href="products.html" class="block px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-lg font-medium">제품 카탈로그</a>
+                <a href="journal.html" class="block px-4 py-3 bg-slate-50 text-brand-navy rounded-lg font-bold">저널 & 뉴스</a>
+            </div>
+        </div>
     </header>
 
     <main class="pt-24 pb-20">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <span class="text-brand-navy font-bold tracking-wider text-sm">GOURMET JOURNAL</span>
-                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mt-2 mb-4">셰프를 위한 영감 노트</h1>
-                <p class="text-xl text-gray-500 max-w-2xl mx-auto">재료에 대한 깊이 있는 지식부터 제주 F&B 비즈니스 인사이트까지.<br>성공하는 사장님을 위한 구르메 제주의 노하우를 공유합니다.</p>
+            
+            <div class="text-center mb-16 animate-fade-in-up">
+                <span class="text-brand-gold font-bold tracking-[0.2em] text-xs uppercase mb-3 block">Gourmet Insights</span>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
+                    셰프를 위한 <span class="text-brand-navy">영감 노트</span>
+                </h1>
+                <p class="text-lg text-slate-500 max-w-2xl mx-auto break-keep">
+                    제주 F&B 비즈니스의 성공을 돕는 트렌드, 테크닉, 그리고 비즈니스 전략.<br>
+                    구르메 제주가 엄선한 인사이트를 만나보세요.
+                </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-                <template x-for="journal in journals" :key="journal.title">
-                    <div @click="openJournal(journal)" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition cursor-pointer group border border-gray-100 flex flex-col md:flex-row h-auto md:h-64">
-                        <div class="relative w-full md:w-2/5 h-48 md:h-full overflow-hidden shrink-0">
-                            <img :src="journal.image" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur text-brand-navy text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide" x-text="journal.category"></div>
-                        </div>
-                        <div class="p-6 flex flex-col justify-center w-full md:w-3/5">
-                            <span class="text-brand-orange text-xs font-bold uppercase tracking-wide mb-2" x-text="journal.category"></span>
-                            <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-brand-navy transition leading-tight" x-text="journal.title"></h3>
-                            <p class="text-gray-600 text-sm line-clamp-2 mb-4" x-text="journal.summary"></p>
-                            <div class="text-brand-navy font-bold text-sm flex items-center mt-auto">
-                                Read Article <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+            <div class="flex flex-wrap justify-center gap-3 mb-12 animate-fade-in-up" style="animation-delay: 0.1s;">
+                <button @click="filter = 'all'" :class="filter === 'all' ? 'bg-brand-navy text-white ring-2 ring-brand-navy ring-offset-2' : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm">All</button>
+                <button @click="filter = 'trend'" :class="filter === 'trend' ? 'bg-brand-navy text-white ring-2 ring-brand-navy ring-offset-2' : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm">Trend</button>
+                <button @click="filter = 'tech'" :class="filter === 'tech' ? 'bg-brand-navy text-white ring-2 ring-brand-navy ring-offset-2' : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm">Technical</button>
+                <button @click="filter = 'biz'" :class="filter === 'biz' ? 'bg-brand-navy text-white ring-2 ring-brand-navy ring-offset-2' : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm">Business</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in-up" style="animation-delay: 0.2s;">
+                <template x-for="journal in filteredJournals" :key="journal.id">
+                    <article @click="openJournal(journal)" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer group border border-slate-100 flex flex-col h-full hover:-translate-y-1">
+                        <div class="relative h-56 overflow-hidden shrink-0">
+                            <img :src="journal.image" :alt="journal.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <div class="absolute top-4 left-4">
+                                <span :class="getCategoryColor(journal.category)" class="text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-sm" x-text="getCategoryLabel(journal.category)"></span>
                             </div>
                         </div>
-                    </div>
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="flex items-center gap-2 text-xs text-slate-400 mb-3">
+                                <i class="fa-regular fa-calendar"></i> <span x-text="journal.date"></span>
+                                <span>&bull;</span>
+                                <span x-text="journal.readTime"></span> read
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-brand-navy transition leading-snug break-keep" x-text="journal.title"></h3>
+                            <p class="text-slate-500 text-sm line-clamp-3 mb-6 leading-relaxed break-keep" x-text="journal.summary"></p>
+                            <div class="mt-auto pt-4 border-t border-slate-100 flex items-center text-brand-orange font-bold text-sm group-hover:translate-x-1 transition-transform">
+                                Read Article <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </div>
+                        </div>
+                    </article>
                 </template>
             </div>
+
+            <div x-show="filteredJournals.length === 0" class="text-center py-20 text-slate-400" x-cloak>
+                <i class="fa-regular fa-folder-open text-4xl mb-4"></i>
+                <p>해당 카테고리의 글이 없습니다.</p>
+            </div>
+
         </div>
     </main>
 
-    <footer class="bg-brand-navy text-white py-12 border-t border-white/10 pb-28 md:pb-12">
-        <div class="container mx-auto px-6 text-center">
-            <div class="mb-6">
-                <h3 class="text-xl font-bold mb-2">Gourmet Jeju</h3>
-                <p class="text-gray-400 text-sm">제주 식자재 유통의 새로운 기준</p>
-            </div>
-            <p class="text-xs text-gray-500">&copy; 2025 Gourmet Jeju. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <div x-show="selectedJournal" class="fixed inset-0 z-[60] flex items-center justify-center px-4" x-cloak>
-        <div @click="selectedJournal = null" class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" x-transition.opacity></div>
+    <div x-show="selectedJournal" class="fixed inset-0 z-[60] flex items-end md:items-center justify-center px-0 md:px-4" x-cloak>
+        <div @click="closeJournal()" class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" 
+             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
         
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto relative z-10 flex flex-col animate-fade-in-up">
-            <div class="relative h-72 shrink-0">
+        <div class="bg-white w-full max-w-4xl md:rounded-2xl shadow-2xl h-[90vh] md:h-[85vh] relative z-10 flex flex-col overflow-hidden"
+             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-full md:translate-y-10" x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-full md:translate-y-10">
+            
+            <div class="relative h-64 md:h-80 shrink-0">
                 <img :src="selectedJournal?.image" class="w-full h-full object-cover">
-                <button @click="selectedJournal = null" class="absolute top-4 right-4 bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-black/70 transition backdrop-blur">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <button @click="closeJournal()" class="absolute top-4 right-4 md:top-6 md:right-6 bg-black/40 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-black/60 transition backdrop-blur border border-white/20 z-20">
                     <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
-                <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 via-black/50 to-transparent p-8">
-                    <span class="bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full uppercase mb-2 inline-block shadow-sm" x-text="selectedJournal?.category"></span>
-                    <h3 class="text-3xl font-bold text-white leading-tight" x-text="selectedJournal?.title"></h3>
+                <div class="absolute bottom-0 left-0 w-full p-6 md:p-10 text-white">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span :class="getCategoryColor(selectedJournal?.category)" class="text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wide" x-text="getCategoryLabel(selectedJournal?.category)"></span>
+                        <span class="text-white/80 text-xs flex items-center gap-1"><i class="fa-regular fa-clock"></i> <span x-text="selectedJournal?.readTime"></span></span>
+                    </div>
+                    <h2 class="text-2xl md:text-4xl font-bold leading-tight text-shadow-sm break-keep" x-text="selectedJournal?.title"></h2>
                 </div>
             </div>
-            <div class="p-8 md:p-10 space-y-8">
-                <div class="prose prose-lg prose-slate max-w-none">
-                    <p class="font-medium text-xl text-gray-800 border-l-4 border-brand-gold pl-4 italic" x-text="selectedJournal?.summary"></p>
-                    <div class="mt-8 text-gray-600 leading-relaxed space-y-6" x-html="selectedJournal?.content"></div>
+
+            <div class="flex-1 overflow-y-auto custom-scroll bg-white">
+                <div class="p-6 md:p-10 max-w-3xl mx-auto">
+                    <div class="bg-brand-light border-l-4 border-brand-gold p-6 mb-10 rounded-r-xl italic text-slate-600 text-lg leading-relaxed">
+                        "<span x-text="selectedJournal?.summary"></span>"
+                    </div>
+
+                    <div class="article-content text-slate-700 text-base md:text-lg space-y-6 mb-12 break-keep" x-html="selectedJournal?.content"></div>
+
+                    <div class="bg-brand-navy rounded-2xl p-8 text-center text-white shadow-lg relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-colors"></div>
+                        <div class="relative z-10">
+                            <h4 class="text-xl font-bold mb-2">이 글에 소개된 식자재가 궁금하신가요?</h4>
+                            <p class="text-slate-300 text-sm mb-6">구르메 제주 B2B 전용 단가로 만나보세요.</p>
+                            <a href="products.html" class="inline-flex items-center bg-brand-orange text-white px-8 py-3 rounded-full font-bold hover:bg-orange-600 transition shadow-md transform hover:-translate-y-1">
+                                <i class="fa-solid fa-magnifying-glass mr-2"></i> 관련 상품 견적 내기
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 text-center mt-8">
-                    <h4 class="text-xl font-bold text-brand-navy mb-2">이 인사이트가 도움이 되셨나요?</h4>
-                    <p class="text-gray-600 mb-6">구르메 제주는 단순 납품을 넘어, 사장님의 성공을 돕는 파트너입니다.</p>
-                    <a href="products.html" class="inline-flex items-center justify-center bg-brand-navy text-white px-8 py-3 rounded-xl font-bold hover:bg-slate-800 transition shadow-lg transform hover:-translate-y-1">
-                        지금 바로 견적 문의하기
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-brand-navy text-slate-400 py-12 border-t border-slate-800">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="index.html" class="text-xl font-bold text-white flex items-center gap-2 mb-4">
+                        <i class="fa-solid fa-utensils text-brand-gold"></i> Gourmet Jeju
                     </a>
+                    <p class="text-xs leading-relaxed mb-4 max-w-md">
+                        제주특별자치도 제주시 00로 000<br>
+                        사업자등록번호: 000-00-00000 | 대표: OOO
+                    </p>
                 </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4 text-sm">Contact</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><i class="fa-solid fa-phone text-brand-gold w-4"></i> 010-0000-0000</li>
+                        <li><i class="fa-solid fa-envelope text-brand-gold w-4"></i> contact@gourmetjeju.com</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4 text-sm">Follow Us</h4>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-brand-orange hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-brand-orange hover:text-white transition"><i class="fa-brands fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-6 text-center text-[10px]">
+                <p>&copy; 2025 Gourmet Jeju. All Rights Reserved.</p>
             </div>
         </div>
-    </div>
-
-    <div class="fixed bottom-0 right-0 z-50 flex flex-col items-end p-4 md:p-6" x-show="chatOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0" x-cloak>
-        <div class="bg-white w-[340px] md:w-[380px] h-[550px] rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden mb-4">
-            <div class="bg-brand-navy text-white p-4 flex justify-between items-center shrink-0">
-                <div class="flex items-center gap-2">
-                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                    <span class="font-bold">구르메 제주 상담봇</span>
-                </div>
-                <button @click="toggleChat()" class="text-white/80 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
-            <div class="flex-1 p-4 overflow-y-auto bg-gray-50 scrollbar-hide" id="chat-body">
-                <div class="flex flex-col gap-3">
-                    <div class="chat-bubble bot shadow-sm">안녕하세요! 사장님 👋<br>제주 No.1 프리미엄 식자재 파트너,<br><strong>구르메 제주</strong>입니다.<br><br>무엇을 도와드릴까요?</div>
-                    <template x-for="msg in chatMessages" :key="msg.id"><div :class="msg.type === 'bot' ? 'chat-bubble bot shadow-sm' : 'chat-bubble user shadow-sm'" x-html="msg.text"></div></template>
-                    <div x-show="isTyping" class="chat-bubble bot shadow-sm w-12"><div class="typing-indicator"><span></span><span></span><span></span></div></div>
-                </div>
-            </div>
-            <div class="p-3 bg-white border-t border-gray-100 shrink-0">
-                <p class="text-xs text-gray-400 mb-2 text-center">자주 묻는 질문을 선택하세요</p>
-                <div class="grid grid-cols-1 gap-2 mb-2 max-h-32 overflow-y-auto">
-                    <button @click="handleChatOption('delivery')" class="text-sm text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition text-gray-700 font-medium flex items-center"><span class="mr-2">🚚</span> 제주도 배송, 얼마나 걸리나요?</button>
-                    <button @click="handleChatOption('price')" class="text-sm text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition text-gray-700 font-medium flex items-center"><span class="mr-2">💰</span> B2B 단가표를 받고 싶어요.</button>
-                    <button @click="handleChatOption('moq')" class="text-sm text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition text-gray-700 font-medium flex items-center"><span class="mr-2">📦</span> 소량 주문도 가능한가요?</button>
-                </div>
-                <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="block w-full text-center bg-[#FAE100] hover:bg-[#F9E000] text-[#371D1E] font-bold py-3 rounded-lg transition shadow-sm"><i class="fa-solid fa-comment mr-2"></i> 상담원 연결 (카카오톡)</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="fixed bottom-20 right-6 z-40 md:bottom-10">
-        <button @click="toggleChat()" class="bg-brand-orange text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-300 animate-bounce"><i class="fa-solid fa-comment-dots text-2xl"></i></button>
-    </div>
+    </footer>
 
     <script>
         function journalApp() {
             return {
-                open: false,
+                scrolled: false,
+                mobileMenuOpen: false,
                 selectedJournal: null,
-                chatOpen: false,
-                chatMessages: [],
-                isTyping: false,
+                filter: 'all',
                 
                 journals: [
                     {
-                        category: 'Technical',
-                        title: '습도 80% 제주, 크루아상 결 살리는 법',
+                        id: 1,
+                        category: 'trend',
+                        date: '2025. 10. 25',
+                        readTime: '3 min',
+                        title: '제주 카페 매출의 비밀: 파에(FAGE) 그릭 요거트',
+                        image: 'https://images.unsplash.com/photo-1488477181946-6428a029177b?q=80&w=1974&auto=format&fit=crop',
+                        summary: '방송 이후 주문량 폭주! 한국 시판 요거트보다 우유를 3배 농축한 꾸덕함의 차이. 높은 원가에도 사장님들이 파에를 고집하는 이유를 분석합니다.',
+                        content: `
+                            <p>최근 방송에서 그릭 요거트 디저트가 선풍적인 인기를 끌면서 제주도 내 카페에서도 주문량이 폭주하고 있습니다. 그 중심에는 바로 <strong>파에(FAGE) 그릭 요거트</strong>가 있습니다.</p>
+                            <h4 class="text-lg font-bold text-slate-800 mt-6 mb-3">왜 파에(FAGE)인가?</h4>
+                            <p>파에 그릭 요거트는 한국에 시판되는 일반 요거트보다 우유를 <strong>3~5배 농축</strong>하여 만듭니다. 요거트 하나를 만드는 데 들어가는 우유의 양이 압도적으로 많기 때문에, 텍스처가 훨씬 꾸덕하고 맛이 진합니다. 비록 가격은 일반 제품보다 3배 이상 높지만, 그만큼의 퀄리티 차이가 고객의 재방문을 유도합니다.</p>
+                            <h4 class="text-lg font-bold text-slate-800 mt-6 mb-3">유통기한과 관리의 중요성</h4>
+                            <p>파에 요거트는 그리스에서 항공으로 직수입되기 때문에 유통기한 관리가 매우 까다롭습니다. 생산 후 3주인 유통기한 중 한국 도착 시 보통 1~2주 정도가 남습니다. 구르메 제주는 항공 직송 스케줄에 맞춰 가장 신선한 상태의 제품을 제주 사장님들께 공급해 드립니다.</p>
+                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-4">
+                                <strong class="text-brand-navy block mb-1"><i class="fa-solid fa-lightbulb text-brand-orange mr-1"></i> 셰프의 Tip</strong>
+                                그래놀라, 제주산 벌꿀집과 함께 플레이팅하면 객단가 12,000원 이상의 프리미엄 디저트 메뉴가 완성됩니다.
+                            </div>
+                        `
+                    },
+                    {
+                        id: 2,
+                        category: 'tech',
+                        date: '2025. 10. 15',
+                        readTime: '4 min',
+                        title: '습도 높은 제주, 크루아상 결 살리는 법',
                         image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=2026&auto=format&fit=crop',
-                        summary: '이즈니 AOP 버터의 높은 융해점과 가소성을 활용하여 여름철에도 완벽한 페이스트리 결을 만드는 노하우를 공개합니다.',
-                        content: `<h4 class="text-xl font-bold text-gray-900 mb-3">과학적 원리: 왜 이즈니인가?</h4>
-                                  <p>일반 미국산 버터(수분 16~18%)와 달리, <strong>이즈니 AOP 버터</strong>는 지방 함량이 82% 이상으로 높아 수분이 적고 융해점이 최적화되어 있습니다. 고온다습한 제주 환경에서도 반죽 층 사이에서 쉽게 녹아내리지 않고 결을 유지하는 <strong>'가소성(Plasticity)'</strong>이 뛰어납니다.</p>
-                                  <h4 class="text-xl font-bold text-gray-900 mt-8 mb-3">제주 베이커를 위한 실전 팁</h4>
-                                  <ul class="list-disc pl-5 space-y-2 bg-yellow-50 p-5 rounded-lg border border-yellow-100">
-                                    <li><strong>수분 조절:</strong> 여름철 베이킹 시 레시피 수분량을 평소보다 5~10% 줄이세요.</li>
-                                    <li><strong>온도 제어:</strong> 반드시 얼음물을 사용하고, 반죽 온도를 24도 이하로 유지하세요.</li>
-                                    <li><strong>휴지 시간:</strong> 이즈니 롤 버터(Tourage Sheet)를 사용할 땐, 냉장 휴지 시간을 평소보다 1.5배 길게 가져가 글루텐을 충분히 이완시키세요.</li>
-                                  </ul>`
+                        summary: '이즈니 AOP 버터의 높은 융해점과 가소성을 활용하여 고온다습한 제주 날씨에도 완벽한 페이스트리 결을 만드는 노하우를 공개합니다.',
+                        content: `
+                            <p>제주의 여름과 장마철은 베이커들에게 가혹한 계절입니다. 높은 습도는 크루아상의 결을 무너뜨리기 쉽죠. 하지만 재료의 선택으로 이 문제를 극복할 수 있습니다.</p>
+                            <h4 class="text-lg font-bold text-slate-800 mt-6 mb-3">과학적 원리: 왜 이즈니 AOP인가?</h4>
+                            <p>일반 미국산 버터(수분 16~18%)와 달리, <strong>이즈니 AOP 버터</strong>는 지방 함량이 82% 이상으로 높아 수분이 적고 융해점이 최적화되어 있습니다. 고온다습한 환경에서도 반죽 층 사이에서 쉽게 녹아내리지 않고 결을 유지하는 <strong>'가소성(Plasticity)'</strong>이 뛰어납니다.</p>
+                            <ul class="mt-4">
+                                <li><strong>수분 조절:</strong> 여름철 베이킹 시 레시피 수분량을 평소보다 5~10% 줄이세요.</li>
+                                <li><strong>온도 제어:</strong> 반드시 얼음물을 사용하고, 반죽 온도를 24도 이하로 유지하세요.</li>
+                                <li><strong>휴지 시간:</strong> 이즈니 롤 버터(Tourage Sheet)를 사용할 땐, 냉장 휴지 시간을 평소보다 1.5배 길게 가져가 글루텐을 충분히 이완시키세요.</li>
+                            </ul>
+                        `
                     },
                     {
-                        category: 'Logistics',
-                        title: '한여름 제주의 버터가 녹지 않는 이유',
-                        image: 'https://images.unsplash.com/photo-1493962853295-0fd70327578a?q=80&w=2070&auto=format&fit=crop',
-                        summary: '데이터 로거로 증명하는 구르메 제주만의 콜드체인 시스템. 육지보다 신선한 배송의 비밀을 확인하세요.',
-                        content: `<h4 class="text-xl font-bold text-gray-900 mb-3">열충격(Heat Shock)의 위험성</h4>
-                                  <p>운송 중 단 한 번이라도 온도가 치솟으면 버터의 유화 상태가 깨지고 치즈의 단백질 구조가 변형됩니다. 이는 조리 시 <strong>오일링 오프(기름 분리)</strong> 현상의 주원인이 되며, 셰프님의 요리를 망칠 수 있습니다.</p>
-                                  <h4 class="text-xl font-bold text-gray-900 mt-8 mb-3">구르메 제주의 철벽 방어 솔루션</h4>
-                                  <p>저희는 '감'으로 배송하지 않습니다. <strong>데이터</strong>로 배송합니다.</p>
-                                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                                    <div class="bg-gray-100 p-4 rounded-lg"><strong>1. 데이터 로거:</strong> 제주 공항 픽업부터 사장님 냉장고 앞까지 온도를 초 단위로 기록합니다.</div>
-                                    <div class="bg-gray-100 p-4 rounded-lg"><strong>2. 자체 탑차:</strong> 외주 용달이 아닌, 구르메 제주 소속의 냉동/냉장 탑차로만 배송합니다.</div>
-                                  </div>`
-                    },
-                    {
-                        category: 'Trend',
-                        title: '2025 제주 카페 트렌드: 할라봉 & 부라타',
-                        image: 'https://images.unsplash.com/photo-1624823183487-54791d01889c?q=80&w=2070&auto=format&fit=crop',
-                        summary: '로컬 식재료와 프리미엄 유제품의 만남. 객단가를 높이는 시그니처 메뉴 아이디어를 제안합니다.',
-                        content: `<h4 class="text-xl font-bold text-gray-900 mb-3">Little Luxuries (소소한 사치)</h4>
-                                  <p>2025년 F&B 트렌드는 '익숙한 로컬 식재료의 고급스러운 변신'입니다. 제주 특산물인 한라봉, 쑥과 수입 유제품(부라타, 브라운 치즈)의 페어링은 실패하지 않는 공식입니다.</p>
-                                  <h4 class="text-xl font-bold text-gray-900 mt-8 mb-3">추천 메뉴: 한라봉 부라타 샐러드</h4>
-                                  <p>벨지오이오소 부라타 치즈의 크리미함이 한라봉의 산미를 부드럽게 감싸줍니다. 여기에 허브 <strong>'딜(Dill)'</strong>을 살짝 곁들이면, 서울 청담동 못지않은 2만원 대 브런치 메뉴가 완성됩니다.</p>`
-                    },
-                    {
-                        category: 'Profit',
-                        title: '이자카야의 비밀 병기: 프리미엄 꼬치',
+                        id: 3,
+                        category: 'biz',
+                        date: '2025. 10. 01',
+                        readTime: '3 min',
+                        title: '이자카야의 비밀 병기: 모노마트 활용법',
                         image: 'https://images.unsplash.com/photo-1609167830220-7164aa360951?q=80&w=2070&auto=format&fit=crop',
-                        summary: '냉동 식자재를 요리로 바꾸는 터치. 인건비는 줄이고 퀄리티는 높이는 모노마트 활용법.',
-                        content: `<h4 class="text-xl font-bold text-gray-900 mb-3">현실적인 대안: 하이브리드 조리법</h4>
-                                  <p>인력난이 심각한 제주에서 모든 안주를 수제로 만드는 것은 불가능합니다. 검증된 고품질 냉동 제품(꼬치, 고로케)을 베이스로 활용하되, <strong>소스와 토핑으로 차별화</strong>하세요.</p>
-                                  <h4 class="text-xl font-bold text-gray-900 mt-8 mb-3">레시피 해킹: 명란 마요 야키토리</h4>
-                                  <p>모노마트의 숯불 꼬치에 <strong>명란 마요 소스</strong>를 뿌리고 토치로 살짝 그을려주세요(Aburi). 시치미를 곁들이면, 냉동 꼬치가 훌륭한 수제 스타일 요리로 재탄생합니다. 원가율은 낮추고 만족도는 높이는 비결입니다.</p>`
+                        summary: '인력난이 심각한 제주 요식업계. 냉동 식자재를 베이스로 퀄리티 높은 안주를 만드는 하이브리드 조리법으로 효율과 맛을 동시에 잡으세요.',
+                        content: `
+                            <p>제주도 내 조리 인력 구하기가 하늘의 별 따기입니다. 모든 안주를 수제로 만드는 것은 현실적으로 불가능에 가깝습니다. 이럴 때일수록 <strong>스마트한 식자재 활용</strong>이 필요합니다.</p>
+                            <h4 class="text-lg font-bold text-slate-800 mt-6 mb-3">하이브리드 조리법: 80% 제품 + 20% 터치</h4>
+                            <p>일본 식자재 전문 '모노마트'의 검증된 냉동 제품(꼬치, 고로케, 가라아게)을 베이스로 활용하세요. 여기에 셰프님의 킥(Kick)을 더하는 것만으로도 훌륭한 요리가 됩니다.</p>
+                            <ul class="mt-4">
+                                <li><strong>명란 마요 야키토리:</strong> 모노마트 숯불 꼬치에 명란 마요 소스를 뿌리고 토치로 살짝 그을려 불맛을 입히세요.</li>
+                                <li><strong>나가사키 짬뽕:</strong> 베이스 소스는 기성품을 쓰되, 제주산 딱새우와 홍합을 듬뿍 넣어 로컬 메뉴로 브랜딩하세요.</li>
+                            </ul>
+                            <p class="mt-4">구르메 제주는 모노마트의 다양한 제품을 도매가로 제주 전역에 배송해 드립니다.</p>
+                        `
+                    },
+                    {
+                        id: 4,
+                        category: 'trend',
+                        date: '2025. 09. 20',
+                        readTime: '2 min',
+                        title: '피자 맛집의 차별화: 썬리치 & 자연 치즈',
+                        image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop',
+                        summary: '제주도 피자/햄버거 맛집 사장님 필독. 썬리치 피자치즈와 무색소 베이커리 치즈로 최저가 공급과 맛의 퀄리티를 동시에 잡는 법.',
+                        content: `
+                            <p>피자의 맛은 치즈가 8할을 결정합니다. 하지만 치즈 가격은 계속 오르고 있죠. 맛과 원가 사이에서 고민하는 사장님들을 위해 구르메 제주가 솔루션을 제안합니다.</p>
+                            <h4 class="text-lg font-bold text-slate-800 mt-6 mb-3">썬리치 피자치즈 & 베이커리 체다</h4>
+                            <p>저희가 공급하는 <strong>썬리치 피자치즈</strong>와 <strong>무색소 베이커리 치즈</strong>는 뛰어난 스트레칭(늘어남)과 고소한 풍미를 자랑하면서도, 합리적인 가격대를 유지하고 있습니다.</p>
+                            <p class="mt-4">특히 여름철에도 녹지 않고 안전하게 받아보실 수 있도록, 구르메 제주는 <strong>익일 냉동 배송 시스템</strong>을 운영합니다. 서귀포 끝자락이라도 걱정하지 마세요. 가게 앞까지 신선하게 배달해 드립니다.</p>
+                        `
                     }
                 ],
+
+                get filteredJournals() {
+                    if (this.filter === 'all') return this.journals;
+                    return this.journals.filter(j => j.category === this.filter);
+                },
+
                 openJournal(journal) {
                     this.selectedJournal = journal;
-                    document.body.style.overflow = 'hidden';
                 },
-                toggleChat() { this.chatOpen = !this.chatOpen; if(this.chatOpen) { setTimeout(() => this.scrollToBottom(), 100); } },
-                async handleChatOption(type) {
-                    let userText = "", botText = "";
-                    if(type === 'delivery') { userText = "제주도 배송, 얼마나 걸리나요?"; botText = "걱정 마세요! 🚛<br>구르메 제주는 <strong>제주 현지 물류센터</strong>를 보유하고 있어,<br><strong>오후 2시 이전 주문 시 내일 바로 도착</strong>합니다."; } 
-                    else if(type === 'price') { userText = "B2B 단가표를 받고 싶어요."; botText = "사장님, 현명하십니다! 💰<br>저희는 서울 본사 직거래로 <strong>중간 마진을 없앤 합리적인 가격</strong>을 자랑합니다.<br><br>아래 상담원 연결을 통해 사업자 인증을 해주시면 <strong>전용 단가표</strong>를 즉시 보내드립니다."; } 
-                    else if(type === 'moq') { userText = "소량 주문도 가능한가요?"; botText = "물론입니다! 📦<br>작은 카페나 1인 매장 사장님들도 부담 없이 이용하실 수 있도록,<br><strong>최소 주문 수량(MOQ)의 벽을 낮췄습니다.</strong>"; }
-                    this.chatMessages.push({ id: Date.now(), type: 'user', text: userText });
-                    this.isTyping = true; this.scrollToBottom();
-                    await new Promise(r => setTimeout(r, 800)); 
-                    this.isTyping = false;
-                    this.chatMessages.push({ id: Date.now() + 1, type: 'bot', text: botText });
-                    this.scrollToBottom();
+
+                closeJournal() {
+                    this.selectedJournal = null;
                 },
-                scrollToBottom() { const chatBody = document.getElementById('chat-body'); if(chatBody) chatBody.scrollTop = chatBody.scrollHeight; }
+
+                getCategoryLabel(category) {
+                    const labels = { 'trend': 'Trend Report', 'tech': 'Chef\'s Note', 'biz': 'Business Tip' };
+                    return labels[category] || category;
+                },
+
+                getCategoryColor(category) {
+                    const colors = { 'trend': 'bg-brand-orange', 'tech': 'bg-blue-600', 'biz': 'bg-emerald-600' };
+                    return colors[category] || 'bg-slate-600';
+                }
             }
         }
-        
-        window.addEventListener('click', function(e) {
-            if(document.body.style.overflow === 'hidden' && !document.querySelector('.fixed.inset-0')) {
-                document.body.style.overflow = 'auto';
-            }
-        });
-        document.addEventListener('alpine:init', () => {
-            Alpine.effect(() => {
-                const appData = document.querySelector('[x-data]')._x_dataStack[0];
-                if (!appData.selectedJournal) {
-                    document.body.style.overflow = 'auto';
-                }
-            });
-        });
     </script>
 </body>
 </html>
