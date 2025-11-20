@@ -10,15 +10,6 @@
     <style>
         [x-cloak] { display: none!important; }
         .font-pretendard { font-family: 'Pretendard', system-ui, sans-serif; }
-        /* Chatbot Styles */
-        .chat-bubble { position: relative; max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 0.95rem; line-height: 1.5; margin-bottom: 10px; word-break: keep-all; }
-        .chat-bubble.bot { background-color: #f3f4f6; color: #1f2937; border-top-left-radius: 4px; }
-        .chat-bubble.user { background-color: #ea580c; color: white; border-top-right-radius: 4px; margin-left: auto; }
-        .typing-indicator span { display: inline-block; width: 6px; height: 6px; background-color: #9ca3af; border-radius: 50%; animation: typing 1.4s infinite both; margin: 0 2px; }
-        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
-        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes typing { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.5); opacity: 0.5; } }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -33,7 +24,7 @@
         }
     </script>
 </head>
-<body class="bg-white text-gray-800 font-sans antialiased" x-data="app()">
+<body class="bg-white text-gray-800 font-sans antialiased" x-data="{ open: false }">
 
     <header class="bg-white/95 backdrop-blur-md shadow-sm fixed w-full z-50 transition-all duration-300">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -118,88 +109,86 @@
                         </p>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="text-center mt-16">
-                    <a href="Gourmet_회사소개서.pdf" download class="text-gray-500 hover:text-brand-navy font-medium underline underline-offset-4 transition">
-                        <i class="fa-solid fa-download mr-1"></i> 파일로 다운로드 받기 (PDF)
-                    </a>
+        <section class="py-24 bg-white border-t border-gray-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <span class="text-brand-orange font-bold tracking-wider text-sm uppercase">Download Center</span>
+                    <h2 class="text-3xl font-bold text-gray-900 mt-2 mb-4">카테고리별 상세 카탈로그</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">
+                        필요한 카테고리의 카탈로그만 골라보세요. <br>
+                        PC나 태블릿에 저장해두시면 오프라인에서도 편리하게 상품을 확인하실 수 있습니다.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="group relative bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-brand-navy transition-colors">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 bg-white rounded-lg shadow-sm flex items-center justify-center text-brand-navy text-xl">
+                                <i class="fa-solid fa-wheat-awn"></i>
+                            </div>
+                            <a href="파스타,오일,향신료 외.pdf" download class="text-gray-400 hover:text-brand-navy transition"><i class="fa-solid fa-download text-xl"></i></a>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-1">파스타 & 오일 & 향신료</h3>
+                        <p class="text-sm text-gray-500 mb-4">디벨라 파스타, 엑스트라 버진 오일, 각종 향신료 라인업</p>
+                        <a href="파스타,오일,향신료 외.pdf" target="_blank" class="text-sm font-bold text-brand-navy flex items-center group-hover:underline">
+                            PDF 보기 <i class="fa-solid fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+
+                    <div class="group relative bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-brand-navy transition-colors">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 bg-white rounded-lg shadow-sm flex items-center justify-center text-brand-navy text-xl">
+                                <i class="fa-solid fa-cheese"></i>
+                            </div>
+                            <a href="미국치즈_부라타 외.pdf" download class="text-gray-400 hover:text-brand-navy transition"><i class="fa-solid fa-download text-xl"></i></a>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-1">미국 치즈 & 부라타</h3>
+                        <p class="text-sm text-gray-500 mb-4">벨지오이오소 부라타, 모짜렐라 및 미국산 프리미엄 치즈</p>
+                        <a href="미국치즈_부라타 외.pdf" target="_blank" class="text-sm font-bold text-brand-navy flex items-center group-hover:underline">
+                            PDF 보기 <i class="fa-solid fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+
+                    <div class="group relative bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-brand-navy transition-colors">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 bg-white rounded-lg shadow-sm flex items-center justify-center text-brand-navy text-xl">
+                                <i class="fa-solid fa-earth-europe"></i>
+                            </div>
+                            <a href="유럽치즈외.pdf" download class="text-gray-400 hover:text-brand-navy transition"><i class="fa-solid fa-download text-xl"></i></a>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-1">유럽 치즈 컬렉션</h3>
+                        <p class="text-sm text-gray-500 mb-4">프랑스 이즈니, 이탈리아 경성 치즈 등 정통 유럽 치즈 모음</p>
+                        <a href="유럽치즈외.pdf" target="_blank" class="text-sm font-bold text-brand-navy flex items-center group-hover:underline">
+                            PDF 보기 <i class="fa-solid fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-20 bg-white border-t border-gray-100">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl font-bold text-gray-900 mb-6">원하시는 식자재를 찾으셨나요?</h2>
-                <p class="text-gray-600 mb-10">회사소개서에 있는 모든 상품은 제주 전역 익일 배송이 가능합니다.</p>
-                <a href="products.html" class="inline-block bg-brand-navy text-white px-10 py-4 rounded-lg font-bold hover:bg-slate-800 transition shadow-lg transform hover:-translate-y-1">
-                    온라인 견적 요청하기
+        <section class="py-20 bg-brand-navy text-white text-center">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold mb-6">원하시는 식자재를 찾으셨나요?</h2>
+                <p class="text-gray-300 mb-10 max-w-xl mx-auto">
+                    카탈로그에서 보신 상품을 '견적함'에 담아주세요.<br>
+                    담당자가 재고 확인 후, 제주 최저가 견적서를 보내드립니다.
+                </p>
+                <a href="products.html" class="inline-block bg-brand-orange text-white px-10 py-4 rounded-lg font-bold hover:bg-orange-600 transition shadow-lg transform hover:-translate-y-1">
+                    온라인 견적 요청하러 가기
                 </a>
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-brand-navy text-white py-12 border-t border-white/10 pb-28 md:pb-12">
+    <footer class="bg-gray-900 text-white py-12 border-t border-white/10 pb-28 md:pb-12">
         <div class="container mx-auto px-6 text-center">
             <p class="text-xs text-gray-500">&copy; 2025 Gourmet Jeju. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <div class="fixed bottom-0 right-0 z-50 flex flex-col items-end p-4 md:p-6" x-show="chatOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0" x-cloak>
-        <div class="bg-white w-[340px] md:w-[380px] h-[550px] rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden mb-4">
-            <div class="bg-brand-navy text-white p-4 flex justify-between items-center shrink-0">
-                <div class="flex items-center gap-2">
-                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                    <span class="font-bold">구르메 제주 상담봇</span>
-                </div>
-                <button @click="toggleChat()" class="text-white/80 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
-            <div class="flex-1 p-4 overflow-y-auto bg-gray-50 scrollbar-hide" id="chat-body">
-                <div class="flex flex-col gap-3">
-                    <div class="chat-bubble bot shadow-sm">안녕하세요! 사장님 👋<br>제주 No.1 프리미엄 식자재 파트너,<br><strong>구르메 제주</strong>입니다.<br><br>무엇을 도와드릴까요?</div>
-                    <template x-for="msg in chatMessages" :key="msg.id"><div :class="msg.type === 'bot' ? 'chat-bubble bot shadow-sm' : 'chat-bubble user shadow-sm'" x-html="msg.text"></div></template>
-                    <div x-show="isTyping" class="chat-bubble bot shadow-sm w-12"><div class="typing-indicator"><span></span><span></span><span></span></div></div>
-                </div>
-            </div>
-            <div class="p-3 bg-white border-t border-gray-100 shrink-0">
-                <p class="text-xs text-gray-400 mb-2 text-center">자주 묻는 질문을 선택하세요</p>
-                <div class="grid grid-cols-1 gap-2 mb-2 max-h-32 overflow-y-auto">
-                    <button @click="handleChatOption('delivery')" class="text-sm text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition text-gray-700 font-medium flex items-center"><span class="mr-2">🚚</span> 제주도 배송, 얼마나 걸리나요?</button>
-                    <button @click="handleChatOption('price')" class="text-sm text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition text-gray-700 font-medium flex items-center"><span class="mr-2">💰</span> B2B 단가표를 받고 싶어요.</button>
-                    <button @click="handleChatOption('moq')" class="text-sm text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition text-gray-700 font-medium flex items-center"><span class="mr-2">📦</span> 소량 주문도 가능한가요?</button>
-                </div>
-                <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="block w-full text-center bg-[#FAE100] hover:bg-[#F9E000] text-[#371D1E] font-bold py-3 rounded-lg transition shadow-sm"><i class="fa-solid fa-comment mr-2"></i> 상담원 연결 (카카오톡)</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="fixed bottom-20 right-6 z-40 md:bottom-10">
-        <button @click="toggleChat()" class="bg-brand-orange text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-300 animate-bounce"><i class="fa-solid fa-comment-dots text-2xl"></i></button>
-    </div>
-
-    <script>
-        function app() {
-            return {
-                open: false,
-                chatOpen: false,
-                chatMessages: [],
-                isTyping: false,
-                toggleChat() { this.chatOpen = !this.chatOpen; if(this.chatOpen) { setTimeout(() => this.scrollToBottom(), 100); } },
-                async handleChatOption(type) {
-                    let userText = "", botText = "";
-                    if(type === 'delivery') { userText = "제주도 배송, 얼마나 걸리나요?"; botText = "걱정 마세요! 🚛<br>구르메 제주는 <strong>제주 현지 물류센터</strong>를 보유하고 있어,<br><strong>오후 2시 이전 주문 시 내일 바로 도착</strong>합니다."; } 
-                    else if(type === 'price') { userText = "B2B 단가표를 받고 싶어요."; botText = "사장님, 현명하십니다! 💰<br>저희는 서울 본사 직거래로 <strong>중간 마진을 없앤 합리적인 가격</strong>을 자랑합니다.<br><br>아래 상담원 연결을 통해 사업자 인증을 해주시면 <strong>전용 단가표</strong>를 즉시 보내드립니다."; } 
-                    else if(type === 'moq') { userText = "소량 주문도 가능한가요?"; botText = "물론입니다! 📦<br>작은 카페나 1인 매장 사장님들도 부담 없이 이용하실 수 있도록,<br><strong>최소 주문 수량(MOQ)의 벽을 낮췄습니다.</strong>"; }
-                    this.chatMessages.push({ id: Date.now(), type: 'user', text: userText });
-                    this.isTyping = true; this.scrollToBottom();
-                    await new Promise(r => setTimeout(r, 800)); 
-                    this.isTyping = false;
-                    this.chatMessages.push({ id: Date.now() + 1, type: 'bot', text: botText });
-                    this.scrollToBottom();
-                },
-                scrollToBottom() { const chatBody = document.getElementById('chat-body'); if(chatBody) chatBody.scrollTop = chatBody.scrollHeight; }
-            }
-        }
-    </script>
 </body>
 </html>
