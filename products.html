@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>구르메 제주 - 스마트 E-카탈로그</title>
+    <title>구르메 제주 - 스마트 E-카탈로그 & 견적</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <style>
         [x-cloak] { display: none!important; }
         .font-pretendard { font-family: 'Pretendard', system-ui, sans-serif; }
@@ -21,6 +22,26 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .animate-slide-in { animation: slideIn 0.3s ease-out forwards; }
+
+        /* 영수증 스타일 (캡처용) */
+        .receipt-paper {
+            background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+            background-size: 10px 10px;
+            position: relative;
+        }
+        .receipt-paper::before {
+            content: "";
+            position: absolute;
+            top: -5px; left: 0; width: 100%; height: 10px;
+            background: radial-gradient(circle, transparent, transparent 50%, #fff 50%, #fff 100%) -7px -8px / 15px 15px repeat-x;
+        }
+        .receipt-paper::after {
+            content: "";
+            position: absolute;
+            bottom: -5px; left: 0; width: 100%; height: 10px;
+            background: radial-gradient(circle, transparent, transparent 50%, #fff 50%, #fff 100%) -7px -2px / 15px 15px repeat-x;
+            transform: rotate(180deg);
+        }
     </style>
     <script>
         tailwind.config = {
@@ -62,8 +83,7 @@
             <span class="text-brand-orange font-bold tracking-wider text-xs uppercase mb-2 block">Smart Order System</span>
             <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">브랜드를 클릭하면 상품 리스트가 펼쳐집니다</h1>
             <p class="text-gray-500 text-sm md:text-base break-keep max-w-2xl mx-auto">
-                복잡한 품번 입력은 이제 그만.<br>
-                카탈로그를 보며 우측 리스트에서 <strong>[담기]</strong> 버튼만 누르세요.
+                카탈로그를 보며 상품을 담고, <br class="md:hidden"><strong>'견적서 이미지'</strong>를 저장해 카톡으로 보내주세요.
             </p>
         </div>
 
@@ -85,7 +105,7 @@
         
         <div x-show="cart.length > 0" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-brand-navy text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-4 z-40 cursor-pointer hover:scale-105 transition" @click="openCartModal = true" x-transition.scale>
             <span class="font-bold text-sm"><span x-text="cart.length"></span>개 품목 담김</span>
-            <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold">견적서 작성 &rarr;</span>
+            <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold">견적서 확인 &rarr;</span>
         </div>
 
     </main>
@@ -171,28 +191,111 @@
     <div x-show="openCartModal" class="fixed inset-0 z-[70] flex items-center justify-center px-4" x-cloak>
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="openCartModal = false"></div>
         <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl relative z-10 overflow-hidden flex flex-col max-h-[90vh] animate-slide-in">
-            <div class="bg-brand-navy text-white p-5 flex justify-between items-center">
-                <h3 class="font-bold text-lg">견적 요청서 작성</h3>
-                <button @click="openCartModal = false"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
-            <div class="p-5 overflow-y-auto custom-scroll">
-                <ul class="space-y-3 mb-6">
-                    <template x-for="(item, index) in cart" :key="index">
-                        <li class="flex justify-between items-center bg-slate-50 p-3 rounded-lg border border-slate-200 text-sm">
+            
+            <div x-show="!showReceipt" class="flex flex-col h-full">
+                <div class="bg-brand-navy text-white p-5 flex justify-between items-center shrink-0">
+                    <h3 class="font-bold text-lg">견적 요청서 작성</h3>
+                    <button @click="openCartModal = false"><i class="fa-solid fa-xmark text-xl"></i></button>
+                </div>
+                <div class="p-5 overflow-y-auto custom-scroll flex-1">
+                    <ul class="space-y-2 mb-6 border-b border-gray-100 pb-4">
+                        <template x-for="(item, index) in cart" :key="index">
+                            <li class="flex justify-between items-center text-sm py-2 bg-slate-50 px-3 rounded-lg border border-slate-100">
+                                <div class="flex flex-col w-3/4">
+                                    <span class="text-[10px] text-brand-orange font-bold" x-text="item.brandName || '직접입력'"></span>
+                                    <span class="font-bold text-gray-700 truncate" x-text="item.name"></span>
+                                    <span class="text-[10px] text-gray-400" x-text="item.spec"></span>
+                                </div>
+                                <button @click="removeFromCart(index)" class="text-gray-300 hover:text-red-500 p-2"><i class="fa-solid fa-trash-can"></i></button>
+                            </li>
+                        </template>
+                        <li x-show="cart.length === 0" class="text-center text-gray-400 py-8">담긴 상품이 없습니다.</li>
+                    </ul>
+                    
+                    <form @submit.prevent="generateReceipt">
+                        <div class="space-y-4">
                             <div>
-                                <span class="text-[10px] text-brand-orange font-bold block" x-text="item.brandName || '직접입력'"></span>
-                                <span class="font-bold text-gray-700" x-text="item.name"></span>
+                                <label class="text-xs font-bold text-gray-500 mb-1 block">업체명 <span class="text-red-500">*</span></label>
+                                <input type="text" x-model="userInfo.company" required class="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-navy focus:border-brand-navy outline-none transition" placeholder="예: 구르메 카페">
                             </div>
-                            <button @click="removeFromCart(index)" class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-trash"></i></button>
-                        </li>
-                    </template>
-                    <li x-show="cart.length === 0" class="text-center text-gray-400 py-4">담긴 상품이 없습니다.</li>
-                </ul>
-                <form @submit.prevent="submitQuote">
-                    <input type="text" id="company" required placeholder="업체명" class="w-full mb-3 px-4 py-3 rounded-lg border border-gray-300 text-sm focus:ring-1 focus:ring-brand-navy outline-none">
-                    <input type="tel" id="phone" required placeholder="연락처" class="w-full mb-4 px-4 py-3 rounded-lg border border-gray-300 text-sm focus:ring-1 focus:ring-brand-navy outline-none">
-                    <button type="submit" class="w-full bg-brand-navy text-white font-bold py-3.5 rounded-xl hover:bg-slate-800 transition">제출하기</button>
-                </form>
+                            <div>
+                                <label class="text-xs font-bold text-gray-500 mb-1 block">연락처 <span class="text-red-500">*</span></label>
+                                <input type="text" x-model="userInfo.contact" required class="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-navy focus:border-brand-navy outline-none transition" placeholder="예: 010-1234-5678">
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-gray-500 mb-1 block">요청사항 (선택)</label>
+                                <input type="text" x-model="userInfo.memo" class="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-navy focus:border-brand-navy outline-none transition" placeholder="예: 매주 화요일 배송 희망">
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-brand-orange text-white font-bold py-4 rounded-xl shadow-md hover:bg-orange-600 transition mt-8 transform hover:-translate-y-1">
+                            견적서 생성하기 <i class="fa-solid fa-receipt ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div x-show="showReceipt" class="flex flex-col h-full">
+                <div class="bg-gray-100 p-4 flex justify-between items-center border-b border-gray-200 shrink-0">
+                    <h3 class="font-bold text-gray-700"><i class="fa-solid fa-image mr-2"></i>이미지 미리보기</h3>
+                    <button @click="showReceipt = false" class="text-sm text-gray-500 underline hover:text-brand-navy">수정하기</button>
+                </div>
+                
+                <div class="flex-1 bg-gray-200 p-6 overflow-y-auto flex justify-center items-start">
+                    <div id="receipt-capture" class="bg-white w-full max-w-[320px] p-6 shadow-xl text-gray-800 receipt-paper">
+                        <div class="text-center border-b-2 border-black pb-5 mb-5">
+                            <h2 class="text-2xl font-extrabold tracking-tight text-brand-navy">Gourmet Jeju</h2>
+                            <p class="text-[10px] text-gray-500 mt-1 tracking-widest uppercase">Premium Food Partner</p>
+                            <div class="mt-4 border border-black px-4 py-1 inline-block rounded-full">
+                                <p class="text-xs font-bold">견적 요청서</p>
+                            </div>
+                            <p class="text-[10px] text-gray-400 mt-2" x-text="new Date().toLocaleString()"></p>
+                        </div>
+
+                        <div class="text-xs mb-5 space-y-2 border-b border-dashed border-gray-300 pb-5">
+                            <div class="flex justify-between"><span class="text-gray-500">업체명</span> <span class="font-bold text-base" x-text="userInfo.company"></span></div>
+                            <div class="flex justify-between"><span class="text-gray-500">연락처</span> <span x-text="userInfo.contact"></span></div>
+                            <div class="flex justify-between items-start"><span class="text-gray-500 w-10 shrink-0">메모</span> <span class="text-right break-words w-full" x-text="userInfo.memo"></span></div>
+                        </div>
+
+                        <table class="w-full text-xs mb-5">
+                            <thead class="border-b border-black">
+                                <tr class="text-left">
+                                    <th class="py-2 font-bold">품목명 / 규격</th>
+                                    <th class="py-2 text-right font-bold">브랜드</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <template x-for="item in cart">
+                                    <tr>
+                                        <td class="py-2 pr-2 align-top">
+                                            <div class="font-bold text-sm" x-text="item.name"></div>
+                                            <div class="text-[10px] text-gray-500 mt-0.5" x-text="item.spec"></div>
+                                        </td>
+                                        <td class="py-2 text-right align-top text-[10px] text-gray-500 font-medium" x-text="item.brandName"></td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+
+                        <div class="border-t-2 border-black pt-4 text-center">
+                            <p class="text-[10px] text-gray-500 mb-3">위 품목의 견적 및 재고 확인을 요청합니다.</p>
+                            <div class="bg-gray-100 p-3 rounded-lg text-xs text-gray-600">
+                                <div class="font-bold mb-1">구르메 제주 고객센터</div>
+                                <div>010-0000-0000</div>
+                                <div class="text-[10px] text-brand-orange mt-1">카카오톡 ID: gourmet_jeju</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-white border-t border-gray-200 shrink-0 z-20">
+                    <button @click="downloadReceipt()" class="w-full bg-brand-navy text-white font-bold py-3.5 rounded-xl hover:bg-slate-800 transition flex items-center justify-center gap-2 shadow-lg transform active:scale-95">
+                        <i class="fa-solid fa-download"></i> 이미지로 저장하기
+                    </button>
+                    <p class="text-[11px] text-center text-gray-400 mt-3">
+                        * 저장된 이미지를 <strong class="text-brand-navy">카카오톡 채팅방</strong>에 전송해주세요.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -202,14 +305,16 @@
             return {
                 isViewerOpen: false,
                 openCartModal: false,
+                showReceipt: false, // 영수증 보기 상태
                 loadingPdf: false,
                 currentPdfUrl: '',
                 currentBrandName: '',
                 currentBrandProducts: [],
                 quickInput: '',
                 cart: [],
+                userInfo: { company: '', contact: '', memo: '' }, // 사용자 입력 정보
 
-                // 브랜드 & 상품 데이터 매핑 (The Core Data)
+                // 브랜드 & 상품 데이터 매핑
                 brands: [
                     { 
                         name: 'Divella', 
@@ -278,14 +383,13 @@
                             { code: 'WA005', name: '미니언즈 밀크 스낵', spec: '30g x 4', tag: '키즈' }
                         ]
                     }
-                    // ... 더 많은 브랜드 추가 가능
                 ],
 
                 openPdfViewer(brand) {
                     this.loadingPdf = true;
-                    this.currentPdfUrl = `${brand.pdf}#page=${brand.page}&view=FitH`; // PDF 페이지 이동 매직 코드
+                    this.currentPdfUrl = `${brand.pdf}#page=${brand.page}&view=FitH`;
                     this.currentBrandName = brand.name;
-                    this.currentBrandProducts = brand.items.map(item => ({...item, brandName: brand.name})); // 브랜드명 주입
+                    this.currentBrandProducts = brand.items.map(item => ({...item, brandName: brand.name}));
                     this.isViewerOpen = true;
                     document.body.style.overflow = 'hidden';
                 },
@@ -296,17 +400,14 @@
                     document.body.style.overflow = 'auto';
                 },
 
-                // 상품 담기 (리스트에서)
                 addToCart(product) {
                     if (!this.isInCart(product)) {
                         this.cart.push(product);
                     } else {
-                        // 이미 있으면 삭제 (Toggle 기능)
                         this.cart = this.cart.filter(item => item.code !== product.code);
                     }
                 },
 
-                // 직접 입력 담기
                 addQuickItem() {
                     if (!this.quickInput.trim()) return;
                     this.cart.push({
@@ -326,12 +427,34 @@
                     return this.cart.some(item => item.code === product.code);
                 },
 
-                submitQuote() {
+                // 영수증 생성 화면으로 전환
+                generateReceipt() {
                     if (this.cart.length === 0) return;
-                    const company = document.getElementById('company').value;
-                    alert(`${company}님, 견적 요청이 성공적으로 전송되었습니다.\n담당자가 빠르게 확인하겠습니다.`);
-                    this.cart = [];
-                    this.openCartModal = false;
+                    this.showReceipt = true;
+                },
+
+                // 영수증 이미지 저장 (html2canvas)
+                downloadReceipt() {
+                    const element = document.getElementById('receipt-capture');
+                    
+                    html2canvas(element, {
+                        scale: 2, // 고해상도
+                        backgroundColor: "#ffffff",
+                        logging: false,
+                        useCORS: true
+                    }).then(canvas => {
+                        const link = document.createElement('a');
+                        link.download = `구르메제주_견적요청_${this.userInfo.company}.png`;
+                        link.href = canvas.toDataURL("image/png");
+                        link.click();
+                        
+                        alert('이미지가 저장되었습니다! 📸\n\n저장된 이미지를 카카오톡 채팅방에 전송해주시면\n담당자가 빠르게 재고 및 견적을 확인해드립니다.');
+                        
+                        // 초기화 옵션 (필요시 주석 해제)
+                        // this.cart = []; 
+                        // this.openCartModal = false;
+                        // this.showReceipt = false;
+                    });
                 }
             }
         }
