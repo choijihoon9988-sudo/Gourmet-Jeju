@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>구르메 제주 - E-카탈로그 & 퀵오더</title>
+    <title>구르메 제주 - 스마트 E-카탈로그</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
     <style>
         [x-cloak] { display: none!important; }
         .font-pretendard { font-family: 'Pretendard', system-ui, sans-serif; }
-        /* PDF 뷰어 높이 설정 */
-        .pdf-viewer-height { height: 70vh; }
-        @media (min-width: 1024px) { .pdf-viewer-height { height: 80vh; } }
-        /* 스크롤바 커스텀 */
-        .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scroll::-webkit-scrollbar { width: 5px; }
         .custom-scroll::-webkit-scrollbar-track { background: #f1f1f1; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         .custom-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* 애니메이션 */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-in { animation: slideIn 0.3s ease-out forwards; }
     </style>
     <script>
         tailwind.config = {
@@ -37,22 +40,17 @@
             <a href="index.html" class="text-2xl font-bold text-brand-navy flex items-center gap-2">
                 <i class="fa-solid fa-utensils text-brand-gold"></i> Gourmet Jeju
             </a>
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="index.html" class="text-gray-600 hover:text-brand-navy font-medium transition-colors">Home</a>
-                <a href="about.html" class="text-gray-600 hover:text-brand-navy font-medium transition-colors">About</a>
-                <a href="journal.html" class="text-gray-600 hover:text-brand-navy font-medium transition-colors">Journal</a>
-                <a href="#" class="text-brand-navy font-bold border-b-2 border-brand-navy pb-1">Products</a>
-                <div class="relative cursor-pointer group" @click="openCartModal = true">
-                    <div class="p-2 rounded-full group-hover:bg-gray-100 transition relative">
-                        <i class="fa-solid fa-clipboard-list text-2xl text-brand-navy"></i>
-                        <span x-show="cart.length > 0" class="absolute top-0 right-0 bg-brand-orange text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white shadow-sm" x-text="cart.length"></span>
-                    </div>
+            <div class="flex items-center gap-6">
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-brand-navy font-medium">Home</a>
+                    <a href="about.html" class="text-gray-600 hover:text-brand-navy font-medium">About</a>
+                    <a href="#" class="text-brand-navy font-bold border-b-2 border-brand-navy pb-1">Products</a>
                 </div>
-            </div>
-            <div class="md:hidden flex items-center gap-4">
-                <div class="relative cursor-pointer" @click="openCartModal = true">
-                     <i class="fa-solid fa-clipboard-list text-2xl text-brand-navy"></i>
-                     <span x-show="cart.length > 0" class="absolute -top-1 -right-1 bg-brand-orange text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-white" x-text="cart.length"></span>
+                <div class="relative cursor-pointer group" @click="openCartModal = true">
+                    <div class="p-2 rounded-full hover:bg-gray-100 transition relative">
+                        <i class="fa-solid fa-clipboard-list text-2xl text-brand-navy"></i>
+                        <span x-show="cart.length > 0" class="absolute -top-1 -right-1 bg-brand-orange text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white shadow-sm animate-bounce" x-text="cart.length"></span>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -61,31 +59,33 @@
     <main class="pt-24 pb-20 px-4 sm:px-6 container mx-auto">
         
         <div class="text-center mb-12">
-            <span class="text-brand-orange font-bold tracking-wider text-xs uppercase mb-2 block">E-Catalog Quick Order</span>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">브랜드를 클릭하면 카탈로그가 열립니다</h1>
+            <span class="text-brand-orange font-bold tracking-wider text-xs uppercase mb-2 block">Smart Order System</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">브랜드를 클릭하면 상품 리스트가 펼쳐집니다</h1>
             <p class="text-gray-500 text-sm md:text-base break-keep max-w-2xl mx-auto">
-                PDF 카탈로그를 보면서 원하는 상품의 <strong>[코드]</strong>나 <strong>[이름]</strong>을 바로 입력하세요.<br>
-                복잡한 검색 없이, 보고 있는 그대로 견적함에 담을 수 있습니다.
+                복잡한 품번 입력은 이제 그만.<br>
+                카탈로그를 보며 우측 리스트에서 <strong>[담기]</strong> 버튼만 누르세요.
             </p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-16">
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5 mb-20">
             <template x-for="brand in brands" :key="brand.name">
                 <button @click="openPdfViewer(brand)" 
-                        class="bg-white p-6 rounded-xl border border-gray-200 hover:border-brand-navy hover:shadow-lg transition-all group flex flex-col items-center justify-center gap-3 h-32">
-                    <i :class="brand.icon" class="text-3xl text-gray-300 group-hover:text-brand-navy transition-colors"></i>
-                    <span class="font-bold text-sm text-gray-700 group-hover:text-brand-navy uppercase text-center" x-text="brand.name"></span>
-                    <span class="text-[10px] text-gray-400 bg-gray-100 px-2 py-0.5 rounded group-hover:bg-brand-navy/10 group-hover:text-brand-navy transition">PDF <span x-text="brand.page"></span>p</span>
+                        class="bg-white p-6 rounded-2xl border border-gray-200 hover:border-brand-navy hover:shadow-xl hover:-translate-y-1 transition-all group flex flex-col items-center justify-center gap-4 h-40 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-brand-navy/5 text-brand-navy text-[10px] font-bold px-2 py-1 rounded-bl-lg">
+                        <i class="fa-solid fa-list-ul mr-1"></i><span x-text="brand.items.length"></span>종
+                    </div>
+                    <i :class="brand.icon" class="text-4xl text-gray-300 group-hover:text-brand-navy transition-colors duration-300"></i>
+                    <div class="text-center z-10">
+                        <span class="font-bold text-sm text-gray-800 group-hover:text-brand-navy block uppercase mb-1" x-text="brand.name"></span>
+                        <span class="text-[10px] text-gray-400 group-hover:text-brand-orange transition-colors" x-text="brand.desc"></span>
+                    </div>
                 </button>
             </template>
         </div>
-
-        <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm text-center">
-            <h3 class="font-bold text-lg text-brand-navy mb-2">찾으시는 브랜드가 없나요?</h3>
-            <p class="text-sm text-gray-500 mb-6">상품명이나 코드를 알고 계신다면 바로 입력해서 견적을 요청할 수 있습니다.</p>
-            <button @click="openPdfViewer({name: '전체 카탈로그', pdf: '미국치즈_부라타 외.pdf', page: 1})" class="bg-gray-100 text-gray-600 px-6 py-3 rounded-lg font-bold hover:bg-gray-200 transition text-sm">
-                <i class="fa-solid fa-book-open mr-2"></i> 통합 카탈로그 열기
-            </button>
+        
+        <div x-show="cart.length > 0" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-brand-navy text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-4 z-40 cursor-pointer hover:scale-105 transition" @click="openCartModal = true" x-transition.scale>
+            <span class="font-bold text-sm"><span x-text="cart.length"></span>개 품목 담김</span>
+            <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold">견적서 작성 &rarr;</span>
         </div>
 
     </main>
@@ -93,84 +93,76 @@
     <div x-show="isViewerOpen" class="fixed inset-0 z-[60] flex items-center justify-center" x-cloak>
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="closePdfViewer()"></div>
         
-        <div class="relative w-full h-full md:w-[95%] md:h-[90%] bg-white md:rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden animate-fade-in-up">
+        <div class="relative w-full h-full md:w-[95%] md:h-[90%] bg-white md:rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden animate-slide-in">
             
-            <div class="w-full md:w-2/3 h-[50%] md:h-full bg-slate-800 relative">
+            <div class="w-full md:w-7/12 h-[45%] md:h-full bg-slate-800 relative group">
                 <div x-show="loadingPdf" class="absolute inset-0 flex items-center justify-center text-white">
-                    <i class="fa-solid fa-circle-notch fa-spin text-3xl"></i>
+                    <div class="flex flex-col items-center">
+                        <i class="fa-solid fa-circle-notch fa-spin text-3xl mb-2"></i>
+                        <span class="text-xs opacity-80">카탈로그 로딩중...</span>
+                    </div>
                 </div>
                 <iframe :src="currentPdfUrl" class="w-full h-full border-0" @load="loadingPdf = false"></iframe>
-                
-                <button @click="closePdfViewer()" class="md:hidden absolute top-4 right-4 bg-black/50 text-white w-8 h-8 rounded-full flex items-center justify-center z-20">
-                    <i class="fa-solid fa-xmark"></i>
+                <button @click="togglePdfSize()" class="md:hidden absolute bottom-4 right-4 bg-black/60 text-white p-2 rounded-full text-xs z-20">
+                    <i class="fa-solid fa-expand"></i>
                 </button>
             </div>
 
-            <div class="w-full md:w-1/3 h-[50%] md:h-full bg-white flex flex-col border-l border-gray-200">
+            <div class="w-full md:w-5/12 h-[55%] md:h-full bg-white flex flex-col border-l border-gray-200 shadow-xl z-10">
                 
-                <div class="p-5 border-b border-gray-100 flex justify-between items-center bg-slate-50">
+                <div class="p-5 border-b border-gray-100 flex justify-between items-center bg-slate-50 shrink-0">
                     <div>
                         <h3 class="font-bold text-lg text-brand-navy flex items-center">
-                            <i class="fa-solid fa-bolt text-brand-orange mr-2"></i> 퀵 오더
+                            <span class="text-brand-orange mr-2 text-xl">●</span>
+                            <span x-text="currentBrandName"></span>
+                            <span class="ml-2 text-xs text-gray-400 font-normal bg-white border px-2 py-0.5 rounded-full">추천 상품</span>
                         </h3>
-                        <p class="text-xs text-gray-500">PDF 속 상품 코드나 이름을 입력하세요.</p>
                     </div>
-                    <button @click="closePdfViewer()" class="hidden md:flex text-gray-400 hover:text-brand-navy transition">
+                    <button @click="closePdfViewer()" class="text-gray-400 hover:text-brand-navy transition p-2">
                         <i class="fa-solid fa-xmark text-2xl"></i>
                     </button>
                 </div>
 
-                <div class="p-6 flex-1 overflow-y-auto custom-scroll">
-                    
-                    <div class="mb-8">
-                        <label class="block text-xs font-bold text-gray-600 mb-2 uppercase">상품 추가 (DB 검색 또는 직접 입력)</label>
-                        <div class="relative">
-                            <input type="text" x-model="quickInput" @keyup.enter="addQuickItem()" 
-                                   placeholder="예: A0033 또는 부라타 치즈" 
-                                   class="w-full pl-4 pr-12 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-navy focus:border-brand-navy outline-none transition shadow-sm text-sm">
-                            <button @click="addQuickItem()" class="absolute right-2 top-1.5 bg-brand-navy text-white w-8 h-8 rounded-lg flex items-center justify-center hover:bg-slate-800 transition">
-                                <i class="fa-solid fa-plus"></i>
-                            </button>
-                        </div>
-                        <div x-show="quickInput.length > 1 && suggestions.length > 0" class="mt-2 bg-white border border-gray-100 rounded-lg shadow-lg max-h-40 overflow-y-auto z-10">
-                            <template x-for="sug in suggestions" :key="sug.id">
-                                <div @click="addFromSuggestion(sug)" class="px-4 py-2 text-sm hover:bg-gray-50 cursor-pointer border-b border-gray-50 last:border-0 flex justify-between">
-                                    <span x-text="sug.name" class="font-medium text-gray-700"></span>
-                                    <span x-text="sug.code" class="text-xs text-gray-400 font-mono"></span>
+                <div class="flex-1 overflow-y-auto custom-scroll p-2 bg-gray-50/50">
+                    <div class="space-y-2">
+                        <template x-for="product in currentBrandProducts" :key="product.code">
+                            <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:border-brand-orange/30 hover:shadow-md transition-all group flex items-center justify-between gap-3">
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="text-[10px] font-mono text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded" x-text="product.code"></span>
+                                        <span x-show="product.tag" class="text-[9px] font-bold text-white bg-red-500 px-1.5 py-0.5 rounded" x-text="product.tag"></span>
+                                    </div>
+                                    <h4 class="font-bold text-gray-800 text-sm truncate" x-text="product.name"></h4>
+                                    <p class="text-xs text-gray-500 mt-0.5" x-text="product.spec"></p>
                                 </div>
-                            </template>
-                        </div>
-                        <p class="text-[11px] text-gray-400 mt-2">
-                            * DB에 없는 상품은 입력하신 텍스트 그대로 견적함에 담깁니다. (예: "27페이지 상단 파스타 5박스")
-                        </p>
+                                
+                                <button @click="addToCart(product)" 
+                                        :class="isInCart(product) ? 'bg-green-500 border-green-500 text-white' : 'bg-white border-gray-200 text-brand-navy hover:border-brand-navy hover:bg-brand-navy hover:text-white'"
+                                        class="shrink-0 w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all shadow-sm active:scale-90">
+                                    <i :class="isInCart(product) ? 'fa-solid fa-check' : 'fa-solid fa-plus'"></i>
+                                </button>
+                            </div>
+                        </template>
                     </div>
 
-                    <div>
-                        <div class="flex justify-between items-end mb-3">
-                            <label class="text-xs font-bold text-gray-600 uppercase">현재 담긴 품목 (<span x-text="cart.length"></span>)</label>
-                            <button @click="openCartModal = true" class="text-[11px] text-brand-navy underline font-bold cursor-pointer">견적서 작성하러 가기 &rarr;</button>
-                        </div>
-                        
-                        <div class="bg-gray-50 rounded-xl border border-gray-100 p-1 min-h-[150px]">
-                            <ul class="space-y-1">
-                                <template x-for="(item, index) in cart" :key="index">
-                                    <li class="flex justify-between items-center bg-white px-3 py-2.5 rounded-lg shadow-sm border border-gray-100 text-sm animate-fade-in-up">
-                                        <div class="flex items-center gap-2 overflow-hidden">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-brand-orange shrink-0"></span>
-                                            <span x-text="item.name" class="truncate font-medium text-gray-700"></span>
-                                        </div>
-                                        <button @click="removeFromCart(index)" class="text-gray-300 hover:text-red-500 p-1">
-                                            <i class="fa-solid fa-times"></i>
-                                        </button>
-                                    </li>
-                                </template>
-                                <li x-show="cart.length === 0" class="text-center py-8 text-gray-400 text-xs italic">
-                                    담긴 상품이 없습니다.
-                                </li>
-                            </ul>
+                    <div class="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-100">
+                        <label class="block text-xs font-bold text-brand-navy mb-2">찾으시는 상품이 리스트에 없나요?</label>
+                        <div class="flex gap-2">
+                            <input type="text" x-model="quickInput" @keyup.enter="addQuickItem()" 
+                                   placeholder="예: 27페이지 우측 하단 치즈" 
+                                   class="flex-1 px-3 py-2 rounded-lg border border-blue-200 text-sm focus:outline-none focus:border-brand-navy">
+                            <button @click="addQuickItem()" class="bg-brand-navy text-white px-3 py-2 rounded-lg text-xs font-bold hover:bg-slate-700 transition">추가</button>
                         </div>
                     </div>
+                </div>
 
+                <div class="p-4 border-t border-gray-100 bg-white shrink-0 flex justify-between items-center">
+                    <div class="text-xs text-gray-500">
+                        현재 <strong class="text-brand-navy text-sm" x-text="cart.length"></strong>개 상품 담김
+                    </div>
+                    <button @click="openCartModal = true" class="bg-brand-orange text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-orange-600 transition shadow-md">
+                        견적서 확인하기 &rarr;
+                    </button>
                 </div>
             </div>
         </div>
@@ -178,41 +170,28 @@
 
     <div x-show="openCartModal" class="fixed inset-0 z-[70] flex items-center justify-center px-4" x-cloak>
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="openCartModal = false"></div>
-        
-        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl relative z-10 overflow-hidden flex flex-col max-h-[90vh]">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl relative z-10 overflow-hidden flex flex-col max-h-[90vh] animate-slide-in">
             <div class="bg-brand-navy text-white p-5 flex justify-between items-center">
-                <h3 class="font-bold text-lg"><i class="fa-regular fa-paper-plane mr-2"></i> 견적 요청하기</h3>
-                <button @click="openCartModal = false" class="text-white/70 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+                <h3 class="font-bold text-lg">견적 요청서 작성</h3>
+                <button @click="openCartModal = false"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
-            
-            <div class="p-6 overflow-y-auto custom-scroll flex-1">
-                <div class="mb-6">
-                    <h4 class="text-sm font-bold text-gray-700 mb-2">요청 품목 확인</h4>
-                    <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                        <ul class="space-y-2 text-sm">
-                            <template x-for="(item, index) in cart" :key="index">
-                                <li class="flex justify-between border-b border-gray-100 last:border-0 pb-1 last:pb-0">
-                                    <span x-text="item.name" class="text-gray-800"></span>
-                                    <button @click="removeFromCart(index)" class="text-red-400 hover:text-red-600 text-xs">삭제</button>
-                                </li>
-                            </template>
-                            <li x-show="cart.length === 0" class="text-center text-gray-400 py-2">목록이 비어있습니다.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <form @submit.prevent="submitQuote" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 mb-1">업체명</label>
-                        <input type="text" id="quote-company" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-1 focus:ring-brand-navy outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 mb-1">연락처</label>
-                        <input type="tel" id="quote-phone" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-1 focus:ring-brand-navy outline-none">
-                    </div>
-                    <button type="submit" class="w-full bg-brand-orange text-white font-bold py-3 rounded-xl shadow-md hover:bg-orange-600 transition mt-4">
-                        견적서 메일로 받기
-                    </button>
+            <div class="p-5 overflow-y-auto custom-scroll">
+                <ul class="space-y-3 mb-6">
+                    <template x-for="(item, index) in cart" :key="index">
+                        <li class="flex justify-between items-center bg-slate-50 p-3 rounded-lg border border-slate-200 text-sm">
+                            <div>
+                                <span class="text-[10px] text-brand-orange font-bold block" x-text="item.brandName || '직접입력'"></span>
+                                <span class="font-bold text-gray-700" x-text="item.name"></span>
+                            </div>
+                            <button @click="removeFromCart(index)" class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-trash"></i></button>
+                        </li>
+                    </template>
+                    <li x-show="cart.length === 0" class="text-center text-gray-400 py-4">담긴 상품이 없습니다.</li>
+                </ul>
+                <form @submit.prevent="submitQuote">
+                    <input type="text" id="company" required placeholder="업체명" class="w-full mb-3 px-4 py-3 rounded-lg border border-gray-300 text-sm focus:ring-1 focus:ring-brand-navy outline-none">
+                    <input type="tel" id="phone" required placeholder="연락처" class="w-full mb-4 px-4 py-3 rounded-lg border border-gray-300 text-sm focus:ring-1 focus:ring-brand-navy outline-none">
+                    <button type="submit" class="w-full bg-brand-navy text-white font-bold py-3.5 rounded-xl hover:bg-slate-800 transition">제출하기</button>
                 </form>
             </div>
         </div>
@@ -223,61 +202,91 @@
             return {
                 isViewerOpen: false,
                 openCartModal: false,
-                currentPdfUrl: '',
                 loadingPdf: false,
+                currentPdfUrl: '',
+                currentBrandName: '',
+                currentBrandProducts: [],
                 quickInput: '',
                 cart: [],
-                
-                // Brands Mapping (Based on extracted data)
+
+                // 브랜드 & 상품 데이터 매핑 (The Core Data)
                 brands: [
-                    { name: 'Divella', icon: 'fa-solid fa-wheat-awn', pdf: '파스타,오일,향신료 외.pdf', page: 1 },
-                    { name: 'BelGioioso', icon: 'fa-solid fa-cheese', pdf: '미국치즈_부라타 외.pdf', page: 10 },
-                    { name: 'Organic Valley', icon: 'fa-solid fa-cow', pdf: '미국치즈_부라타 외.pdf', page: 14 },
-                    { name: 'Pacific Cheese', icon: 'fa-solid fa-flag-usa', pdf: '미국치즈_부라타 외.pdf', page: 17 },
-                    { name: 'Isigny Ste-Mère', icon: 'fa-solid fa-award', pdf: '유럽치즈외.pdf', page: 1 }, // or 회사소개서 page 7
-                    { name: 'Ambrosi', icon: 'fa-solid fa-earth-europe', pdf: '미국치즈_부라타 외.pdf', page: 23 },
-                    { name: 'Dal Molise', icon: 'fa-solid fa-mountain-sun', pdf: '미국치즈_부라타 외.pdf', page: 26 },
-                    { name: 'TSC', icon: 'fa-solid fa-cookie-bite', pdf: '미국치즈_부라타 외.pdf', page: 27 },
-                    { name: 'Zott', icon: 'fa-solid fa-spoon', pdf: '미국치즈_부라타 외.pdf', page: 36 },
-                    { name: 'Beretta', icon: 'fa-solid fa-drumstick-bite', pdf: '미국치즈_부라타 외.pdf', page: 40 },
-                    { name: 'Polli', icon: 'fa-solid fa-jar', pdf: '파스타,오일,향신료 외.pdf', page: 24 },
-                    { name: 'Cannamela', icon: 'fa-solid fa-pepper-hot', pdf: '파스타,오일,향신료 외.pdf', page: 18 },
-                    { name: 'Plantin', icon: 'fa-solid fa-gem', pdf: '파스타,오일,향신료 외.pdf', page: 32 }, // Truffle section
-                    { name: 'Bonomelli', icon: 'fa-solid fa-mug-hot', pdf: '파스타,오일,향신료 외.pdf', page: 22 },
-                    { name: 'Emborg', icon: 'fa-solid fa-cube', pdf: '유럽치즈외.pdf', page: 2 },
-                    { name: 'Tako', icon: 'fa-solid fa-glass-water', pdf: '미국치즈_부라타 외.pdf', page: 46 },
+                    { 
+                        name: 'Divella', 
+                        desc: '이탈리아 정통 파스타 & 오일',
+                        icon: 'fa-solid fa-wheat-awn', 
+                        pdf: '파스타,오일,향신료 외.pdf', 
+                        page: 1,
+                        items: [
+                            { code: 'DIVELLA-01', name: '디벨라 스파게티 1.75mm', spec: '5kg', tag: '업소용' },
+                            { code: 'DIVELLA-02', name: '디벨라 링귀네', spec: '500g x 24', tag: '' },
+                            { code: 'DIVELLA-03', name: '디벨라 펜네 리가테', spec: '500g x 24', tag: '' },
+                            { code: 'DIVELLA-OIL', name: '엑스트라 버진 올리브오일', spec: '1L', tag: 'BEST' },
+                            { code: 'DIVELLA-TOM', name: '포모도로 홀 토마토', spec: '2.5kg', tag: '' }
+                        ]
+                    },
+                    { 
+                        name: 'Isigny Ste-Mère', 
+                        desc: '프랑스 AOP 버터 & 치즈',
+                        icon: 'fa-solid fa-award', 
+                        pdf: '유럽치즈외.pdf', 
+                        page: 1,
+                        items: [
+                            { code: '02-01-0004', name: '이즈니 AOP 버터 롤 (무염)', spec: '250g', tag: 'BEST' },
+                            { code: '02-01-0013', name: '이즈니 AOP 가염 버터 롤', spec: '250g', tag: '' },
+                            { code: '02-01-0033', name: '이즈니 포션 버터 (컵)', spec: '10g x 60ea', tag: '호텔용' },
+                            { code: '01-02-0020', name: '이즈니 브리 치즈', spec: '1kg', tag: '' },
+                            { code: '01-01-0001', name: '프로마쥬 블랑', spec: '500g', tag: '' }
+                        ]
+                    },
+                    { 
+                        name: 'BelGioioso', 
+                        desc: '미국 No.1 프레쉬 치즈',
+                        icon: 'fa-solid fa-cheese', 
+                        pdf: '미국치즈_부라타 외.pdf', 
+                        page: 10,
+                        items: [
+                            { code: 'A0007', name: '부라타 치즈 (4 balls)', spec: '226g', tag: '인기' },
+                            { code: 'A0018', name: '부라타 치즈 (2 balls)', spec: '226g', tag: '' },
+                            { code: 'A0001', name: '후레쉬 모짜렐라 로그', spec: '453g', tag: '' },
+                            { code: 'A0010', name: '마스카포네', spec: '226g', tag: '티라미수용' },
+                            { code: 'A0033', name: '모짜렐라 로그 슬라이스', spec: '907g', tag: '대용량' }
+                        ]
+                    },
+                    { 
+                        name: 'Ambrosi', 
+                        desc: '이탈리아 프리미엄 치즈',
+                        icon: 'fa-solid fa-earth-europe', 
+                        pdf: '미국치즈_부라타 외.pdf', 
+                        page: 23,
+                        items: [
+                            { code: 'J0018', name: '고르곤졸라 피칸테', spec: '150g', tag: '' },
+                            { code: 'J0015', name: '그라나 파다노 블럭', spec: '1kg', tag: '' },
+                            { code: 'J0004', name: '암브로시 마스카포네', spec: '250g', tag: '' },
+                            { code: 'J0012', name: '유기농 파르미지아노 레지아노', spec: '150g', tag: '유기농' }
+                        ]
+                    },
+                    { 
+                        name: 'TSC', 
+                        desc: '글로벌 냉장 스낵',
+                        icon: 'fa-solid fa-cookie-bite', 
+                        pdf: '미국치즈_부라타 외.pdf', 
+                        page: 27,
+                        items: [
+                            { code: 'WA001', name: '오레오 밀크 스낵', spec: '30g x 4', tag: '디저트' },
+                            { code: 'WA003', name: '밀카 밀크 스낵', spec: '32g x 4', tag: '' },
+                            { code: 'WA005', name: '미니언즈 밀크 스낵', spec: '30g x 4', tag: '키즈' }
+                        ]
+                    }
+                    // ... 더 많은 브랜드 추가 가능
                 ],
-
-                // Sample Product Database for Search Suggestions
-                productDB: [
-                    { code: 'A0033', name: '벨지오 모짜렐라 로그 슬라이스 907g' },
-                    { code: 'A0032', name: '벨지오 리코타 미니 컵 142g' },
-                    { code: 'A0010', name: '벨지오 마스카포네 226g' },
-                    { code: 'A0007', name: '벨지오 부라타 4볼 226g' },
-                    { code: 'DIVELLA-01', name: '디벨라 스파게티 5kg' },
-                    { code: 'DIVELLA-OIL', name: '디벨라 엑스트라 버진 올리브오일 1L' },
-                    { code: 'TSC-01', name: 'TSC 오레오 밀크 스낵' },
-                    { code: 'BER-01', name: '베레타 밀라노 살라미' }
-                ],
-
-                get suggestions() {
-                    if (this.quickInput.length < 2) return [];
-                    const query = this.quickInput.toLowerCase();
-                    return this.productDB.filter(p => 
-                        p.name.toLowerCase().includes(query) || 
-                        p.code.toLowerCase().includes(query)
-                    );
-                },
 
                 openPdfViewer(brand) {
                     this.loadingPdf = true;
-                    // PDF URL with Page Hash (Works in modern browsers)
-                    // Example: file.pdf#page=27
-                    this.currentPdfUrl = `${brand.pdf}#page=${brand.page}&view=FitH`;
+                    this.currentPdfUrl = `${brand.pdf}#page=${brand.page}&view=FitH`; // PDF 페이지 이동 매직 코드
+                    this.currentBrandName = brand.name;
+                    this.currentBrandProducts = brand.items.map(item => ({...item, brandName: brand.name})); // 브랜드명 주입
                     this.isViewerOpen = true;
-                    this.quickInput = ''; // Reset input
-                    
-                    // Mobile: prevent body scroll
                     document.body.style.overflow = 'hidden';
                 },
 
@@ -287,39 +296,40 @@
                     document.body.style.overflow = 'auto';
                 },
 
-                addQuickItem() {
-                    if (!this.quickInput.trim()) return;
-                    
-                    // Check if input matches a DB code exactly
-                    const dbMatch = this.productDB.find(p => p.code.toLowerCase() === this.quickInput.toLowerCase());
-                    
-                    const itemToAdd = dbMatch ? 
-                        { name: dbMatch.name, code: dbMatch.code } : 
-                        { name: this.quickInput, code: 'DIRECT' };
-
-                    this.cart.push(itemToAdd);
-                    this.quickInput = '';
-                    
-                    // Visual Feedback (Optional: could add a toast)
+                // 상품 담기 (리스트에서)
+                addToCart(product) {
+                    if (!this.isInCart(product)) {
+                        this.cart.push(product);
+                    } else {
+                        // 이미 있으면 삭제 (Toggle 기능)
+                        this.cart = this.cart.filter(item => item.code !== product.code);
+                    }
                 },
 
-                addFromSuggestion(item) {
-                    this.cart.push({ name: item.name, code: item.code });
+                // 직접 입력 담기
+                addQuickItem() {
+                    if (!this.quickInput.trim()) return;
+                    this.cart.push({
+                        code: 'DIRECT',
+                        name: this.quickInput,
+                        spec: '상세문의',
+                        brandName: '직접입력'
+                    });
                     this.quickInput = '';
                 },
 
                 removeFromCart(index) {
                     this.cart.splice(index, 1);
                 },
-                
-                clearCart() {
-                    if(confirm('목록을 비우시겠습니까?')) this.cart = [];
+
+                isInCart(product) {
+                    return this.cart.some(item => item.code === product.code);
                 },
 
                 submitQuote() {
                     if (this.cart.length === 0) return;
-                    const company = document.getElementById('quote-company').value;
-                    alert(`${company}님, 견적 요청이 성공적으로 접수되었습니다.\n(총 ${this.cart.length}개 품목)`);
+                    const company = document.getElementById('company').value;
+                    alert(`${company}님, 견적 요청이 성공적으로 전송되었습니다.\n담당자가 빠르게 확인하겠습니다.`);
                     this.cart = [];
                     this.openCartModal = false;
                 }
