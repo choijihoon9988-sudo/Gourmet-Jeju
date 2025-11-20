@@ -7,6 +7,8 @@
     <meta property="og:title" content="구르메 제주 - 스마트 E-카탈로그">
     <title>Products - 구르메 제주</title>
     
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
@@ -59,6 +61,10 @@
                         'brand-gold': '#d4af37',
                         'brand-orange': '#ea580c',
                         'brand-light': '#f8fafc'
+                    },
+                    // 로고 발광 효과를 위한 그림자 설정 추가
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(212, 175, 55, 0.3)'
                     }
                 }
             }
@@ -81,9 +87,7 @@
     <header :class="scrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-3' : 'bg-white/95 backdrop-blur-md shadow-sm py-4'" class="fixed w-full z-50 transition-all duration-300" @scroll.window="scrolled = (window.pageYOffset > 20)">
         <nav class="container mx-auto px-6 flex justify-between items-center">
             <a href="index.html" class="text-2xl font-bold text-brand-navy flex items-center gap-2 group">
-                <div class="w-10 h-10 bg-brand-navy rounded-lg flex items-center justify-center text-brand-gold group-hover:rotate-12 transition-transform duration-300">
-                    <i class="fa-solid fa-utensils text-lg"></i>
-                </div>
+                <img src="images/logo.png" alt="Gourmet Jeju Logo" class="w-10 h-10 rounded-lg object-cover group-hover:rotate-12 transition-transform duration-300 shadow-glow">
                 <span class="tracking-tight">Gourmet Jeju</span>
             </a>
 
