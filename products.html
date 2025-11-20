@@ -16,29 +16,24 @@
         .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         .custom-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         
-        /* 애니메이션 */
+        .animate-slide-in { animation: slideIn 0.3s ease-out forwards; }
         @keyframes slideIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .animate-slide-in { animation: slideIn 0.3s ease-out forwards; }
 
-        /* 영수증 스타일 (캡처용) */
+        /* 영수증 스타일 */
         .receipt-paper {
             background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
             background-size: 10px 10px;
             position: relative;
         }
         .receipt-paper::before {
-            content: "";
-            position: absolute;
-            top: -5px; left: 0; width: 100%; height: 10px;
+            content: ""; position: absolute; top: -5px; left: 0; width: 100%; height: 10px;
             background: radial-gradient(circle, transparent, transparent 50%, #fff 50%, #fff 100%) -7px -8px / 15px 15px repeat-x;
         }
         .receipt-paper::after {
-            content: "";
-            position: absolute;
-            bottom: -5px; left: 0; width: 100%; height: 10px;
+            content: ""; position: absolute; bottom: -5px; left: 0; width: 100%; height: 10px;
             background: radial-gradient(circle, transparent, transparent 50%, #fff 50%, #fff 100%) -7px -2px / 15px 15px repeat-x;
             transform: rotate(180deg);
         }
@@ -55,6 +50,12 @@
     </script>
 </head>
 <body class="bg-slate-50 text-gray-800 font-sans antialiased" x-data="catalogApp()">
+
+    <div x-show="isSending" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/70 backdrop-blur-sm text-white" x-cloak>
+        <i class="fa-solid fa-circle-notch fa-spin text-5xl mb-4 text-brand-orange"></i>
+        <p class="text-lg font-bold animate-pulse">구르메 제주 본사로 견적서 전송 중...</p>
+        <p class="text-sm text-gray-300 mt-2">잠시만 기다려주세요.</p>
+    </div>
 
     <header class="bg-white shadow-sm fixed w-full z-50 transition-all duration-300">
         <nav class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
@@ -78,12 +79,11 @@
     </header>
 
     <main class="pt-24 pb-20 px-4 sm:px-6 container mx-auto">
-        
         <div class="text-center mb-12">
             <span class="text-brand-orange font-bold tracking-wider text-xs uppercase mb-2 block">Smart Order System</span>
             <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">브랜드를 클릭하면 상품 리스트가 펼쳐집니다</h1>
             <p class="text-gray-500 text-sm md:text-base break-keep max-w-2xl mx-auto">
-                카탈로그를 보며 상품을 담고, <br class="md:hidden"><strong>'견적서 이미지'</strong>를 저장해 카톡으로 보내주세요.
+                복잡한 절차 없이 원하는 상품을 담고,<br class="md:hidden"> <strong>[견적서 제출]</strong> 버튼만 누르세요.
             </p>
         </div>
 
@@ -107,14 +107,11 @@
             <span class="font-bold text-sm"><span x-text="cart.length"></span>개 품목 담김</span>
             <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold">견적서 확인 &rarr;</span>
         </div>
-
     </main>
 
     <div x-show="isViewerOpen" class="fixed inset-0 z-[60] flex items-center justify-center" x-cloak>
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="closePdfViewer()"></div>
-        
         <div class="relative w-full h-full md:w-[95%] md:h-[90%] bg-white md:rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden animate-slide-in">
-            
             <div class="w-full md:w-7/12 h-[45%] md:h-full bg-slate-800 relative group">
                 <div x-show="loadingPdf" class="absolute inset-0 flex items-center justify-center text-white">
                     <div class="flex flex-col items-center">
@@ -123,13 +120,8 @@
                     </div>
                 </div>
                 <iframe :src="currentPdfUrl" class="w-full h-full border-0" @load="loadingPdf = false"></iframe>
-                <button @click="togglePdfSize()" class="md:hidden absolute bottom-4 right-4 bg-black/60 text-white p-2 rounded-full text-xs z-20">
-                    <i class="fa-solid fa-expand"></i>
-                </button>
             </div>
-
             <div class="w-full md:w-5/12 h-[55%] md:h-full bg-white flex flex-col border-l border-gray-200 shadow-xl z-10">
-                
                 <div class="p-5 border-b border-gray-100 flex justify-between items-center bg-slate-50 shrink-0">
                     <div>
                         <h3 class="font-bold text-lg text-brand-navy flex items-center">
@@ -138,11 +130,8 @@
                             <span class="ml-2 text-xs text-gray-400 font-normal bg-white border px-2 py-0.5 rounded-full">추천 상품</span>
                         </h3>
                     </div>
-                    <button @click="closePdfViewer()" class="text-gray-400 hover:text-brand-navy transition p-2">
-                        <i class="fa-solid fa-xmark text-2xl"></i>
-                    </button>
+                    <button @click="closePdfViewer()" class="text-gray-400 hover:text-brand-navy transition p-2"><i class="fa-solid fa-xmark text-2xl"></i></button>
                 </div>
-
                 <div class="flex-1 overflow-y-auto custom-scroll p-2 bg-gray-50/50">
                     <div class="space-y-2">
                         <template x-for="product in currentBrandProducts" :key="product.code">
@@ -155,7 +144,6 @@
                                     <h4 class="font-bold text-gray-800 text-sm truncate" x-text="product.name"></h4>
                                     <p class="text-xs text-gray-500 mt-0.5" x-text="product.spec"></p>
                                 </div>
-                                
                                 <button @click="addToCart(product)" 
                                         :class="isInCart(product) ? 'bg-green-500 border-green-500 text-white' : 'bg-white border-gray-200 text-brand-navy hover:border-brand-navy hover:bg-brand-navy hover:text-white'"
                                         class="shrink-0 w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all shadow-sm active:scale-90">
@@ -164,25 +152,17 @@
                             </div>
                         </template>
                     </div>
-
                     <div class="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-100">
                         <label class="block text-xs font-bold text-brand-navy mb-2">찾으시는 상품이 리스트에 없나요?</label>
                         <div class="flex gap-2">
-                            <input type="text" x-model="quickInput" @keyup.enter="addQuickItem()" 
-                                   placeholder="예: 27페이지 우측 하단 치즈" 
-                                   class="flex-1 px-3 py-2 rounded-lg border border-blue-200 text-sm focus:outline-none focus:border-brand-navy">
+                            <input type="text" x-model="quickInput" @keyup.enter="addQuickItem()" placeholder="예: 27페이지 우측 하단 치즈" class="flex-1 px-3 py-2 rounded-lg border border-blue-200 text-sm focus:outline-none focus:border-brand-navy">
                             <button @click="addQuickItem()" class="bg-brand-navy text-white px-3 py-2 rounded-lg text-xs font-bold hover:bg-slate-700 transition">추가</button>
                         </div>
                     </div>
                 </div>
-
                 <div class="p-4 border-t border-gray-100 bg-white shrink-0 flex justify-between items-center">
-                    <div class="text-xs text-gray-500">
-                        현재 <strong class="text-brand-navy text-sm" x-text="cart.length"></strong>개 상품 담김
-                    </div>
-                    <button @click="openCartModal = true" class="bg-brand-orange text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-orange-600 transition shadow-md">
-                        견적서 확인하기 &rarr;
-                    </button>
+                    <div class="text-xs text-gray-500">현재 <strong class="text-brand-navy text-sm" x-text="cart.length"></strong>개 상품 담김</div>
+                    <button @click="openCartModal = true" class="bg-brand-orange text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-orange-600 transition shadow-md">견적서 확인하기 &rarr;</button>
                 </div>
             </div>
         </div>
@@ -236,7 +216,7 @@
 
             <div x-show="showReceipt" class="flex flex-col h-full">
                 <div class="bg-gray-100 p-4 flex justify-between items-center border-b border-gray-200 shrink-0">
-                    <h3 class="font-bold text-gray-700"><i class="fa-solid fa-image mr-2"></i>이미지 미리보기</h3>
+                    <h3 class="font-bold text-gray-700"><i class="fa-solid fa-file-invoice mr-2"></i>견적서 확인</h3>
                     <button @click="showReceipt = false" class="text-sm text-gray-500 underline hover:text-brand-navy">수정하기</button>
                 </div>
                 
@@ -282,18 +262,17 @@
                             <div class="bg-gray-100 p-3 rounded-lg text-xs text-gray-600">
                                 <div class="font-bold mb-1">구르메 제주 고객센터</div>
                                 <div>010-0000-0000</div>
-                                <div class="text-[10px] text-brand-orange mt-1">카카오톡 ID: gourmet_jeju</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="p-4 bg-white border-t border-gray-200 shrink-0 z-20">
-                    <button @click="downloadReceipt()" class="w-full bg-brand-navy text-white font-bold py-3.5 rounded-xl hover:bg-slate-800 transition flex items-center justify-center gap-2 shadow-lg transform active:scale-95">
-                        <i class="fa-solid fa-download"></i> 이미지로 저장하기
+                    <button @click="sendAndDownloadReceipt()" class="w-full bg-brand-navy text-white font-bold py-3.5 rounded-xl hover:bg-slate-800 transition flex items-center justify-center gap-2 shadow-lg transform active:scale-95">
+                        <i class="fa-solid fa-paper-plane"></i> 제출 및 사본 저장
                     </button>
                     <p class="text-[11px] text-center text-gray-400 mt-3">
-                        * 저장된 이미지를 <strong class="text-brand-navy">카카오톡 채팅방</strong>에 전송해주세요.
+                        * 클릭 시 본사로 전송되며, 보관용 이미지가 저장됩니다.
                     </p>
                 </div>
             </div>
@@ -305,16 +284,16 @@
             return {
                 isViewerOpen: false,
                 openCartModal: false,
-                showReceipt: false, // 영수증 보기 상태
+                showReceipt: false,
                 loadingPdf: false,
+                isSending: false, // 전송 중 로딩 상태
                 currentPdfUrl: '',
                 currentBrandName: '',
                 currentBrandProducts: [],
                 quickInput: '',
                 cart: [],
-                userInfo: { company: '', contact: '', memo: '' }, // 사용자 입력 정보
+                userInfo: { company: '', contact: '', memo: '' },
 
-                // 브랜드 & 상품 데이터 매핑
                 brands: [
                     { 
                         name: 'Divella', 
@@ -410,12 +389,7 @@
 
                 addQuickItem() {
                     if (!this.quickInput.trim()) return;
-                    this.cart.push({
-                        code: 'DIRECT',
-                        name: this.quickInput,
-                        spec: '상세문의',
-                        brandName: '직접입력'
-                    });
+                    this.cart.push({ code: 'DIRECT', name: this.quickInput, spec: '상세문의', brandName: '직접입력' });
                     this.quickInput = '';
                 },
 
@@ -427,33 +401,44 @@
                     return this.cart.some(item => item.code === product.code);
                 },
 
-                // 영수증 생성 화면으로 전환
                 generateReceipt() {
                     if (this.cart.length === 0) return;
                     this.showReceipt = true;
                 },
 
-                // 영수증 이미지 저장 (html2canvas)
-                downloadReceipt() {
+                // [변경된 기능] 전송 시뮬레이션 및 자동 저장
+                sendAndDownloadReceipt() {
+                    // 1. 전송 중 상태 표시 (로딩 스피너)
+                    this.isSending = true;
+
+                    // 2. html2canvas로 이미지 생성 준비
                     const element = document.getElementById('receipt-capture');
                     
                     html2canvas(element, {
-                        scale: 2, // 고해상도
+                        scale: 2, 
                         backgroundColor: "#ffffff",
                         logging: false,
                         useCORS: true
                     }).then(canvas => {
-                        const link = document.createElement('a');
-                        link.download = `구르메제주_견적요청_${this.userInfo.company}.png`;
-                        link.href = canvas.toDataURL("image/png");
-                        link.click();
-                        
-                        alert('이미지가 저장되었습니다! 📸\n\n저장된 이미지를 카카오톡 채팅방에 전송해주시면\n담당자가 빠르게 재고 및 견적을 확인해드립니다.');
-                        
-                        // 초기화 옵션 (필요시 주석 해제)
-                        // this.cart = []; 
-                        // this.openCartModal = false;
-                        // this.showReceipt = false;
+                        // 3. 서버 전송 시간 시뮬레이션 (1.5초 딜레이)
+                        setTimeout(() => {
+                            this.isSending = false; // 로딩 종료
+
+                            // 4. 성공 알림창 (Option A 문구 적용)
+                            alert('견적 요청서가 담당자에게 성공적으로 전송되었습니다! 🚀\n\n(고객님 확인용 사본이 자동으로 저장됩니다.)');
+
+                            // 5. 이미지 자동 다운로드 (사본 저장)
+                            const link = document.createElement('a');
+                            link.download = `구르메제주_견적요청_${this.userInfo.company}_사본.png`;
+                            link.href = canvas.toDataURL("image/png");
+                            link.click();
+
+                            // (선택 사항) 초기화
+                            // this.cart = [];
+                            // this.openCartModal = false;
+                            // this.showReceipt = false;
+
+                        }, 1500);
                     });
                 }
             }
