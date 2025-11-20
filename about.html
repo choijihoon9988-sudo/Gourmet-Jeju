@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구르메 제주 - 회사 소개</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+    <style>
+        [x-cloak] { display: none!important; }
+        .font-pretendard { font-family: 'Pretendard', system-ui, sans-serif; }
+        /* Chatbot Styles */
+        .chat-bubble { position: relative; max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 0.95rem; line-height: 1.5; margin-bottom: 10px; word-break: keep-all; }
+        .chat-bubble.bot { background-color: #f3f4f6; color: #1f2937; border-top-left-radius: 4px; }
+        .chat-bubble.user { background-color: #ea580c; color: white; border-top-right-radius: 4px; margin-left: auto; }
+        .typing-indicator span { display: inline-block; width: 6px; height: 6px; background-color: #9ca3af; border-radius: 50%; animation: typing 1.4s infinite both; margin: 0 2px; }
+        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.5); opacity: 0.5; } }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 'sans': ['"Pretendard"', 'system-ui', 'sans-serif'] },
+                    colors: { 'brand-navy': '#0f172a', 'brand-gold': '#d4af37', 'brand-orange': '#ea580c' }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white text-gray-800 font-sans antialiased" x-data="app()">
+
+    <header class="bg-white/95 backdrop-blur-md shadow-sm fixed w-full z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-brand-navy flex items-center gap-2">
+                <i class="fa-solid fa-utensils text-brand-gold"></i> Gourmet Jeju
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-brand-navy font-medium transition-colors">Home</a>
+                <a href="#" class="text-brand-navy font-bold transition-colors border-b-2 border-brand-navy pb-1">About</a>
+                <a href="journal.html" class="text-gray-600 hover:text-brand-navy font-medium transition-colors">Journal</a>
+                <a href="products.html" class="text-gray-600 hover:text-brand-navy font-medium transition-colors">Products</a>
+                <a href="products.html" class="bg-brand-navy text-white px-5 py-2 rounded-md hover:bg-slate-800 transition-colors font-bold shadow-md">
+                    견적 문의하기
+                </a>
+            </div>
+            <div class="md:hidden">
+                <button @click="open =!open" class="text-gray-800 focus:outline-none p-2"><i class="fas fa-bars text-2xl"></i></button>
+            </div>
+            <div x-show="open" x-cloak @click.away="open = false" class="md:hidden absolute top-full left-0 w-full bg-white shadow-lg py-2 z-40 border-t border-gray-100">
+                <a href="index.html" class="block px-6 py-3 text-lg border-b hover:bg-gray-50">Home</a>
+                <a href="#" class="block px-6 py-3 text-lg border-b font-bold text-brand-navy bg-gray-50">About</a>
+                <a href="journal.html" class="block px-6 py-3 text-lg border-b hover:bg-gray-50">Journal</a>
+                <a href="products.html" class="block px-6 py-3 text-lg border-b hover:bg-gray-50">Products (견적)</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-20">
+        <section class="relative h-[500px] flex items-center justify-center text-center text-white">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070&auto=format&fit=crop')"></div>
+            <div class="absolute inset-0 bg-black/60"></div>
+            <div class="relative z-10 px-6 animate-fade-in-up">
+                <span class="block text-brand-gold font-bold tracking-widest mb-2">EUROPEAN FOOD CURATOR</span>
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-6 drop-shadow-lg">유럽의 미식을 제주에 심다</h1>
+                <p class="text-xl max-w-2xl mx-auto text-gray-200">
+                    1998년부터 이어온 구르메 F&B의 정통성과<br>
+                    제주 현지의 독보적인 물류 시스템이 만났습니다.
+                </p>
+                <div class="mt-8">
+                    <a href="#" onclick="alert('회사소개서(PDF) 다운로드를 시작합니다.'); return false;" class="inline-flex items-center bg-white/20 backdrop-blur-md border border-white text-white px-8 py-3 rounded-full hover:bg-white hover:text-brand-navy transition font-bold group">
+                        <i class="fa-solid fa-file-arrow-down mr-2 group-hover:scale-110 transition-transform"></i> 회사소개서 다운로드 (PDF)
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row gap-16 items-center">
+                    <div class="lg:w-1/2">
+                        <img src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=2070&auto=format&fit=crop" alt="Gourmet History" class="rounded-2xl shadow-xl">
+                    </div>
+                    <div class="lg:w-1/2">
+                        <span class="text-brand-orange font-bold tracking-wider text-sm">SINCE 1998</span>
+                        <h2 class="text-3xl font-bold text-gray-900 mt-2 mb-6">한국 미식 문화의 개척자,<br>구르메 F&B 코리아</h2>
+                        <div class="space-y-6 text-gray-600 leading-relaxed">
+                            <p>
+                                구르메 F&B 코리아는 1998년 5월, 유럽계 투자회사인 <strong>French F&B Japan</strong>과 유럽 식자재 공급업체인 <strong>Faye Gastronomie SA</strong>와의 3자 합작으로 설립된 외국투자법인입니다.
+                            </p>
+                            <p>
+                                일본의 고급 호텔과 레스토랑에 유럽 식자재를 공급하던 노하우와, 파리 렁지스(Rungis) 시장에서 최고 품질의 식재료를 선별하는 전문성을 바탕으로 한국 시장에 첫발을 내디뎠습니다.
+                            </p>
+                            <div class="bg-gray-50 p-8 rounded-xl border-l-4 border-brand-navy mt-6 shadow-sm">
+                                <p class="italic font-medium text-brand-navy text-lg leading-relaxed">
+                                    "단순한 수입사가 아닌, 유럽 식품 외교관으로서 새로운 식문화를 주도하겠습니다. 삶을 즐겁게 하고 건강한 자연 식품을 소개하는 선구자의 역할에 최선을 다할 것을 다짐합니다."
+                                </p>
+                                <p class="text-right text-sm mt-4 font-bold text-gray-500">- CEO Message -</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-gray-50">
+            <div class="container mx-auto px-6 text-center">
+                <div class="mb-16">
+                    <h2 class="text-3xl font-bold text-brand-navy mb-4">Our Philosophy</h2>
+                    <p class="text-gray-600">더 좋은, 더 건강한, 더 다양한 미식을 전합니다.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="p-8 bg-white rounded-2xl border border-gray-100 hover:shadow-lg transition duration-300 transform hover:-translate-y-1">
+                        <div class="w-20 h-20 mx-auto bg-brand-navy text-white rounded-full flex items-center justify-center text-3xl mb-6 shadow-md"><i class="fa-solid fa-star"></i></div>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Good (질)</h3>
+                        <p class="text-gray-600 break-keep leading-relaxed"><strong>최고의 질(Quality)을 추구합니다.</strong><br>제품에 대한 공정한 가격, 풍부하고 정확한 정보, 신속하고 지속적인 서비스를 약속합니다.</p>
+                    </div>
+                    <div class="p-8 bg-white rounded-2xl border border-gray-100 hover:shadow-lg transition duration-300 transform hover:-translate-y-1">
+                        <div class="w-20 h-20 mx-auto bg-green-600 text-white rounded-full flex items-center justify-center text-3xl mb-6 shadow-md"><i class="fa-solid fa-leaf"></i></div>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Green (건강)</h3>
+                        <p class="text-gray-600 break-keep leading-relaxed"><strong>건강한 식문화를 선도합니다.</strong><br>자연에 가까운 건강한 식재료를 엄선하여 고객의 식탁에 올립니다.</p>
+                    </div>
+                    <div class="p-8 bg-white rounded-2xl border border-gray-100 hover:shadow-lg transition duration-300 transform hover:-translate-y-1">
+                        <div class="w-20 h-20 mx-auto bg-brand-gold text-white rounded-full flex items-center justify-center text-3xl mb-6 shadow-md"><i class="fa-solid fa-utensils"></i></div>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Gourmet (미식)</h3>
+                        <p class="text-gray-600 break-keep leading-relaxed"><strong>서양 미식의 진수를 전합니다.</strong><br>17개국 80여 파트너사와 함께 다채로운 미식 경험을 제공합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-brand-navy text-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold mb-4">4-Step Value Chain</h2>
+                    <p class="text-gray-300">전문적이고 체계적인 소싱 및 유통 인프라를 통해 최상의 가치를 전달합니다.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+                    <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-white/20 -translate-y-1/2 z-0"></div>
+
+                    <div class="relative z-10 bg-brand-navy p-4">
+                        <div class="w-16 h-16 mx-auto bg-brand-gold text-brand-navy rounded-full flex items-center justify-center text-2xl font-bold mb-4 border-4 border-brand-navy shadow-lg">01</div>
+                        <h3 class="text-xl font-bold mb-2">소싱 (Sourcing)</h3>
+                        <p class="text-sm text-gray-400 break-keep">글로벌 소싱 네트워크를 통한 다양한 제품 확보 및 생산자 선제안</p>
+                    </div>
+                    <div class="relative z-10 bg-brand-navy p-4">
+                        <div class="w-16 h-16 mx-auto bg-brand-gold text-brand-navy rounded-full flex items-center justify-center text-2xl font-bold mb-4 border-4 border-brand-navy shadow-lg">02</div>
+                        <h3 class="text-xl font-bold mb-2">수입 (Import)</h3>
+                        <p class="text-sm text-gray-400 break-keep">검역/검사/선적 노하우와 코스트 리더쉽을 통한 효율적인 제품 공급</p>
+                    </div>
+                    <div class="relative z-10 bg-brand-navy p-4">
+                        <div class="w-16 h-16 mx-auto bg-brand-gold text-brand-navy rounded-full flex items-center justify-center text-2xl font-bold mb-4 border-4 border-brand-navy shadow-lg">03</div>
+                        <h3 class="text-xl font-bold mb-2">유통 (Distribution)</h3>
+                        <p class="text-sm text-gray-400 break-keep">100% 냉장/냉동 운송 및 대형 물류센터를 통한 철저한 품질 관리</p>
+                    </div>
+                    <div class="relative z-10 bg-brand-navy p-4">
+                        <div class="w-16 h-16 mx-auto bg-brand-gold text-brand-navy rounded-full flex items-center justify-center text-2xl font-bold mb-4 border-4 border-brand-navy shadow-lg">04</div>
+                        <h3 class="text-xl font-bold mb-2">판매 (Sales)</h3>
+                        <p class="text-sm text-gray-400 break-keep">식자재 전반에 대한 전문성을 바탕으로 고객사에 정확한 정보와 솔루션 전달</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-white border-b border-gray-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <span class="text-brand-orange font-bold tracking-wider text-sm">ORGANIZATION</span>
+                    <h2 class="text-3xl font-bold text-gray-900 mt-2">체계적인 전문 조직</h2>
+                    <p class="text-gray-600 mt-2">구매부터 물류, 마케팅까지 각 분야의 전문가들이 함께합니다.</p>
+                </div>
+                <div class="max-w-5xl mx-auto">
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+                        <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-brand-navy transition">
+                            <div class="text-brand-navy text-2xl mb-2"><i class="fa-solid fa-handshake"></i></div>
+                            <h4 class="font-bold text-gray-800">영업팀</h4>
+                            <p class="text-xs text-gray-500 mt-1">Sales</p>
+                        </div>
+                        <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-brand-navy transition">
+                            <div class="text-brand-navy text-2xl mb-2"><i class="fa-solid fa-users-gear"></i></div>
+                            <h4 class="font-bold text-gray-800">영업관리팀</h4>
+                        </div>
+                        <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-brand-navy transition">
+                            <div class="text-brand-navy text-2xl mb-2"><i class="fa-solid fa-bullhorn"></i></div>
+                            <h4 class="font-bold text-gray-800">마케팅팀</h4>
+                            <p class="text-xs text-gray-500 mt-1">Marketing</p>
+                        </div>
+                        <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-brand-navy transition">
+                            <div class="text-brand-navy text-2xl mb-2"><i class="fa-solid fa-globe"></i></div>
+                            <h4 class="font-bold text-gray-800">무역팀</h4>
+                            <p class="text-xs text-gray-500 mt-1">Trading</p>
+                        </div>
+                        <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-brand-navy transition">
+                            <div class="text-brand-navy text-2xl mb-2"><i class="fa-solid fa-truck-fast"></i></div>
+                            <h4 class="font-bold text-gray-800">물류팀</h4>
+                            <p class="text-xs text-gray-500 mt-1">Logistics</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row gap-16 items-center">
+                    <div class="lg:w-1/2">
+                        <span class="text-brand-orange font-bold tracking-wider text-sm">INFRASTRUCTURE</span>
+                        <h2 class="text-3xl font-bold text-gray-900 mt-2 mb-8">제주에 최적화된<br>완벽한 콜드체인 시스템</h2>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm text-brand-navy text-xl"><i class="fa-solid fa-temperature-low"></i></div>
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-bold text-gray-900">데이터 로거 모니터링</h4>
+                                    <p class="text-gray-600 text-sm">운송 중 발생할 수 있는 '열충격(Heat Shock)'을 방지하기 위해 온/습도를 실시간으로 체크합니다.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm text-brand-navy text-xl"><i class="fa-solid fa-truck-fast"></i></div>
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-bold text-gray-900">100% 냉장/냉동 탑차</h4>
+                                    <p class="text-gray-600 text-sm">여름철에도 안심할 수 있도록, 일반 용달이 아닌 자체 보유 냉동 탑차로 제주 전역을 직배송합니다.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm text-brand-navy text-xl"><i class="fa-solid fa-warehouse"></i></div>
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-bold text-gray-900">제주 현지 대형 물류센터</h4>
+                                    <p class="text-gray-600 text-sm">육지 배송 지연 리스크를 없애기 위해, 대규모 재고를 제주 현지에서 직접 관리하고 출고합니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop" alt="Cold Chain Logistics" class="rounded-2xl shadow-xl">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900">Our History</h2>
+                </div>
+                <div class="max-w-3xl mx-auto border-l-2 border-gray-200 pl-8 ml-4 md:ml-0 relative space-y-12">
+                    <div class="relative">
+                        <span class="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-brand-navy border-4 border-white shadow-sm"></span>
+                        <h4 class="font-bold text-xl text-brand-navy">1998</h4>
+                        <p class="text-gray-600 mt-1">이태원에서 구르메 F&B 코리아 설립 (유럽 합작 법인)</p>
+                    </div>
+                    <div class="relative">
+                        <span class="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-gray-300 border-4 border-white"></span>
+                        <h4 class="font-bold text-xl text-gray-800">2000~2010</h4>
+                        <p class="text-gray-600 mt-1">서빙고동/풍납동 확장 이전<br>국내 특급 호텔 및 백화점 공급망 구축</p>
+                    </div>
+                    <div class="relative">
+                        <span class="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-gray-300 border-4 border-white"></span>
+                        <h4 class="font-bold text-xl text-gray-800">2012</h4>
+                        <p class="text-gray-600 mt-1">대형 물류창고 확장 이전 (구리)<br>본사 구의동 확장 이전</p>
+                    </div>
+                    <div class="relative">
+                        <span class="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-gray-300 border-4 border-white"></span>
+                        <h4 class="font-bold text-xl text-gray-800">2015</h4>
+                        <p class="text-gray-600 mt-1"><strong>구르메 제주 설립</strong> (제주 대리점 출범)<br>제주 특급 호텔 및 파인 다이닝 공급 개시</p>
+                    </div>
+                    <div class="relative">
+                        <span class="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-brand-gold border-4 border-white shadow-sm"></span>
+                        <h4 class="font-bold text-xl text-gray-800">Present</h4>
+                        <p class="text-gray-600 mt-1">제주 전역 300여 파트너사와 함께 성장 중</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl font-bold text-gray-900 mb-12">Our Partners</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 opacity-60">
+                    <div class="flex items-center justify-center h-20 bg-white rounded border border-gray-200 font-bold text-gray-500 hover:border-brand-navy hover:text-brand-navy transition">Grand Hyatt</div>
+                    <div class="flex items-center justify-center h-20 bg-white rounded border border-gray-200 font-bold text-gray-500 hover:border-brand-navy hover:text-brand-navy transition">The Shilla</div>
+                    <div class="flex items-center justify-center h-20 bg-white rounded border border-gray-200 font-bold text-gray-500 hover:border-brand-navy hover:text-brand-navy transition">Lotte Hotel</div>
+                    <div class="flex items-center justify-center h-20 bg-white rounded border border-gray-200 font-bold text-gray-500 hover:border-brand-navy hover:text-brand-navy transition">Haevichi</div>
+                    <div class="flex items-center justify-center h-20 bg-white rounded border border-gray-200 font-bold text-gray-500 hover:border-brand-navy hover:text-brand-navy transition">Josun Hotel</div>
+                    <div class="flex items-center justify-center h-20 bg-white rounded border border-gray-200 font-bold text-gray-500 hover:border-brand-navy hover:text-brand-navy transition">Marriott</div>
+                    <div class="flex items-center justify-center h-20 bg-white rounded border border-gray-200 font-bold text-gray-500 hover:border-brand-navy hover:text-brand-navy transition">Emart</div>
+                    <div class="flex items-center justify-center h-20 bg-white rounded border border-gray-200 font-bold text-gray-500 hover:border-brand-navy hover:text-brand-navy transition">Costco</div>
+                </div>
+                <p class="mt-8 text-gray-500 text-sm">* 국내 특급 호텔 및 대형 유통사 20여 곳 이상 파트너십 보유</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-brand-navy text-white py-12 border-t border-white/10 pb-28 md:pb-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-xs text-gray-500">&copy; 2025 Gourmet Jeju. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <div class="fixed bottom-0 right-0 z-50 flex flex-col items-end p-4 md:p-6" x-show="chatOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0" x-cloak>
+        <div class="bg-white w-[340px] md:w-[380px] h-[550px] rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden mb-4">
+            <div class="bg-brand-navy text-white p-4 flex justify-between items-center shrink-0">
+                <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span class="font-bold">구르메 제주 상담봇</span>
+                </div>
+                <button @click="toggleChat()" class="text-white/80 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="flex-1 p-4 overflow-y-auto bg-gray-50 scrollbar-hide" id="chat-body">
+                <div class="flex flex-col gap-3">
+                    <div class="chat-bubble bot shadow-sm">안녕하세요! 사장님 👋<br>제주 No.1 프리미엄 식자재 파트너,<br><strong>구르메 제주</strong>입니다.<br><br>무엇을 도와드릴까요?</div>
+                    <template x-for="msg in chatMessages" :key="msg.id"><div :class="msg.type === 'bot' ? 'chat-bubble bot shadow-sm' : 'chat-bubble user shadow-sm'" x-html="msg.text"></div></template>
+                    <div x-show="isTyping" class="chat-bubble bot shadow-sm w-12"><div class="typing-indicator"><span></span><span></span><span></span></div></div>
+                </div>
+            </div>
+            <div class="p-3 bg-white border-t border-gray-100 shrink-0">
+                <p class="text-xs text-gray-400 mb-2 text-center">자주 묻는 질문을 선택하세요</p>
+                <div class="grid grid-cols-1 gap-2 mb-2 max-h-32 overflow-y-auto">
+                    <button @click="handleChatOption('delivery')" class="text-sm text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition text-gray-700 font-medium flex items-center"><span class="mr-2">🚚</span> 제주도 배송, 얼마나 걸리나요?</button>
+                    <button @click="handleChatOption('price')" class="text-sm text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition text-gray-700 font-medium flex items-center"><span class="mr-2">💰</span> B2B 단가표를 받고 싶어요.</button>
+                    <button @click="handleChatOption('moq')" class="text-sm text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition text-gray-700 font-medium flex items-center"><span class="mr-2">📦</span> 소량 주문도 가능한가요?</button>
+                </div>
+                <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="block w-full text-center bg-[#FAE100] hover:bg-[#F9E000] text-[#371D1E] font-bold py-3 rounded-lg transition shadow-sm"><i class="fa-solid fa-comment mr-2"></i> 상담원 연결 (카카오톡)</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed bottom-20 right-6 z-40 md:bottom-10">
+        <button @click="toggleChat()" class="bg-brand-orange text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-300 animate-bounce"><i class="fa-solid fa-comment-dots text-2xl"></i></button>
+    </div>
+
+    <script>
+        function app() {
+            return {
+                open: false,
+                chatOpen: false,
+                chatMessages: [],
+                isTyping: false,
+                toggleChat() { this.chatOpen = !this.chatOpen; if(this.chatOpen) { setTimeout(() => this.scrollToBottom(), 100); } },
+                async handleChatOption(type) {
+                    let userText = "", botText = "";
+                    if(type === 'delivery') { userText = "제주도 배송, 얼마나 걸리나요?"; botText = "걱정 마세요! 🚛<br>구르메 제주는 <strong>제주 현지 물류센터</strong>를 보유하고 있어,<br><strong>오후 2시 이전 주문 시 내일 바로 도착</strong>합니다."; } 
+                    else if(type === 'price') { userText = "B2B 단가표를 받고 싶어요."; botText = "사장님, 현명하십니다! 💰<br>저희는 서울 본사 직거래로 <strong>중간 마진을 없앤 합리적인 가격</strong>을 자랑합니다.<br><br>아래 상담원 연결을 통해 사업자 인증을 해주시면 <strong>전용 단가표</strong>를 즉시 보내드립니다."; } 
+                    else if(type === 'moq') { userText = "소량 주문도 가능한가요?"; botText = "물론입니다! 📦<br>작은 카페나 1인 매장 사장님들도 부담 없이 이용하실 수 있도록,<br><strong>최소 주문 수량(MOQ)의 벽을 낮췄습니다.</strong>"; }
+                    this.chatMessages.push({ id: Date.now(), type: 'user', text: userText });
+                    this.isTyping = true; this.scrollToBottom();
+                    await new Promise(r => setTimeout(r, 800)); 
+                    this.isTyping = false;
+                    this.chatMessages.push({ id: Date.now() + 1, type: 'bot', text: botText });
+                    this.scrollToBottom();
+                },
+                scrollToBottom() { const chatBody = document.getElementById('chat-body'); if(chatBody) chatBody.scrollTop = chatBody.scrollHeight; }
+            }
+        }
+    </script>
+</body>
+</html>

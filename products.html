@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구르메 제주 - 상품 및 견적</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+    <style>
+        [x-cloak] { display: none!important; }
+        .font-pretendard { font-family: 'Pretendard', system-ui, sans-serif; }
+        /* Chatbot Styles */
+        .chat-bubble { position: relative; max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 0.95rem; line-height: 1.5; margin-bottom: 10px; word-break: keep-all; }
+        .chat-bubble.bot { background-color: #f3f4f6; color: #1f2937; border-top-left-radius: 4px; }
+        .chat-bubble.user { background-color: #ea580c; color: white; border-top-right-radius: 4px; margin-left: auto; }
+        .typing-indicator span { display: inline-block; width: 6px; height: 6px; background-color: #9ca3af; border-radius: 50%; animation: typing 1.4s infinite both; margin: 0 2px; }
+        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.5); opacity: 0.5; } }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 'sans': ['"Pretendard"', 'system-ui', 'sans-serif'] },
+                    colors: { 'brand-navy': '#0f172a', 'brand-gold': '#d4af37', 'brand-orange': '#ea580c' }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white text-gray-800 font-sans antialiased" x-data="app()">
+
+    <header class="bg-white shadow-sm fixed w-full z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-brand-navy flex items-center gap-2">
+                <i class="fa-solid fa-utensils text-brand-gold"></i> Gourmet Jeju
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-brand-navy font-medium transition-colors">Home</a>
+                <a href="about.html" class="text-gray-600 hover:text-brand-navy font-medium transition-colors">About</a>
+                <a href="journal.html" class="text-gray-600 hover:text-brand-navy font-medium transition-colors">Journal</a>
+                <a href="#" class="text-brand-navy font-bold transition-colors">Products</a>
+                <div class="relative cursor-pointer" @click="scrollToCart()">
+                    <i class="fa-solid fa-clipboard-list text-2xl text-brand-navy"></i>
+                    <span x-show="cart.length > 0" class="absolute -top-2 -right-2 bg-brand-orange text-white text-xs font-bold px-1.5 py-0.5 rounded-full" x-text="cart.length"></span>
+                </div>
+            </div>
+            <div class="md:hidden flex items-center gap-4">
+                <div class="relative cursor-pointer" @click="scrollToCart()">
+                    <i class="fa-solid fa-clipboard-list text-2xl text-brand-navy"></i>
+                    <span x-show="cart.length > 0" class="absolute -top-2 -right-2 bg-brand-orange text-white text-xs font-bold px-1.5 py-0.5 rounded-full" x-text="cart.length"></span>
+                </div>
+                <button @click="open =!open" class="text-gray-800 focus:outline-none p-2"><i class="fas fa-bars text-2xl"></i></button>
+            </div>
+        </nav>
+        <div x-show="open" x-cloak @click.away="open = false" class="md:hidden absolute top-full left-0 w-full bg-white shadow-lg py-2 z-40 border-t border-gray-100" x-data="{ open: false }">
+            <a href="index.html" class="block px-6 py-3 text-lg border-b hover:bg-gray-50">Home</a>
+            <a href="about.html" class="block px-6 py-3 text-lg border-b hover:bg-gray-50">About</a>
+            <a href="journal.html" class="block px-6 py-3 text-lg border-b hover:bg-gray-50">Journal</a>
+            <a href="#" class="block px-6 py-3 text-lg border-b font-bold text-brand-navy bg-gray-50">Products</a>
+        </div>
+    </header>
+
+    <main class="pt-24 pb-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h1 class="text-3xl font-bold text-gray-900 mb-4">Digital Pantry</h1>
+                <p class="text-gray-500 mb-8">필요한 식자재를 담아주세요. 담당자가 재고 확인 후 최저가 견적서를 보내드립니다.</p>
+                
+                <div class="max-w-xl mx-auto relative mb-8">
+                    <input type="text" x-model="searchQuery" placeholder="상품명 검색 (예: 버터, 파스타)" class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-full focus:border-brand-navy focus:outline-none transition text-lg">
+                    <i class="fa-solid fa-search absolute left-5 top-4 text-gray-400 text-lg"></i>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-2">
+                    <button @click="filterCategory('all')" :class="currentCategory === 'all' ? 'bg-brand-navy text-white' : 'bg-gray-100 text-gray-600'" class="px-5 py-2 rounded-full font-bold text-sm transition">전체</button>
+                    <button @click="filterCategory('dairy')" :class="currentCategory === 'dairy' ? 'bg-brand-navy text-white' : 'bg-gray-100 text-gray-600'" class="px-5 py-2 rounded-full font-bold text-sm transition">치즈/버터</button>
+                    <button @click="filterCategory('grocery')" :class="currentCategory === 'grocery' ? 'bg-brand-navy text-white' : 'bg-gray-100 text-gray-600'" class="px-5 py-2 rounded-full font-bold text-sm transition">파스타/오일</button>
+                    <button @click="filterCategory('meat')" :class="currentCategory === 'meat' ? 'bg-brand-navy text-white' : 'bg-gray-100 text-gray-600'" class="px-5 py-2 rounded-full font-bold text-sm transition">샤퀴테리</button>
+                    <button @click="filterCategory('japanese')" :class="currentCategory === 'japanese' ? 'bg-brand-navy text-white' : 'bg-gray-100 text-gray-600'" class="px-5 py-2 rounded-full font-bold text-sm transition">일본식자재</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+                <template x-for="product in filteredProducts" :key="product.id">
+                    <div class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition group overflow-hidden">
+                        <div class="relative h-48 bg-gray-100">
+                            <img :src="product.image" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div x-show="product.tag" class="absolute top-2 left-2 bg-brand-navy text-white text-xs font-bold px-2 py-1 rounded" x-text="product.tag"></div>
+                        </div>
+                        <div class="p-5">
+                            <p class="text-xs text-brand-orange font-bold mb-1" x-text="product.brandName"></p>
+                            <h4 class="font-bold text-lg text-gray-900 mb-1" x-text="product.name"></h4>
+                            <p class="text-sm text-gray-500 mb-4" x-text="product.desc"></p>
+                            <button @click="addToCart(product.name)" class="w-full border border-brand-navy text-brand-navy py-2 rounded-lg hover:bg-brand-navy hover:text-white transition font-bold text-sm">
+                                <i class="fa-solid fa-plus mr-1"></i> 견적함 담기
+                            </button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div id="contact-form" class="max-w-2xl mx-auto bg-gray-50 rounded-2xl p-8 border border-gray-200 shadow-lg">
+                <h2 class="text-2xl font-bold text-center mb-6">견적 요청서 작성</h2>
+                
+                <div class="mb-8 bg-white p-5 rounded-xl border border-orange-100">
+                    <h4 class="font-bold text-brand-orange mb-3 flex items-center"><i class="fa-solid fa-clipboard-check mr-2"></i> 문의 상품 리스트</h4>
+                    <div x-show="cart.length === 0" class="text-gray-400 text-sm text-center py-4">아직 담긴 상품이 없습니다.</div>
+                    <ul class="space-y-2 max-h-40 overflow-y-auto">
+                        <template x-for="(item, index) in cart" :key="index">
+                            <li class="flex justify-between items-center bg-gray-50 px-3 py-2 rounded border border-gray-100 text-sm">
+                                <span x-text="item" class="font-medium"></span>
+                                <button @click="removeFromCart(index)" class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-xmark"></i></button>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+
+                <form @submit.prevent="submitForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">업체명</label>
+                        <input type="text" id="company" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-navy outline-none" placeholder="예: 구르메 카페">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">연락처</label>
+                        <input type="tel" id="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-navy outline-none" placeholder="010-0000-0000">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">문의 내용</label>
+                        <textarea id="message" rows="3" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-navy outline-none" placeholder="기타 문의사항이 있다면 적어주세요."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-brand-navy text-white font-bold text-lg py-4 rounded-lg hover:bg-slate-800 transition shadow-lg mt-4">
+                        견적서 요청하기
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <div class="fixed bottom-0 right-0 z-50 flex flex-col items-end p-4 md:p-6" x-show="chatOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0" x-cloak>
+        <div class="bg-white w-[340px] md:w-[380px] h-[550px] rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden mb-4">
+            <div class="bg-brand-navy text-white p-4 flex justify-between items-center shrink-0">
+                <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span class="font-bold">구르메 제주 상담봇</span>
+                </div>
+                <button @click="toggleChat()" class="text-white/80 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="flex-1 p-4 overflow-y-auto bg-gray-50 scrollbar-hide" id="chat-body">
+                <div class="flex flex-col gap-3">
+                    <div class="chat-bubble bot shadow-sm">안녕하세요! 사장님 👋<br>제주 No.1 프리미엄 식자재 파트너,<br><strong>구르메 제주</strong>입니다.<br><br>무엇을 도와드릴까요?</div>
+                    <template x-for="msg in chatMessages" :key="msg.id"><div :class="msg.type === 'bot' ? 'chat-bubble bot shadow-sm' : 'chat-bubble user shadow-sm'" x-html="msg.text"></div></template>
+                    <div x-show="isTyping" class="chat-bubble bot shadow-sm w-12"><div class="typing-indicator"><span></span><span></span><span></span></div></div>
+                </div>
+            </div>
+            <div class="p-3 bg-white border-t border-gray-100 shrink-0">
+                <p class="text-xs text-gray-400 mb-2 text-center">자주 묻는 질문을 선택하세요</p>
+                <div class="grid grid-cols-1 gap-2 mb-2 max-h-32 overflow-y-auto">
+                    <button @click="handleChatOption('delivery')" class="text-sm text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition text-gray-700 font-medium flex items-center"><span class="mr-2">🚚</span> 제주도 배송, 얼마나 걸리나요?</button>
+                    <button @click="handleChatOption('price')" class="text-sm text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition text-gray-700 font-medium flex items-center"><span class="mr-2">💰</span> B2B 단가표를 받고 싶어요.</button>
+                    <button @click="handleChatOption('moq')" class="text-sm text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition text-gray-700 font-medium flex items-center"><span class="mr-2">📦</span> 소량 주문도 가능한가요?</button>
+                </div>
+                <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="block w-full text-center bg-[#FAE100] hover:bg-[#F9E000] text-[#371D1E] font-bold py-3 rounded-lg transition shadow-sm"><i class="fa-solid fa-comment mr-2"></i> 상담원 연결 (카카오톡)</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed bottom-20 right-6 z-40 md:bottom-10">
+        <button @click="toggleChat()" class="bg-brand-orange text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-300 animate-bounce"><i class="fa-solid fa-comment-dots text-2xl"></i></button>
+    </div>
+
+    <script>
+        function app() {
+            return {
+                open: false,
+                cart: [],
+                currentCategory: 'all',
+                searchQuery: '',
+                chatOpen: false,
+                chatMessages: [],
+                isTyping: false,
+                
+                products: [
+                    { id: 1, category: 'dairy', brandName: 'Isigny', name: '이즈니 AOP 버터', desc: '프랑스 노르망디의 깊은 풍미', image: 'https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?q=80&w=2070&auto=format&fit=crop', tag: 'BEST' },
+                    { id: 2, category: 'dairy', brandName: 'BelGioioso', name: '부라타 치즈', desc: '크리미한 속살의 정통 부라타', image: 'https://images.unsplash.com/photo-1624823183487-54791d01889c?q=80&w=2070&auto=format&fit=crop', tag: 'BEST' },
+                    { id: 3, category: 'grocery', brandName: 'Bundaberg', name: '분다버그 진저비어', desc: '호주 자연발효 탄산음료', image: 'https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?q=80&w=1974&auto=format&fit=crop', tag: 'BEST' },
+                    { id: 4, category: 'grocery', brandName: 'Divella', name: '디벨라 스파게티', desc: '이탈리아 듀럼밀 100% 알덴테', image: 'https://images.unsplash.com/photo-1551183053-bf91b1d103d3?q=80&w=1947&auto=format&fit=crop', tag: '' },
+                    { id: 5, category: 'meat', brandName: 'Rougié', name: '루지에 푸아그라', desc: '프랑스 미식의 정점', image: 'https://images.unsplash.com/photo-1547496502-ffa22b3336cd?q=80&w=2070&auto=format&fit=crop', tag: 'Premium' },
+                    { id: 6, category: 'japanese', brandName: 'Monomart', name: '모노마트 꼬치모듬', desc: '이자카야 전용 숯불꼬치', image: 'https://images.unsplash.com/photo-1618213727408-889d863f6e19?q=80&w=2070&auto=format&fit=crop', tag: '' }
+                ],
+
+                get filteredProducts() {
+                    let result = this.products;
+                    if (this.currentCategory !== 'all') {
+                        result = result.filter(p => p.category === this.currentCategory);
+                    }
+                    if (this.searchQuery) {
+                        const query = this.searchQuery.toLowerCase();
+                        result = result.filter(p => p.name.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query));
+                    }
+                    return result;
+                },
+                filterCategory(cat) {
+                    this.currentCategory = cat;
+                },
+                addToCart(name) {
+                    if (!this.cart.includes(name)) {
+                        this.cart.push(name);
+                        alert(name + " 이(가) 견적함에 담겼습니다.");
+                    } else {
+                        alert("이미 담겨있는 상품입니다.");
+                    }
+                },
+                removeFromCart(index) {
+                    this.cart.splice(index, 1);
+                },
+                scrollToCart() {
+                    document.getElementById('contact-form').scrollIntoView({ behavior: 'smooth' });
+                },
+                submitForm() {
+                    alert("견적 요청이 접수되었습니다. 담당자가 확인 후 연락드리겠습니다.");
+                    this.cart = [];
+                    document.getElementById('company').value = '';
+                    document.getElementById('phone').value = '';
+                    document.getElementById('message').value = '';
+                },
+                
+                // 챗봇 로직
+                toggleChat() { this.chatOpen = !this.chatOpen; if(this.chatOpen) { setTimeout(() => this.scrollToBottom(), 100); } },
+                async handleChatOption(type) {
+                    let userText = "", botText = "";
+                    if(type === 'delivery') { userText = "제주도 배송, 얼마나 걸리나요?"; botText = "걱정 마세요! 🚛<br>구르메 제주는 <strong>제주 현지 물류센터</strong>를 보유하고 있어,<br><strong>오후 2시 이전 주문 시 내일 바로 도착</strong>합니다."; } 
+                    else if(type === 'price') { userText = "B2B 단가표를 받고 싶어요."; botText = "사장님, 현명하십니다! 💰<br>저희는 서울 본사 직거래로 <strong>중간 마진을 없앤 합리적인 가격</strong>을 자랑합니다.<br><br>아래 상담원 연결을 통해 사업자 인증을 해주시면 <strong>전용 단가표</strong>를 즉시 보내드립니다."; } 
+                    else if(type === 'moq') { userText = "소량 주문도 가능한가요?"; botText = "물론입니다! 📦<br>작은 카페나 1인 매장 사장님들도 부담 없이 이용하실 수 있도록,<br><strong>최소 주문 수량(MOQ)의 벽을 낮췄습니다.</strong>"; }
+                    this.chatMessages.push({ id: Date.now(), type: 'user', text: userText });
+                    this.isTyping = true; this.scrollToBottom();
+                    await new Promise(r => setTimeout(r, 800)); 
+                    this.isTyping = false;
+                    this.chatMessages.push({ id: Date.now() + 1, type: 'bot', text: botText });
+                    this.scrollToBottom();
+                },
+                scrollToBottom() { const chatBody = document.getElementById('chat-body'); if(chatBody) chatBody.scrollTop = chatBody.scrollHeight; }
+            }
+        }
+    </script>
+</body>
+</html>
