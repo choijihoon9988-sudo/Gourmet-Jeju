@@ -73,8 +73,13 @@
                     디지털 E-카탈로그로 확인하세요.
                 </p>
                 <div class="mt-8">
-                    <a href="#catalog-viewer" class="inline-flex items-center bg-brand-orange text-white px-8 py-3 rounded-full hover:bg-orange-600 transition font-bold shadow-lg">
-                        카탈로그 바로보기 <i class="fa-solid fa-book-open ml-2"></i>
+                    <a href="Gourmet_회사소개서.pdf" target="_blank" class="inline-flex items-center bg-brand-orange text-white px-8 py-3 rounded-full hover:bg-orange-600 transition font-bold shadow-lg">
+                        카탈로그 전체 화면으로 보기 <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+                    </a>
+                </div>
+                <div class="mt-4">
+                    <a href="#catalog-viewer" class="text-sm text-gray-300 hover:text-white underline underline-offset-4">
+                        또는 여기서 미리보기
                     </a>
                 </div>
             </div>
@@ -91,33 +96,39 @@
                             </div>
                             <div>
                                 <h2 class="text-lg font-bold">Gourmet F&B Korea Official Profile</h2>
-                                <p class="text-xs text-gray-400">Last Updated: 2025.10.16</p>
+                                <p class="text-xs text-gray-400">Preview Mode</p>
                             </div>
                         </div>
-                        <a href="Gourmet_회사소개서.pdf" download class="flex items-center gap-2 bg-brand-gold text-brand-navy px-5 py-2 rounded-lg font-bold hover:bg-yellow-400 transition text-sm w-full md:w-auto justify-center">
-                            <i class="fa-solid fa-download"></i> PDF 다운로드
-                        </a>
+                        <div class="flex gap-2 w-full md:w-auto">
+                            <a href="Gourmet_회사소개서.pdf" target="_blank" class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-white/20 text-white px-5 py-2 rounded-lg font-bold hover:bg-white/30 transition text-sm">
+                                <i class="fa-solid fa-expand"></i> 새 탭에서 크게 보기
+                            </a>
+                            <a href="Gourmet_회사소개서.pdf" download class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-brand-gold text-brand-navy px-5 py-2 rounded-lg font-bold hover:bg-yellow-400 transition text-sm">
+                                <i class="fa-solid fa-download"></i> 저장
+                            </a>
+                        </div>
                     </div>
 
-                    <div class="relative w-full h-[800px] bg-gray-50 hidden md:block">
-                        <iframe src="Gourmet_회사소개서.pdf#toolbar=0&navpanes=0&scrollbar=0" class="w-full h-full border-0" title="Company Profile PDF"></iframe>
+                    <div class="relative w-full h-[600px] bg-gray-50 hidden md:block group">
+                        <iframe src="Gourmet_회사소개서.pdf#toolbar=0&navpanes=0&scrollbar=1" class="w-full h-full border-0" title="Company Profile PDF"></iframe>
                         
-                        <div class="absolute inset-0 flex items-center justify-center -z-10">
-                            <p class="text-gray-500">PDF 로딩 중입니다...</p>
+                        <div class="absolute inset-0 pointer-events-none bg-black/0 group-hover:bg-black/5 transition flex items-center justify-center">
+                            <span class="bg-black/70 text-white px-4 py-2 rounded-full text-sm opacity-0 group-hover:opacity-100 transition">
+                                스크롤하여 미리보기
+                            </span>
                         </div>
                     </div>
 
                     <div class="md:hidden p-8 text-center bg-gray-50">
-                        <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-md text-red-500 text-4xl">
-                            <i class="fa-solid fa-file-pdf"></i>
+                        <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-md text-brand-navy text-4xl">
+                            <i class="fa-solid fa-book-open"></i>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-2">모바일 환경입니다</h3>
                         <p class="text-gray-600 mb-8 text-sm">
-                            작은 화면에서는 PDF 뷰어가 원활하지 않을 수 있습니다.<br>
-                            아래 버튼을 눌러 파일을 직접 다운로드하여 확인해주세요.
+                            아래 버튼을 누르면 PDF 뷰어가 전체 화면으로 열립니다.
                         </p>
                         <a href="Gourmet_회사소개서.pdf" target="_blank" class="block w-full bg-brand-navy text-white py-4 rounded-xl font-bold shadow-lg hover:bg-slate-800 transition">
-                            회사소개서 열기 (PDF)
+                            회사소개서 전체 보기 (PDF)
                         </a>
                     </div>
 
