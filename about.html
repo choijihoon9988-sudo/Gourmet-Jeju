@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>구르메 제주 - 회사 소개</title>
+    <title>구르메 제주 - E-카탈로그</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
@@ -62,238 +62,94 @@
     </header>
 
     <main class="pt-20">
-        <section class="relative h-[500px] flex items-center justify-center text-center text-white">
+        <section class="relative h-[400px] flex items-center justify-center text-center text-white">
             <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070&auto=format&fit=crop')"></div>
             <div class="absolute inset-0 bg-black/60"></div>
             <div class="relative z-10 px-6 animate-fade-in-up">
-                <span class="block text-brand-gold font-bold tracking-widest mb-2">EUROPEAN FOOD CURATOR</span>
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-6 drop-shadow-lg">유럽의 미식을 제주에 심다</h1>
-                <p class="text-xl max-w-2xl mx-auto text-gray-200">
-                    1998년부터 이어온 구르메 F&B의 정통성과<br>
-                    제주 현지의 독보적인 물류 시스템이 만났습니다.
+                <span class="block text-brand-gold font-bold tracking-widest mb-2">DIGITAL CATALOG</span>
+                <h1 class="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-lg">구르메 제주 회사소개서</h1>
+                <p class="text-lg max-w-2xl mx-auto text-gray-200">
+                    2,000여 종의 프리미엄 식자재와 파트너십 정보를<br>
+                    디지털 E-카탈로그로 확인하세요.
                 </p>
                 <div class="mt-8">
-                    <a href="#" onclick="alert('회사소개서(PDF) 다운로드를 시작합니다.'); return false;" class="inline-flex items-center bg-white/20 backdrop-blur-md border border-white text-white px-8 py-3 rounded-full hover:bg-white hover:text-brand-navy transition font-bold group">
-                        <i class="fa-solid fa-file-arrow-down mr-2 group-hover:scale-110 transition-transform"></i> 회사소개서 다운로드 (PDF)
+                    <a href="#catalog-viewer" class="inline-flex items-center bg-brand-orange text-white px-8 py-3 rounded-full hover:bg-orange-600 transition font-bold shadow-lg">
+                        카탈로그 바로보기 <i class="fa-solid fa-book-open ml-2"></i>
                     </a>
                 </div>
             </div>
         </section>
 
-        <section class="py-24 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="flex flex-col lg:flex-row gap-16 items-center">
-                    <div class="lg:w-1/2">
-                        <img src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=2070&auto=format&fit=crop" alt="Gourmet History" class="rounded-2xl shadow-xl">
-                    </div>
-                    <div class="lg:w-1/2">
-                        <span class="text-brand-orange font-bold tracking-wider text-sm">SINCE 1998</span>
-                        <h2 class="text-3xl font-bold text-gray-900 mt-2 mb-6">한국 미식 문화의 개척자,<br>구르메 F&B 코리아</h2>
-                        <div class="space-y-6 text-gray-600 leading-relaxed">
-                            <p>
-                                구르메 F&B 코리아는 1998년 5월, 유럽계 투자회사인 <strong>French F&B Japan</strong>과 유럽 식자재 공급업체인 <strong>Faye Gastronomie SA</strong>와의 3자 합작으로 설립된 외국투자법인입니다.
-                            </p>
-                            <p>
-                                일본의 고급 호텔과 레스토랑에 유럽 식자재를 공급하던 노하우와, 파리 렁지스(Rungis) 시장에서 최고 품질의 식재료를 선별하는 전문성을 바탕으로 한국 시장에 첫발을 내디뎠습니다.
-                            </p>
-                            <div class="bg-gray-50 p-8 rounded-xl border-l-4 border-brand-navy mt-6 shadow-sm">
-                                <p class="italic font-medium text-brand-navy text-lg leading-relaxed">
-                                    "단순한 수입사가 아닌, 유럽 식품 외교관으로서 새로운 식문화를 주도하겠습니다. 삶을 즐겁게 하고 건강한 자연 식품을 소개하는 선구자의 역할에 최선을 다할 것을 다짐합니다."
-                                </p>
-                                <p class="text-right text-sm mt-4 font-bold text-gray-500">- CEO Message -</p>
+        <section id="catalog-viewer" class="py-16 bg-gray-100">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
+                    
+                    <div class="bg-brand-navy text-white p-4 md:p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-white/10 p-2 rounded-lg">
+                                <i class="fa-solid fa-file-pdf text-2xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-lg font-bold">Gourmet F&B Korea Official Profile</h2>
+                                <p class="text-xs text-gray-400">Last Updated: 2025.10.16</p>
                             </div>
                         </div>
+                        <a href="Gourmet_회사소개서.pdf" download class="flex items-center gap-2 bg-brand-gold text-brand-navy px-5 py-2 rounded-lg font-bold hover:bg-yellow-400 transition text-sm w-full md:w-auto justify-center">
+                            <i class="fa-solid fa-download"></i> PDF 다운로드
+                        </a>
+                    </div>
+
+                    <div class="relative w-full h-[800px] bg-gray-50 hidden md:block">
+                        <iframe src="Gourmet_회사소개서.pdf#toolbar=0&navpanes=0&scrollbar=0" class="w-full h-full border-0" title="Company Profile PDF"></iframe>
+                        
+                        <div class="absolute inset-0 flex items-center justify-center -z-10">
+                            <p class="text-gray-500">PDF 로딩 중입니다...</p>
+                        </div>
+                    </div>
+
+                    <div class="md:hidden p-8 text-center bg-gray-50">
+                        <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-md text-red-500 text-4xl">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">모바일 환경입니다</h3>
+                        <p class="text-gray-600 mb-8 text-sm">
+                            작은 화면에서는 PDF 뷰어가 원활하지 않을 수 있습니다.<br>
+                            아래 버튼을 눌러 파일을 직접 다운로드하여 확인해주세요.
+                        </p>
+                        <a href="Gourmet_회사소개서.pdf" target="_blank" class="block w-full bg-brand-navy text-white py-4 rounded-xl font-bold shadow-lg hover:bg-slate-800 transition">
+                            회사소개서 열기 (PDF)
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                        <h4 class="font-bold text-brand-navy mb-2"><i class="fa-solid fa-check text-brand-orange mr-2"></i> Brand Portfolio</h4>
+                        <p class="text-sm text-gray-600">이즈니, 루지에, 빔스터 등 20여 개 독점 수입 브랜드 정보 수록</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                        <h4 class="font-bold text-brand-navy mb-2"><i class="fa-solid fa-check text-brand-orange mr-2"></i> Logistics</h4>
+                        <p class="text-sm text-gray-600">제주 현지 물류 센터 및 콜드체인 시스템 상세 소개</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                        <h4 class="font-bold text-brand-navy mb-2"><i class="fa-solid fa-check text-brand-orange mr-2"></i> Partners</h4>
+                        <p class="text-sm text-gray-600">주요 특급 호텔 및 파인 다이닝 거래 실적 포함</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-24 bg-gray-50">
+        <section class="py-20 bg-white">
             <div class="container mx-auto px-6 text-center">
-                <div class="mb-16">
-                    <h2 class="text-3xl font-bold text-brand-navy mb-4">Our Philosophy</h2>
-                    <p class="text-gray-600">더 좋은, 더 건강한, 더 다양한 미식을 전합니다.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                    <div class="p-8 bg-white rounded-2xl border border-gray-100 hover:shadow-lg transition duration-300 transform hover:-translate-y-1">
-                        <div class="w-20 h-20 mx-auto bg-brand-navy text-white rounded-full flex items-center justify-center text-3xl mb-6 shadow-md"><i class="fa-solid fa-star"></i></div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Good (질)</h3>
-                        <p class="text-gray-600 break-keep leading-relaxed"><strong>최고의 질(Quality)을 추구합니다.</strong><br>제품에 대한 공정한 가격, 풍부하고 정확한 정보, 신속하고 지속적인 서비스를 약속합니다.</p>
-                    </div>
-                    <div class="p-8 bg-white rounded-2xl border border-gray-100 hover:shadow-lg transition duration-300 transform hover:-translate-y-1">
-                        <div class="w-20 h-20 mx-auto bg-green-600 text-white rounded-full flex items-center justify-center text-3xl mb-6 shadow-md"><i class="fa-solid fa-leaf"></i></div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Green (건강)</h3>
-                        <p class="text-gray-600 break-keep leading-relaxed"><strong>건강한 식문화를 선도합니다.</strong><br>자연에 가까운 건강한 식재료를 엄선하여 고객의 식탁에 올립니다.</p>
-                    </div>
-                    <div class="p-8 bg-white rounded-2xl border border-gray-100 hover:shadow-lg transition duration-300 transform hover:-translate-y-1">
-                        <div class="w-20 h-20 mx-auto bg-brand-gold text-white rounded-full flex items-center justify-center text-3xl mb-6 shadow-md"><i class="fa-solid fa-utensils"></i></div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Gourmet (미식)</h3>
-                        <p class="text-gray-600 break-keep leading-relaxed"><strong>서양 미식의 진수를 전합니다.</strong><br>17개국 80여 파트너사와 함께 다채로운 미식 경험을 제공합니다.</p>
-                    </div>
-                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">원하시는 식자재를 찾으셨나요?</h2>
+                <p class="text-gray-600 mb-10">회사소개서에 있는 모든 상품은 제주 전역 익일 배송이 가능합니다.</p>
+                <a href="products.html" class="inline-block bg-brand-navy text-white px-10 py-4 rounded-lg font-bold hover:bg-slate-800 transition shadow-lg transform hover:-translate-y-1">
+                    온라인 견적 요청하기
+                </a>
             </div>
         </section>
 
-        <section class="py-24 bg-brand-navy text-white">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-bold mb-4">4-Step Value Chain</h2>
-                    <p class="text-gray-300">전문적이고 체계적인 소싱 및 유통 인프라를 통해 최상의 가치를 전달합니다.</p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
-                    <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-white/20 -translate-y-1/2 z-0"></div>
-
-                    <div class="relative z-10 bg-brand-navy p-4">
-                        <div class="w-16 h-16 mx-auto bg-brand-gold text-brand-navy rounded-full flex items-center justify-center text-2xl font-bold mb-4 border-4 border-brand-navy shadow-lg">01</div>
-                        <h3 class="text-xl font-bold mb-2">소싱 (Sourcing)</h3>
-                        <p class="text-sm text-gray-400 break-keep">글로벌 소싱 네트워크를 통한 다양한 제품 확보 및 생산자 선제안</p>
-                    </div>
-                    <div class="relative z-10 bg-brand-navy p-4">
-                        <div class="w-16 h-16 mx-auto bg-brand-gold text-brand-navy rounded-full flex items-center justify-center text-2xl font-bold mb-4 border-4 border-brand-navy shadow-lg">02</div>
-                        <h3 class="text-xl font-bold mb-2">수입 (Import)</h3>
-                        <p class="text-sm text-gray-400 break-keep">검역/검사/선적 노하우와 코스트 리더쉽을 통한 효율적인 제품 공급</p>
-                    </div>
-                    <div class="relative z-10 bg-brand-navy p-4">
-                        <div class="w-16 h-16 mx-auto bg-brand-gold text-brand-navy rounded-full flex items-center justify-center text-2xl font-bold mb-4 border-4 border-brand-navy shadow-lg">03</div>
-                        <h3 class="text-xl font-bold mb-2">유통 (Distribution)</h3>
-                        <p class="text-sm text-gray-400 break-keep">100% 냉장/냉동 운송 및 대형 물류센터를 통한 철저한 품질 관리</p>
-                    </div>
-                    <div class="relative z-10 bg-brand-navy p-4">
-                        <div class="w-16 h-16 mx-auto bg-brand-gold text-brand-navy rounded-full flex items-center justify-center text-2xl font-bold mb-4 border-4 border-brand-navy shadow-lg">04</div>
-                        <h3 class="text-xl font-bold mb-2">판매 (Sales)</h3>
-                        <p class="text-sm text-gray-400 break-keep">식자재 전반에 대한 전문성을 바탕으로 고객사에 정확한 정보와 솔루션 전달</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-20 bg-white border-b border-gray-100">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <span class="text-brand-orange font-bold tracking-wider text-sm">ORGANIZATION</span>
-                    <h2 class="text-3xl font-bold text-gray-900 mt-2">체계적인 전문 조직</h2>
-                    <p class="text-gray-600 mt-2">구매부터 물류, 마케팅까지 각 분야의 전문가들이 함께합니다.</p>
-                </div>
-                <div class="max-w-5xl mx-auto">
-                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
-                        <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-brand-navy transition">
-                            <div class="text-brand-navy text-2xl mb-2"><i class="fa-solid fa-handshake"></i></div>
-                            <h4 class="font-bold text-gray-800">영업팀</h4>
-                            <p class="text-xs text-gray-500 mt-1">Sales</p>
-                        </div>
-                        <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-brand-navy transition">
-                            <div class="text-brand-navy text-2xl mb-2"><i class="fa-solid fa-users-gear"></i></div>
-                            <h4 class="font-bold text-gray-800">영업관리팀</h4>
-                        </div>
-                        <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-brand-navy transition">
-                            <div class="text-brand-navy text-2xl mb-2"><i class="fa-solid fa-bullhorn"></i></div>
-                            <h4 class="font-bold text-gray-800">마케팅팀</h4>
-                            <p class="text-xs text-gray-500 mt-1">Marketing</p>
-                        </div>
-                        <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-brand-navy transition">
-                            <div class="text-brand-navy text-2xl mb-2"><i class="fa-solid fa-globe"></i></div>
-                            <h4 class="font-bold text-gray-800">무역팀</h4>
-                            <p class="text-xs text-gray-500 mt-1">Trading</p>
-                        </div>
-                        <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-brand-navy transition">
-                            <div class="text-brand-navy text-2xl mb-2"><i class="fa-solid fa-truck-fast"></i></div>
-                            <h4 class="font-bold text-gray-800">물류팀</h4>
-                            <p class="text-xs text-gray-500 mt-1">Logistics</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-24 bg-gray-50">
-            <div class="container mx-auto px-6">
-                <div class="flex flex-col lg:flex-row gap-16 items-center">
-                    <div class="lg:w-1/2">
-                        <span class="text-brand-orange font-bold tracking-wider text-sm">INFRASTRUCTURE</span>
-                        <h2 class="text-3xl font-bold text-gray-900 mt-2 mb-8">제주에 최적화된<br>완벽한 콜드체인 시스템</h2>
-                        <div class="space-y-6">
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm text-brand-navy text-xl"><i class="fa-solid fa-temperature-low"></i></div>
-                                <div class="ml-4">
-                                    <h4 class="text-lg font-bold text-gray-900">데이터 로거 모니터링</h4>
-                                    <p class="text-gray-600 text-sm">운송 중 발생할 수 있는 '열충격(Heat Shock)'을 방지하기 위해 온/습도를 실시간으로 체크합니다.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm text-brand-navy text-xl"><i class="fa-solid fa-truck-fast"></i></div>
-                                <div class="ml-4">
-                                    <h4 class="text-lg font-bold text-gray-900">100% 냉장/냉동 탑차</h4>
-                                    <p class="text-gray-600 text-sm">여름철에도 안심할 수 있도록, 일반 용달이 아닌 자체 보유 냉동 탑차로 제주 전역을 직배송합니다.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm text-brand-navy text-xl"><i class="fa-solid fa-warehouse"></i></div>
-                                <div class="ml-4">
-                                    <h4 class="text-lg font-bold text-gray-900">제주 현지 대형 물류센터</h4>
-                                    <p class="text-gray-600 text-sm">육지 배송 지연 리스크를 없애기 위해, 대규모 재고를 제주 현지에서 직접 관리하고 출고합니다.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="lg:w-1/2">
-                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop" alt="Cold Chain Logistics" class="rounded-2xl shadow-xl">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-24 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-bold text-gray-900">Our History</h2>
-                </div>
-                <div class="max-w-3xl mx-auto border-l-2 border-gray-200 pl-8 ml-4 md:ml-0 relative space-y-12">
-                    <div class="relative">
-                        <span class="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-brand-navy border-4 border-white shadow-sm"></span>
-                        <h4 class="font-bold text-xl text-brand-navy">1998</h4>
-                        <p class="text-gray-600 mt-1">이태원에서 구르메 F&B 코리아 설립 (유럽 합작 법인)</p>
-                    </div>
-                    <div class="relative">
-                        <span class="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-gray-300 border-4 border-white"></span>
-                        <h4 class="font-bold text-xl text-gray-800">2000~2010</h4>
-                        <p class="text-gray-600 mt-1">서빙고동/풍납동 확장 이전<br>국내 특급 호텔 및 백화점 공급망 구축</p>
-                    </div>
-                    <div class="relative">
-                        <span class="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-gray-300 border-4 border-white"></span>
-                        <h4 class="font-bold text-xl text-gray-800">2012</h4>
-                        <p class="text-gray-600 mt-1">대형 물류창고 확장 이전 (구리)<br>본사 구의동 확장 이전</p>
-                    </div>
-                    <div class="relative">
-                        <span class="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-gray-300 border-4 border-white"></span>
-                        <h4 class="font-bold text-xl text-gray-800">2015</h4>
-                        <p class="text-gray-600 mt-1"><strong>구르메 제주 설립</strong> (제주 대리점 출범)<br>제주 특급 호텔 및 파인 다이닝 공급 개시</p>
-                    </div>
-                    <div class="relative">
-                        <span class="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-brand-gold border-4 border-white shadow-sm"></span>
-                        <h4 class="font-bold text-xl text-gray-800">Present</h4>
-                        <p class="text-gray-600 mt-1">제주 전역 300여 파트너사와 함께 성장 중</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-20 bg-gray-50">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl font-bold text-gray-900 mb-12">Our Partners</h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 opacity-60">
-                    <div class="flex items-center justify-center h-20 bg-white rounded border border-gray-200 font-bold text-gray-500 hover:border-brand-navy hover:text-brand-navy transition">Grand Hyatt</div>
-                    <div class="flex items-center justify-center h-20 bg-white rounded border border-gray-200 font-bold text-gray-500 hover:border-brand-navy hover:text-brand-navy transition">The Shilla</div>
-                    <div class="flex items-center justify-center h-20 bg-white rounded border border-gray-200 font-bold text-gray-500 hover:border-brand-navy hover:text-brand-navy transition">Lotte Hotel</div>
-                    <div class="flex items-center justify-center h-20 bg-white rounded border border-gray-200 font-bold text-gray-500 hover:border-brand-navy hover:text-brand-navy transition">Haevichi</div>
-                    <div class="flex items-center justify-center h-20 bg-white rounded border border-gray-200 font-bold text-gray-500 hover:border-brand-navy hover:text-brand-navy transition">Josun Hotel</div>
-                    <div class="flex items-center justify-center h-20 bg-white rounded border border-gray-200 font-bold text-gray-500 hover:border-brand-navy hover:text-brand-navy transition">Marriott</div>
-                    <div class="flex items-center justify-center h-20 bg-white rounded border border-gray-200 font-bold text-gray-500 hover:border-brand-navy hover:text-brand-navy transition">Emart</div>
-                    <div class="flex items-center justify-center h-20 bg-white rounded border border-gray-200 font-bold text-gray-500 hover:border-brand-navy hover:text-brand-navy transition">Costco</div>
-                </div>
-                <p class="mt-8 text-gray-500 text-sm">* 국내 특급 호텔 및 대형 유통사 20여 곳 이상 파트너십 보유</p>
-            </div>
-        </section>
     </main>
 
     <footer class="bg-brand-navy text-white py-12 border-t border-white/10 pb-28 md:pb-12">
