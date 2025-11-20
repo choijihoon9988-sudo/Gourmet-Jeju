@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
 
@@ -181,7 +181,7 @@
             <i class="fa-solid fa-chevron-down"></i>
         </div>
     </section>
-    
+
     <section class="bg-white py-20 border-b border-slate-100">
         <div class="container mx-auto px-6 text-center">
             <span class="text-brand-navy/60 text-xs font-bold tracking-[0.2em] uppercase block mb-4">Client & Partners</span>
@@ -199,47 +199,67 @@
         </div>
     </section>
 
-    <section class="py-24 bg-brand-light">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-20">
-                <span class="text-brand-orange font-bold tracking-wider text-sm uppercase mb-2 block">Why Gourmet Jeju?</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-brand-navy mb-6">제주 사장님의 성공을 위한<br>3가지 약속</h2>
-                <p class="text-slate-500 text-lg max-w-2xl mx-auto break-keep">
-                    육지보다 비싼 물류비, 늦어지는 배송, 불안한 재고.<br>
-                    구르메 제주는 이 모든 고민을 해결해 드립니다.
+    <section class="py-24 bg-brand-light relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-brand-gold/5 rounded-full blur-3xl"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-24">
+                <span class="font-serif-eng italic text-brand-gold text-2xl md:text-3xl mb-3 block">Why Gourmet Jeju?</span>
+                <h2 class="text-3xl md:text-5xl font-bold text-brand-navy mb-8 leading-tight">
+                    제주 비즈니스의 성공을 위한<br>
+                    <span class="relative inline-block">
+                        <span class="relative z-10">3가지 핵심 솔루션</span>
+                        <span class="absolute bottom-1 left-0 w-full h-3 bg-brand-gold/20 -z-0"></span>
+                    </span>
+                </h2>
+                <p class="text-slate-500 text-lg max-w-2xl mx-auto break-keep font-light">
+                    육지보다 비싼 물류비, 불안정한 배송, 부족한 재고.<br>
+                    구르메 제주는 이 모든 고민을 <strong>'시스템'</strong>으로 해결했습니다.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-10 rounded-3xl shadow-card hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group border border-slate-100">
-                    <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-navy transition-colors duration-300">
-                        <i class="fa-solid fa-hand-holding-dollar text-3xl text-brand-navy group-hover:text-brand-gold transition-colors"></i>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+                <div class="group bg-white p-10 rounded-[2rem] shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-100 relative overflow-hidden flex flex-col">
+                    <div class="absolute -right-4 -top-4 text-[150px] font-serif-eng font-bold text-slate-50 opacity-50 group-hover:text-brand-gold/10 transition-colors select-none leading-none">01</div>
+                    <div class="relative z-10 flex flex-col h-full">
+                        <div class="w-16 h-16 rounded-2xl bg-brand-navy/5 flex items-center justify-center mb-8 group-hover:bg-brand-navy group-hover:text-white transition-all duration-500">
+                            <i class="fa-solid fa-hand-holding-dollar text-3xl text-brand-navy group-hover:text-brand-gold transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-serif-eng italic text-brand-gold mb-2">Direct Pricing</h3>
+                        <h4 class="text-2xl font-bold text-slate-800 mb-4 group-hover:text-brand-navy transition-colors">중간 유통 없는 직거래</h4>
+                        <p class="text-slate-500 leading-relaxed text-sm md:text-base break-keep">
+                            10여 곳의 수입 본사와 직접 계약하여 <span class="text-slate-800 font-bold border-b border-brand-gold/30">서울과 동일한 공급가</span>를 실현했습니다. 불필요한 마진을 걷어내고 원가 경쟁력을 선물합니다.
+                        </p>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-800 mb-4">중간 마진 Zero</h3>
-                    <p class="text-slate-600 leading-relaxed">
-                        10여 곳의 수입 본사와 직접 계약하여 서울과 동일한 공급가를 실현했습니다. 불필요한 유통 단계를 걷어내고 원가 경쟁력을 선물합니다.
-                    </p>
                 </div>
 
-                <div class="bg-white p-10 rounded-3xl shadow-card hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group border border-slate-100 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 bg-brand-orange text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg">BEST</div>
-                    <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-orange transition-colors duration-300">
-                        <i class="fa-solid fa-truck-fast text-3xl text-brand-orange group-hover:text-white transition-colors"></i>
+                <div class="group bg-brand-navy p-10 rounded-[2rem] shadow-2xl hover:shadow-glow transition-all duration-500 hover:-translate-y-2 border border-brand-navy relative overflow-hidden text-white flex flex-col transform md:-translate-y-4">
+                    <div class="absolute -right-4 -top-4 text-[150px] font-serif-eng font-bold text-white opacity-5 group-hover:text-brand-gold/10 transition-colors select-none leading-none">02</div>
+                    <div class="relative z-10 flex flex-col h-full">
+                        <div class="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-brand-navy transition-all duration-500">
+                            <i class="fa-solid fa-truck-fast text-3xl text-brand-gold group-hover:text-brand-navy transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-serif-eng italic text-brand-gold mb-2">Cold Chain System</h3>
+                        <h4 class="text-2xl font-bold text-white mb-4">제주 전역 익일 배송</h4>
+                        <p class="text-white/70 leading-relaxed text-sm md:text-base break-keep">
+                            오후 2시 주문 시 <span class="text-white font-bold border-b border-brand-gold/30">내일 매장 앞 도착</span>. 구르메 제주 전용 물류센터와 냉동 탑차로 셰프님의 주방까지 가장 신선한 온도를 유지합니다.
+                        </p>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-800 mb-4">제주 전역 익일 배송</h3>
-                    <p class="text-slate-600 leading-relaxed">
-                        제주 현지 물류센터 보유. 오후 2시까지 주문하면 내일 매장 앞으로 도착합니다. 구르메 제주 전용 냉동 탑차로 신선함을 보장합니다.
-                    </p>
                 </div>
 
-                <div class="bg-white p-10 rounded-3xl shadow-card hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group border border-slate-100">
-                    <div class="w-16 h-16 bg-yellow-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-brand-gold transition-colors duration-300">
-                        <i class="fa-solid fa-certificate text-3xl text-brand-gold group-hover:text-white transition-colors"></i>
+                <div class="group bg-white p-10 rounded-[2rem] shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-100 relative overflow-hidden flex flex-col">
+                    <div class="absolute -right-4 -top-4 text-[150px] font-serif-eng font-bold text-slate-50 opacity-50 group-hover:text-brand-gold/10 transition-colors select-none leading-none">03</div>
+                    <div class="relative z-10 flex flex-col h-full">
+                        <div class="w-16 h-16 rounded-2xl bg-brand-navy/5 flex items-center justify-center mb-8 group-hover:bg-brand-navy group-hover:text-white transition-all duration-500">
+                            <i class="fa-solid fa-medal text-3xl text-brand-navy group-hover:text-brand-gold transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-serif-eng italic text-brand-gold mb-2">Premium Selection</h3>
+                        <h4 class="text-2xl font-bold text-slate-800 mb-4 group-hover:text-brand-navy transition-colors">검증된 글로벌 브랜드</h4>
+                        <p class="text-slate-500 leading-relaxed text-sm md:text-base break-keep">
+                            이즈니(Isigny), 디벨라(Divella), 루지에(Rougié). <span class="text-slate-800 font-bold border-b border-brand-gold/30">미슐랭 셰프들이 선택한</span> 2,000여 종의 세계적인 브랜드를 안정적으로 공급합니다.
+                        </p>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-800 mb-4">글로벌 No.1 브랜드</h3>
-                    <p class="text-slate-600 leading-relaxed">
-                        이즈니(Isigny), 디벨라(Divella), 루지에(Rougié). 특급 호텔 셰프들이 검증한 세계 최고의 브랜드만을 엄선하여 공급합니다.
-                    </p>
                 </div>
             </div>
         </div>
@@ -249,7 +269,7 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12">
                 <div>
-                    <span class="text-brand-navy font-bold tracking-wider text-sm uppercase mb-2 block">Our Brands</span>
+                    <span class="text-brand-navy font-bold tracking-wider text-sm uppercase block mb-2">Our Brands</span>
                     <h2 class="text-3xl font-bold text-slate-900">Premium Selection</h2>
                 </div>
                 <a href="products.html" class="hidden md:inline-flex items-center text-brand-navy font-bold hover:text-brand-orange transition">
