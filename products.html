@@ -10,17 +10,11 @@
     <style>
         [x-cloak] { display: none!important; }
         .font-pretendard { font-family: 'Pretendard', system-ui, sans-serif; }
-        /* Chatbot Styles */
-        .chat-bubble { position: relative; max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 0.95rem; line-height: 1.5; margin-bottom: 10px; word-break: keep-all; }
-        .chat-bubble.bot { background-color: #f3f4f6; color: #1f2937; border-top-left-radius: 4px; }
-        .chat-bubble.user { background-color: #ea580c; color: white; border-top-right-radius: 4px; margin-left: auto; }
-        .typing-indicator span { display: inline-block; width: 6px; height: 6px; background-color: #9ca3af; border-radius: 50%; animation: typing 1.4s infinite both; margin: 0 2px; }
-        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
-        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes typing { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.5); opacity: 0.5; } }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        /* 커스텀 스크롤바 */
+        .brand-scroll::-webkit-scrollbar { height: 6px; }
+        .brand-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .brand-scroll::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+        .brand-scroll::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
     </style>
     <script>
         tailwind.config = {
@@ -33,7 +27,7 @@
         }
     </script>
 </head>
-<body class="bg-white text-gray-800 font-sans antialiased" x-data="app()">
+<body class="bg-white text-gray-800 font-sans antialiased" x-data="productApp()">
 
     <header class="bg-white shadow-sm fixed w-full z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -44,207 +38,310 @@
                 <a href="index.html" class="text-gray-600 hover:text-brand-navy font-medium transition-colors">Home</a>
                 <a href="about.html" class="text-gray-600 hover:text-brand-navy font-medium transition-colors">About</a>
                 <a href="journal.html" class="text-gray-600 hover:text-brand-navy font-medium transition-colors">Journal</a>
-                <a href="#" class="text-brand-navy font-bold transition-colors">Products</a>
-                <div class="relative cursor-pointer" @click="scrollToCart()">
-                    <i class="fa-solid fa-clipboard-list text-2xl text-brand-navy"></i>
-                    <span x-show="cart.length > 0" class="absolute -top-2 -right-2 bg-brand-orange text-white text-xs font-bold px-1.5 py-0.5 rounded-full" x-text="cart.length"></span>
+                <a href="#" class="text-brand-navy font-bold transition-colors border-b-2 border-brand-navy pb-1">Products</a>
+                <div class="relative cursor-pointer group" @click="scrollToCart()">
+                    <div class="p-2 rounded-full group-hover:bg-gray-100 transition">
+                        <i class="fa-solid fa-clipboard-list text-2xl text-brand-navy"></i>
+                        <span x-show="cart.length > 0" class="absolute top-0 right-0 bg-brand-orange text-white text-xs font-bold px-1.5 py-0.5 rounded-full transform scale-90 border-2 border-white" x-text="cart.length"></span>
+                    </div>
                 </div>
             </div>
-            <div class="md:hidden flex items-center gap-4">
-                <div class="relative cursor-pointer" @click="scrollToCart()">
-                    <i class="fa-solid fa-clipboard-list text-2xl text-brand-navy"></i>
-                    <span x-show="cart.length > 0" class="absolute -top-2 -right-2 bg-brand-orange text-white text-xs font-bold px-1.5 py-0.5 rounded-full" x-text="cart.length"></span>
-                </div>
-                <button @click="open =!open" class="text-gray-800 focus:outline-none p-2"><i class="fas fa-bars text-2xl"></i></button>
-            </div>
-        </nav>
-        <div x-show="open" x-cloak @click.away="open = false" class="md:hidden absolute top-full left-0 w-full bg-white shadow-lg py-2 z-40 border-t border-gray-100" x-data="{ open: false }">
-            <a href="index.html" class="block px-6 py-3 text-lg border-b hover:bg-gray-50">Home</a>
-            <a href="about.html" class="block px-6 py-3 text-lg border-b hover:bg-gray-50">About</a>
-            <a href="journal.html" class="block px-6 py-3 text-lg border-b hover:bg-gray-50">Journal</a>
-            <a href="#" class="block px-6 py-3 text-lg border-b font-bold text-brand-navy bg-gray-50">Products</a>
-        </div>
+            </nav>
     </header>
 
     <main class="pt-24 pb-20">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h1 class="text-3xl font-bold text-gray-900 mb-4">Digital Pantry</h1>
-                <p class="text-gray-500 mb-8">필요한 식자재를 담아주세요. 담당자가 재고 확인 후 최저가 견적서를 보내드립니다.</p>
+            
+            <div class="text-center mb-10">
+                <h1 class="text-3xl font-bold text-gray-900 mb-3">Digital Pantry</h1>
+                <p class="text-gray-500 mb-8">2,000여 종의 프리미엄 식자재를 한 곳에서. 필요한 모든 것을 담아 견적을 요청하세요.</p>
                 
                 <div class="max-w-xl mx-auto relative mb-8">
-                    <input type="text" x-model="searchQuery" placeholder="상품명 검색 (예: 버터, 파스타)" class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-full focus:border-brand-navy focus:outline-none transition text-lg">
-                    <i class="fa-solid fa-search absolute left-5 top-4 text-gray-400 text-lg"></i>
-                </div>
-
-                <div class="flex flex-wrap justify-center gap-2">
-                    <button @click="filterCategory('all')" :class="currentCategory === 'all' ? 'bg-brand-navy text-white' : 'bg-gray-100 text-gray-600'" class="px-5 py-2 rounded-full font-bold text-sm transition">전체</button>
-                    <button @click="filterCategory('dairy')" :class="currentCategory === 'dairy' ? 'bg-brand-navy text-white' : 'bg-gray-100 text-gray-600'" class="px-5 py-2 rounded-full font-bold text-sm transition">치즈/버터</button>
-                    <button @click="filterCategory('grocery')" :class="currentCategory === 'grocery' ? 'bg-brand-navy text-white' : 'bg-gray-100 text-gray-600'" class="px-5 py-2 rounded-full font-bold text-sm transition">파스타/오일</button>
-                    <button @click="filterCategory('meat')" :class="currentCategory === 'meat' ? 'bg-brand-navy text-white' : 'bg-gray-100 text-gray-600'" class="px-5 py-2 rounded-full font-bold text-sm transition">샤퀴테리</button>
-                    <button @click="filterCategory('japanese')" :class="currentCategory === 'japanese' ? 'bg-brand-navy text-white' : 'bg-gray-100 text-gray-600'" class="px-5 py-2 rounded-full font-bold text-sm transition">일본식자재</button>
+                    <input type="text" x-model="searchQuery" placeholder="상품명, 브랜드 검색 (예: 이즈니, 파스타)" 
+                           class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-full focus:border-brand-navy focus:ring-0 focus:outline-none transition text-lg shadow-sm">
+                    <i class="fa-solid fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+            <div class="mb-10 space-y-6">
+                <div class="flex flex-wrap justify-center gap-2">
+                    <template x-for="cat in categories" :key="cat.id">
+                        <button @click="filterCategory(cat.id)" 
+                                :class="currentCategory === cat.id ? 'bg-brand-navy text-white shadow-md' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'" 
+                                class="px-5 py-2.5 rounded-full font-bold text-sm transition-all" x-text="cat.name"></button>
+                    </template>
+                </div>
+
+                <div class="relative max-w-4xl mx-auto">
+                    <div class="flex overflow-x-auto gap-3 pb-4 brand-scroll px-2" id="brandList">
+                        <button @click="filterBrand('all')" 
+                                :class="currentBrand === 'all' ? 'border-brand-navy text-brand-navy ring-1 ring-brand-navy bg-blue-50' : 'border-gray-200 text-gray-500 hover:border-gray-400'"
+                                class="shrink-0 px-4 py-1.5 rounded-lg border text-xs font-bold transition-all">
+                            ALL BRANDS
+                        </button>
+                        <template x-for="brand in uniqueBrands" :key="brand">
+                            <button @click="filterBrand(brand)" 
+                                    :class="currentBrand === brand ? 'border-brand-navy text-brand-navy ring-1 ring-brand-navy bg-blue-50' : 'border-gray-200 text-gray-500 hover:border-gray-400'"
+                                    class="shrink-0 px-4 py-1.5 rounded-lg border text-xs font-bold transition-all uppercase" x-text="brand">
+                            </button>
+                        </template>
+                    </div>
+                    <div class="absolute right-0 top-0 bottom-4 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none md:hidden"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20 min-h-[400px]">
                 <template x-for="product in filteredProducts" :key="product.id">
-                    <div class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition group overflow-hidden">
-                        <div class="relative h-48 bg-gray-100">
-                            <img :src="product.image" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                            <div x-show="product.tag" class="absolute top-2 left-2 bg-brand-navy text-white text-xs font-bold px-2 py-1 rounded" x-text="product.tag"></div>
+                    <div class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group overflow-hidden flex flex-col">
+                        <div class="relative h-48 bg-gray-100 overflow-hidden">
+                            <div class="w-full h-full flex flex-col items-center justify-center bg-slate-50 text-slate-300">
+                                <i class="fa-solid fa-image text-3xl mb-2"></i>
+                                <span class="text-xs font-medium" x-text="product.brandName"></span>
+                            </div>
+                            <div x-show="product.tag" class="absolute top-3 left-3 bg-brand-orange text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm" x-text="product.tag"></div>
                         </div>
-                        <div class="p-5">
-                            <p class="text-xs text-brand-orange font-bold mb-1" x-text="product.brandName"></p>
-                            <h4 class="font-bold text-lg text-gray-900 mb-1" x-text="product.name"></h4>
-                            <p class="text-sm text-gray-500 mb-4" x-text="product.desc"></p>
-                            <button @click="addToCart(product.name)" class="w-full border border-brand-navy text-brand-navy py-2 rounded-lg hover:bg-brand-navy hover:text-white transition font-bold text-sm">
-                                <i class="fa-solid fa-plus mr-1"></i> 견적함 담기
+                        
+                        <div class="p-5 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-1">
+                                <p class="text-xs font-bold text-brand-navy uppercase tracking-wide" x-text="product.brandName"></p>
+                                <span class="text-[10px] text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded" x-text="product.spec || '규격문의'"></span>
+                            </div>
+                            <h4 class="font-bold text-gray-900 mb-2 leading-snug line-clamp-2" x-text="product.name"></h4>
+                            <p class="text-xs text-gray-500 mb-4 line-clamp-2 flex-1" x-text="product.desc"></p>
+                            
+                            <button @click="addToCart(product)" 
+                                    :class="isInCart(product.id) ? 'bg-green-600 text-white border-green-600' : 'bg-white text-brand-navy border-brand-navy hover:bg-brand-navy hover:text-white'"
+                                    class="w-full border py-2.5 rounded-lg transition font-bold text-sm flex items-center justify-center gap-2">
+                                <i :class="isInCart(product.id) ? 'fa-solid fa-check' : 'fa-solid fa-cart-plus'"></i>
+                                <span x-text="isInCart(product.id) ? '담겼습니다' : '견적함 담기'"></span>
                             </button>
                         </div>
                     </div>
                 </template>
+                
+                <div x-show="filteredProducts.length === 0" class="col-span-full text-center py-20 text-gray-400">
+                    <i class="fa-regular fa-face-sad-tear text-4xl mb-3"></i>
+                    <p>검색 결과가 없습니다.</p>
+                </div>
             </div>
 
-            <div id="contact-form" class="max-w-2xl mx-auto bg-gray-50 rounded-2xl p-8 border border-gray-200 shadow-lg">
-                <h2 class="text-2xl font-bold text-center mb-6">견적 요청서 작성</h2>
+            <div id="contact-form" class="max-w-3xl mx-auto bg-white rounded-2xl p-8 md:p-10 border border-gray-200 shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1 bg-brand-orange"></div>
                 
-                <div class="mb-8 bg-white p-5 rounded-xl border border-orange-100">
-                    <h4 class="font-bold text-brand-orange mb-3 flex items-center"><i class="fa-solid fa-clipboard-check mr-2"></i> 문의 상품 리스트</h4>
-                    <div x-show="cart.length === 0" class="text-gray-400 text-sm text-center py-4">아직 담긴 상품이 없습니다.</div>
-                    <ul class="space-y-2 max-h-40 overflow-y-auto">
-                        <template x-for="(item, index) in cart" :key="index">
-                            <li class="flex justify-between items-center bg-gray-50 px-3 py-2 rounded border border-gray-100 text-sm">
-                                <span x-text="item" class="font-medium"></span>
-                                <button @click="removeFromCart(index)" class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-xmark"></i></button>
+                <h2 class="text-2xl font-bold text-center mb-8 text-brand-navy">
+                    <i class="fa-solid fa-file-signature mr-2"></i>통합 견적 요청서
+                </h2>
+                
+                <div class="mb-8 bg-slate-50 p-6 rounded-xl border border-slate-200">
+                    <div class="flex justify-between items-center mb-4 border-b border-slate-200 pb-3">
+                        <h4 class="font-bold text-gray-800 flex items-center">
+                            <span class="bg-brand-navy text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2" x-text="cart.length"></span>
+                            견적 요청 품목
+                        </h4>
+                        <button @click="clearCart()" x-show="cart.length > 0" class="text-xs text-gray-500 hover:text-red-500 underline">전체 삭제</button>
+                    </div>
+                    
+                    <div x-show="cart.length === 0" class="text-center py-8 text-gray-400 text-sm">
+                        <i class="fa-solid fa-basket-shopping text-3xl mb-2 text-gray-300"></i><br>
+                        아직 담긴 상품이 없습니다.<br>
+                        위 목록에서 필요한 식자재를 담아보세요.
+                    </div>
+
+                    <ul class="space-y-2 max-h-60 overflow-y-auto pr-2 custom-scroll">
+                        <template x-for="(item, index) in cart" :key="item.id">
+                            <li class="flex justify-between items-center bg-white px-4 py-3 rounded-lg border border-gray-100 shadow-sm text-sm group">
+                                <div>
+                                    <span class="text-[10px] font-bold text-brand-orange block mb-0.5" x-text="item.brandName"></span>
+                                    <span class="font-medium text-gray-800" x-text="item.name"></span>
+                                    <span class="text-xs text-gray-400 ml-1" x-text="'(' + item.spec + ')'"></span>
+                                </div>
+                                <button @click="removeFromCart(index)" class="text-gray-300 hover:text-red-500 transition p-1"><i class="fa-solid fa-xmark"></i></button>
                             </li>
                         </template>
                     </ul>
                 </div>
 
-                <form @submit.prevent="submitForm" class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">업체명</label>
-                        <input type="text" id="company" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-navy outline-none" placeholder="예: 구르메 카페">
+                <form @submit.prevent="submitForm" class="space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">업체명 <span class="text-red-500">*</span></label>
+                            <input type="text" id="company" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-navy focus:border-brand-navy outline-none transition" placeholder="예: 구르메 카페">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">담당자 성함</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-navy focus:border-brand-navy outline-none transition" placeholder="홍길동">
+                        </div>
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">연락처</label>
-                        <input type="tel" id="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-navy outline-none" placeholder="010-0000-0000">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">연락처 <span class="text-red-500">*</span></label>
+                        <input type="tel" id="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-navy focus:border-brand-navy outline-none transition" placeholder="010-0000-0000">
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">문의 내용</label>
-                        <textarea id="message" rows="3" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-navy outline-none" placeholder="기타 문의사항이 있다면 적어주세요."></textarea>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">기타 문의사항</label>
+                        <textarea id="message" rows="3" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-navy focus:border-brand-navy outline-none transition resize-none" placeholder="배송 희망일이나 찾으시는 다른 물품이 있다면 적어주세요."></textarea>
                     </div>
-                    <button type="submit" class="w-full bg-brand-navy text-white font-bold text-lg py-4 rounded-lg hover:bg-slate-800 transition shadow-lg mt-4">
-                        견적서 요청하기
-                    </button>
+                    <div class="pt-2">
+                        <button type="submit" class="w-full bg-brand-navy text-white font-bold text-lg py-4 rounded-xl hover:bg-slate-800 transition shadow-lg flex items-center justify-center gap-2">
+                            <i class="fa-regular fa-paper-plane"></i> 견적서 요청하기
+                        </button>
+                        <p class="text-center text-xs text-gray-400 mt-3">
+                            담당자가 확인 후 24시간 이내에 사업자 전용 단가표를 보내드립니다.
+                        </p>
+                    </div>
                 </form>
             </div>
         </div>
     </main>
 
-    <div class="fixed bottom-0 right-0 z-50 flex flex-col items-end p-4 md:p-6" x-show="chatOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-10" x-transition:enter-end="opacity-100 translate-y-0" x-cloak>
-        <div class="bg-white w-[340px] md:w-[380px] h-[550px] rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden mb-4">
-            <div class="bg-brand-navy text-white p-4 flex justify-between items-center shrink-0">
-                <div class="flex items-center gap-2">
-                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                    <span class="font-bold">구르메 제주 상담봇</span>
-                </div>
-                <button @click="toggleChat()" class="text-white/80 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
-            <div class="flex-1 p-4 overflow-y-auto bg-gray-50 scrollbar-hide" id="chat-body">
-                <div class="flex flex-col gap-3">
-                    <div class="chat-bubble bot shadow-sm">안녕하세요! 사장님 👋<br>제주 No.1 프리미엄 식자재 파트너,<br><strong>구르메 제주</strong>입니다.<br><br>무엇을 도와드릴까요?</div>
-                    <template x-for="msg in chatMessages" :key="msg.id"><div :class="msg.type === 'bot' ? 'chat-bubble bot shadow-sm' : 'chat-bubble user shadow-sm'" x-html="msg.text"></div></template>
-                    <div x-show="isTyping" class="chat-bubble bot shadow-sm w-12"><div class="typing-indicator"><span></span><span></span><span></span></div></div>
-                </div>
-            </div>
-            <div class="p-3 bg-white border-t border-gray-100 shrink-0">
-                <p class="text-xs text-gray-400 mb-2 text-center">자주 묻는 질문을 선택하세요</p>
-                <div class="grid grid-cols-1 gap-2 mb-2 max-h-32 overflow-y-auto">
-                    <button @click="handleChatOption('delivery')" class="text-sm text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition text-gray-700 font-medium flex items-center"><span class="mr-2">🚚</span> 제주도 배송, 얼마나 걸리나요?</button>
-                    <button @click="handleChatOption('price')" class="text-sm text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition text-gray-700 font-medium flex items-center"><span class="mr-2">💰</span> B2B 단가표를 받고 싶어요.</button>
-                    <button @click="handleChatOption('moq')" class="text-sm text-left px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition text-gray-700 font-medium flex items-center"><span class="mr-2">📦</span> 소량 주문도 가능한가요?</button>
-                </div>
-                <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="block w-full text-center bg-[#FAE100] hover:bg-[#F9E000] text-[#371D1E] font-bold py-3 rounded-lg transition shadow-sm"><i class="fa-solid fa-comment mr-2"></i> 상담원 연결 (카카오톡)</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="fixed bottom-20 right-6 z-40 md:bottom-10">
-        <button @click="toggleChat()" class="bg-brand-orange text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-300 animate-bounce"><i class="fa-solid fa-comment-dots text-2xl"></i></button>
-    </div>
-
     <script>
-        function app() {
+        function productApp() {
             return {
-                open: false,
-                cart: [],
+                // 상태 변수
                 currentCategory: 'all',
+                currentBrand: 'all',
                 searchQuery: '',
-                chatOpen: false,
-                chatMessages: [],
-                isTyping: false,
+                cart: [],
                 
-                products: [
-                    { id: 1, category: 'dairy', brandName: 'Isigny', name: '이즈니 AOP 버터', desc: '프랑스 노르망디의 깊은 풍미', image: 'https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?q=80&w=2070&auto=format&fit=crop', tag: 'BEST' },
-                    { id: 2, category: 'dairy', brandName: 'BelGioioso', name: '부라타 치즈', desc: '크리미한 속살의 정통 부라타', image: 'https://images.unsplash.com/photo-1624823183487-54791d01889c?q=80&w=2070&auto=format&fit=crop', tag: 'BEST' },
-                    { id: 3, category: 'grocery', brandName: 'Bundaberg', name: '분다버그 진저비어', desc: '호주 자연발효 탄산음료', image: 'https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?q=80&w=1974&auto=format&fit=crop', tag: 'BEST' },
-                    { id: 4, category: 'grocery', brandName: 'Divella', name: '디벨라 스파게티', desc: '이탈리아 듀럼밀 100% 알덴테', image: 'https://images.unsplash.com/photo-1551183053-bf91b1d103d3?q=80&w=1947&auto=format&fit=crop', tag: '' },
-                    { id: 5, category: 'meat', brandName: 'Rougié', name: '루지에 푸아그라', desc: '프랑스 미식의 정점', image: 'https://images.unsplash.com/photo-1547496502-ffa22b3336cd?q=80&w=2070&auto=format&fit=crop', tag: 'Premium' },
-                    { id: 6, category: 'japanese', brandName: 'Monomart', name: '모노마트 꼬치모듬', desc: '이자카야 전용 숯불꼬치', image: 'https://images.unsplash.com/photo-1618213727408-889d863f6e19?q=80&w=2070&auto=format&fit=crop', tag: '' }
+                // 카테고리 정의
+                categories: [
+                    { id: 'all', name: '전체 보기' },
+                    { id: 'dairy', name: '치즈/버터/유제품' },
+                    { id: 'grocery', name: '파스타/오일/소스' },
+                    { id: 'meat', name: '샤퀴테리/육가공' },
+                    { id: 'seafood', name: '해산물/기타' }
                 ],
+
+                // 상품 데이터 (PDF 기반으로 대량 생성)
+                products: [
+                    // [Dairy] Isigny
+                    { id: 101, category: 'dairy', brandName: 'Isigny Ste-Mère', name: '이즈니 AOP 버터 롤 (무염)', spec: '250g', desc: '노르망디 목초 우유로 만든 프랑스 AOP 발효 버터', tag: 'BEST' },
+                    { id: 102, category: 'dairy', brandName: 'Isigny Ste-Mère', name: '이즈니 AOP 가염 버터 롤', spec: '250g', desc: '짭조름한 맛이 가미된 깊은 풍미의 발효 버터', tag: '' },
+                    { id: 103, category: 'dairy', brandName: 'Isigny Ste-Mère', name: '이즈니 포션 버터 (컵)', spec: '10g x 60ea', desc: '호텔 조식 및 기내식용 개별 포장 버터', tag: 'B2B' },
+                    { id: 104, category: 'dairy', brandName: 'Isigny Ste-Mère', name: '이즈니 프로마쥬 블랑', spec: '500g', desc: '순백의 크리미한 텍스처를 가진 생치즈', tag: '' },
+                    { id: 105, category: 'dairy', brandName: 'Isigny Ste-Mère', name: '이즈니 브리 치즈', spec: '1kg', desc: '더블 크림 타입으로 더욱 부드러운 프랑스 브리', tag: '' },
+                    
+                    // [Dairy] BelGioioso (미국)
+                    { id: 201, category: 'dairy', brandName: 'BelGioioso', name: '부라타 치즈', spec: '226g (4 balls)', desc: '크림이 가득 들어있는 신선한 모짜렐라 파우치', tag: 'BEST' },
+                    { id: 202, category: 'dairy', brandName: 'BelGioioso', name: '후레쉬 모짜렐라 로그', spec: '453g', desc: '카프레제 샐러드용으로 슬라이스하기 좋은 원통형', tag: '' },
+                    { id: 203, category: 'dairy', brandName: 'BelGioioso', name: '리코타 치즈', spec: '453g', desc: '유청을 한 번 더 데워 만든 포슬포슬한 식감', tag: '' },
+                    { id: 204, category: 'dairy', brandName: 'BelGioioso', name: '마스카포네', spec: '226g', desc: '티라미수용으로 최적화된 진한 크림 치즈', tag: '' },
+                    
+                    // [Dairy] Ambrosi & Others
+                    { id: 301, category: 'dairy', brandName: 'Ambrosi', name: '고르곤졸라 피칸테', spec: '150g', desc: '톡 쏘는 맛이 일품인 이탈리아 정통 블루치즈', tag: '' },
+                    { id: 302, category: 'dairy', brandName: 'Ambrosi', name: '그라나 파다노 블럭', spec: '1kg', desc: '파스타, 샐러드 토핑용 이탈리아 경성 치즈', tag: 'B2B' },
+                    { id: 303, category: 'dairy', brandName: 'Emborg', name: '슈레드 모짜렐라', spec: '2.5kg', desc: '피자용 대용량 슈레드 치즈', tag: 'B2B' },
+                    
+                    // [Grocery] Divella (파스타/오일)
+                    { id: 401, category: 'grocery', brandName: 'Divella', name: '디벨라 스파게티 (1.75mm)', spec: '5kg', desc: '업소용 대용량 듀럼밀 파스타면', tag: 'B2B' },
+                    { id: 402, category: 'grocery', brandName: 'Divella', name: '디벨라 링귀네', spec: '500g', desc: '소스가 잘 배어드는 납작한 파스타면', tag: '' },
+                    { id: 403, category: 'grocery', brandName: 'Divella', name: '디벨라 펜네 리가테', spec: '500g', desc: '구멍 뚫린 숏파스타, 그라탕용', tag: '' },
+                    { id: 404, category: 'grocery', brandName: 'Divella', name: '엑스트라 버진 올리브오일', spec: '1L', desc: '샐러드 드레싱 및 파스타 마무리용', tag: 'BEST' },
+                    { id: 405, category: 'grocery', brandName: 'Divella', name: '포모도로 홀 토마토', spec: '2.5kg', desc: '이탈리아산 토마토 통조림, 소스 베이스', tag: 'B2B' },
+                    
+                    // [Grocery] Sauces & Spices
+                    { id: 501, category: 'grocery', brandName: 'Polli', name: '바질 페스토', spec: '190g', desc: '신선한 바질과 치즈, 잣을 갈아 만든 소스', tag: '' },
+                    { id: 502, category: 'grocery', brandName: 'Polli', name: '씨없는 블랙 올리브', spec: '300g', desc: '피자 토핑 및 샐러드용', tag: '' },
+                    { id: 503, category: 'grocery', brandName: 'Cannamela', name: '페페론치노 홀', spec: '1kg', desc: '매콤한 맛을 내는 이탈리아 고추', tag: '' },
+                    { id: 504, category: 'grocery', brandName: 'Plantin', name: '트러플 오일 (블랙)', spec: '250ml', desc: '요리의 품격을 높이는 송로버섯 오일', tag: 'Premium' },
+
+                    // [Meat] Charcuterie
+                    { id: 601, category: 'meat', brandName: 'Espuna', name: '하몽 세라노 슬라이스', spec: '100g', desc: '스페인 정통 숙성 생햄', tag: '' },
+                    { id: 602, category: 'meat', brandName: 'Espuna', name: '살라미 슬라이스', spec: '100g', desc: '샌드위치 및 안주용 살라미', tag: '' },
+                    { id: 603, category: 'meat', brandName: 'Beretta', name: '프로슈토 크루도', spec: '200g', desc: '이탈리아 파르마 지역의 정통 생햄', tag: 'Premium' },
+                    { id: 604, category: 'meat', brandName: 'Rougié', name: '루지에 푸아그라', spec: 'Slice (40g)', desc: '프랑스 미식의 정점, 오리 간 요리', tag: 'Premium' },
+                    
+                    // [Seafood & Beverage]
+                    { id: 701, category: 'seafood', brandName: 'Riunione', name: '앤초비 필렛', spec: '720g', desc: '감칠맛을 더하는 이탈리아 멸치 절임', tag: '' },
+                    { id: 801, category: 'seafood', brandName: 'Bundaberg', name: '분다버그 진저비어', spec: '375ml x 12', desc: '호주 자연발효 프리미엄 탄산음료', tag: 'BEST' },
+                    { id: 802, category: 'seafood', brandName: 'Lorina', name: '로리나 핑크 레모네이드', spec: '330ml', desc: '프랑스 프리미엄 스파클링 에이드', tag: '' }
+                ],
+
+                // Methods
+                get uniqueBrands() {
+                    const brands = new Set(this.products.map(p => p.brandName));
+                    return Array.from(brands).sort();
+                },
 
                 get filteredProducts() {
                     let result = this.products;
+                    
+                    // 카테고리 필터
                     if (this.currentCategory !== 'all') {
-                        result = result.filter(p => p.category === this.currentCategory);
+                        // seafood 카테고리에 음료(beverage) 등 기타 포함
+                        if (this.currentCategory === 'seafood') {
+                            result = result.filter(p => p.category === 'seafood');
+                        } else {
+                            result = result.filter(p => p.category === this.currentCategory);
+                        }
                     }
+
+                    // 브랜드 필터
+                    if (this.currentBrand !== 'all') {
+                        result = result.filter(p => p.brandName === this.currentBrand);
+                    }
+
+                    // 검색어 필터
                     if (this.searchQuery) {
                         const query = this.searchQuery.toLowerCase();
-                        result = result.filter(p => p.name.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query));
+                        result = result.filter(p => 
+                            p.name.toLowerCase().includes(query) || 
+                            p.brandName.toLowerCase().includes(query) ||
+                            p.desc.toLowerCase().includes(query)
+                        );
                     }
                     return result;
                 },
-                filterCategory(cat) {
-                    this.currentCategory = cat;
+
+                filterCategory(catId) {
+                    this.currentCategory = catId;
+                    this.currentBrand = 'all'; // 카테고리 변경 시 브랜드 초기화
                 },
-                addToCart(name) {
-                    if (!this.cart.includes(name)) {
-                        this.cart.push(name);
-                        alert(name + " 이(가) 견적함에 담겼습니다.");
+
+                filterBrand(brandName) {
+                    this.currentBrand = brandName;
+                    // 브랜드 선택 시 카테고리는 'all'로 두거나 해당 브랜드의 카테고리로 자동 이동할 수도 있음.
+                    // 여기서는 브랜드 내에서 전체를 보여주기 위해 카테고리 필터는 유지하되, 
+                    // 사용자가 혼동하지 않게 UI적으로 처리 (현재 로직 유지)
+                },
+
+                addToCart(product) {
+                    // 중복 체크
+                    if (!this.cart.some(item => item.id === product.id)) {
+                        this.cart.push(product);
+                        // 알림 대신 버튼 UI가 변경됨
                     } else {
-                        alert("이미 담겨있는 상품입니다.");
+                        alert("이미 견적함에 있는 상품입니다.");
                     }
                 },
+
                 removeFromCart(index) {
                     this.cart.splice(index, 1);
                 },
+                
+                clearCart() {
+                    if(confirm('견적함을 비우시겠습니까?')) {
+                        this.cart = [];
+                    }
+                },
+
+                isInCart(productId) {
+                    return this.cart.some(item => item.id === productId);
+                },
+
                 scrollToCart() {
                     document.getElementById('contact-form').scrollIntoView({ behavior: 'smooth' });
                 },
+
                 submitForm() {
-                    alert("견적 요청이 접수되었습니다. 담당자가 확인 후 연락드리겠습니다.");
+                    if (this.cart.length === 0) {
+                        alert("견적을 요청할 상품을 1개 이상 담아주세요.");
+                        return;
+                    }
+                    const company = document.getElementById('company').value;
+                    alert(`[${company}]님, 견적 요청이 접수되었습니다.\n담당자가 빠르게 확인 후 연락드리겠습니다.`);
                     this.cart = [];
-                    document.getElementById('company').value = '';
-                    document.getElementById('phone').value = '';
-                    document.getElementById('message').value = '';
-                },
-                
-                // 챗봇 로직
-                toggleChat() { this.chatOpen = !this.chatOpen; if(this.chatOpen) { setTimeout(() => this.scrollToBottom(), 100); } },
-                async handleChatOption(type) {
-                    let userText = "", botText = "";
-                    if(type === 'delivery') { userText = "제주도 배송, 얼마나 걸리나요?"; botText = "걱정 마세요! 🚛<br>구르메 제주는 <strong>제주 현지 물류센터</strong>를 보유하고 있어,<br><strong>오후 2시 이전 주문 시 내일 바로 도착</strong>합니다."; } 
-                    else if(type === 'price') { userText = "B2B 단가표를 받고 싶어요."; botText = "사장님, 현명하십니다! 💰<br>저희는 서울 본사 직거래로 <strong>중간 마진을 없앤 합리적인 가격</strong>을 자랑합니다.<br><br>아래 상담원 연결을 통해 사업자 인증을 해주시면 <strong>전용 단가표</strong>를 즉시 보내드립니다."; } 
-                    else if(type === 'moq') { userText = "소량 주문도 가능한가요?"; botText = "물론입니다! 📦<br>작은 카페나 1인 매장 사장님들도 부담 없이 이용하실 수 있도록,<br><strong>최소 주문 수량(MOQ)의 벽을 낮췄습니다.</strong>"; }
-                    this.chatMessages.push({ id: Date.now(), type: 'user', text: userText });
-                    this.isTyping = true; this.scrollToBottom();
-                    await new Promise(r => setTimeout(r, 800)); 
-                    this.isTyping = false;
-                    this.chatMessages.push({ id: Date.now() + 1, type: 'bot', text: botText });
-                    this.scrollToBottom();
-                },
-                scrollToBottom() { const chatBody = document.getElementById('chat-body'); if(chatBody) chatBody.scrollTop = chatBody.scrollHeight; }
+                    // 폼 초기화 등 추가 로직 가능
+                }
             }
         }
     </script>
