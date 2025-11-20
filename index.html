@@ -20,14 +20,32 @@
         body { font-family: 'Pretendard', system-ui, sans-serif; }
         
         /* Fade In Up Animation */
-        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; transform: translateY(20px); }
+        .animate-fade-in-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(30px); }
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        
         .delay-100 { animation-delay: 0.1s; }
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-700 { animation-delay: 0.7s; }
 
-        /* Smooth Hero Gradient */
-        .hero-gradient { background: linear-gradient(to bottom, rgba(15, 23, 42, 0.3) 0%, rgba(15, 23, 42, 0.7) 60%, #0f172a 100%); }
+        /* Smooth Hero Gradient Overlay */
+        .hero-overlay { 
+            background: linear-gradient(
+                to bottom, 
+                rgba(15, 23, 42, 0.4) 0%, 
+                rgba(15, 23, 42, 0.6) 50%, 
+                rgba(15, 23, 42, 0.9) 100%
+            ); 
+        }
+        
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
     </style>
 
     <script>
@@ -42,8 +60,11 @@
                         'brand-light': '#f8fafc'
                     },
                     boxShadow: {
-                        'glow': '0 0 15px rgba(212, 175, 55, 0.3)',
+                        'glow': '0 0 20px rgba(212, 175, 55, 0.4)',
                         'card': '0 10px 30px -10px rgba(0, 0, 0, 0.1)'
+                    },
+                    letterSpacing: {
+                        'widest-xl': '0.3em',
                     }
                 }
             }
@@ -52,19 +73,18 @@
 </head>
 <body class="bg-brand-light text-slate-800 antialiased" x-data="{ open: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
 
-    <header :class="scrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-3' : 'bg-transparent py-5'" class="fixed w-full z-50 transition-all duration-300">
+    <header :class="scrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-3' : 'bg-transparent py-6'" class="fixed w-full z-50 transition-all duration-500">
         <nav class="container mx-auto px-6 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold flex items-center gap-2 group">
-                <img src="images/logo.png" alt="Gourmet Jeju Logo" class="w-10 h-10 rounded-lg object-cover group-hover:rotate-12 transition-transform duration-300 shadow-glow">
-                
-                <span :class="scrolled ? 'text-brand-navy' : 'text-white'" class="tracking-tight transition-colors">Gourmet Jeju</span>
+            <a href="index.html" class="text-2xl font-bold flex items-center gap-3 group">
+                <img src="images/logo.png" alt="Gourmet Jeju Logo" class="w-10 h-10 rounded-lg object-cover group-hover:rotate-12 transition-transform duration-500 shadow-lg">
+                <span :class="scrolled ? 'text-brand-navy' : 'text-white'" class="tracking-tight transition-colors font-serif italic">Gourmet Jeju</span>
             </a>
 
             <div class="hidden md:flex items-center space-x-8">
-                <a href="about.html" :class="scrolled ? 'text-slate-600 hover:text-brand-navy' : 'text-slate-200 hover:text-white'" class="font-medium transition-colors text-sm uppercase tracking-wide">About</a>
-                <a href="products.html" :class="scrolled ? 'text-slate-600 hover:text-brand-navy' : 'text-slate-200 hover:text-white'" class="font-medium transition-colors text-sm uppercase tracking-wide">Products</a>
-                <a href="journal.html" :class="scrolled ? 'text-slate-600 hover:text-brand-navy' : 'text-slate-200 hover:text-white'" class="font-medium transition-colors text-sm uppercase tracking-wide">Journal</a>
-                <a href="products.html" class="bg-brand-orange hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-bold shadow-lg hover:shadow-orange-500/30 transition-all transform hover:-translate-y-0.5 text-sm flex items-center gap-2">
+                <a href="about.html" :class="scrolled ? 'text-slate-600 hover:text-brand-navy' : 'text-white/80 hover:text-white'" class="font-medium transition-colors text-xs uppercase tracking-widest">About</a>
+                <a href="products.html" :class="scrolled ? 'text-slate-600 hover:text-brand-navy' : 'text-white/80 hover:text-white'" class="font-medium transition-colors text-xs uppercase tracking-widest">Products</a>
+                <a href="journal.html" :class="scrolled ? 'text-slate-600 hover:text-brand-navy' : 'text-white/80 hover:text-white'" class="font-medium transition-colors text-xs uppercase tracking-widest">Journal</a>
+                <a href="products.html" class="bg-brand-orange hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-bold shadow-lg hover:shadow-orange-500/50 transition-all transform hover:-translate-y-0.5 text-sm flex items-center gap-2">
                     <i class="fa-solid fa-file-invoice-dollar"></i> 견적 문의
                 </a>
             </div>
@@ -86,56 +106,70 @@
         </div>
     </header>
 
-    <section class="relative h-screen min-h-[700px] flex items-center justify-center text-center text-white overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center scale-105 transition-transform duration-[20s] hover:scale-100" style="background-image: url('https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=2070&auto=format&fit=crop');"></div>
-        <div class="absolute inset-0 hero-gradient"></div>
+    <section class="relative h-screen min-h-[800px] flex flex-col justify-center items-center text-center text-white overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="images/image_2c8320.jpg" class="w-full h-full object-cover scale-105 animate-[pulse_10s_ease-in-out_infinite_alternate]" alt="Premium Food Background" style="animation-duration: 20s;">
+        </div>
         
-        <div class="relative z-10 max-w-5xl mx-auto px-6 flex flex-col items-center">
-            <div class="animate-fade-in-up inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm text-brand-gold text-xs md:text-sm font-bold mb-6 tracking-widest uppercase">
-                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                Jeju Local Partner
+        <div class="absolute inset-0 hero-overlay"></div>
+        
+        <div class="relative z-10 max-w-6xl mx-auto px-6 flex flex-col items-center justify-center h-full pt-20">
+            
+            <div class="animate-fade-in-up flex items-center gap-3 mb-6">
+                <span class="h-[1px] w-8 bg-brand-gold/70"></span>
+                <span class="text-brand-gold text-xs md:text-sm font-bold tracking-widest-xl uppercase drop-shadow-md">Jeju Local Partner</span>
+                <span class="h-[1px] w-8 bg-brand-gold/70"></span>
             </div>
             
-            <h1 class="animate-fade-in-up delay-100 text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6 drop-shadow-2xl">
+            <h1 class="animate-fade-in-up delay-100 text-5xl md:text-7xl lg:text-8xl font-extrabold leading-tight mb-8 tracking-tight drop-shadow-2xl">
                 서울 본사 직거래 단가<br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-yellow-200">제주 익일 냉동 배송</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400">제주 익일 냉동 배송</span>
             </h1>
             
-            <p class="animate-fade-in-up delay-200 text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 font-light break-keep leading-relaxed">
-                신라호텔, 하얏트가 선택한 2,000여 종의 유러피안 프리미엄 식자재.<br class="hidden md:block">
+            <p class="animate-fade-in-up delay-200 text-base md:text-xl text-slate-300 max-w-2xl mx-auto mb-12 font-light leading-relaxed break-keep drop-shadow-lg">
+                신라호텔, 하얏트가 선택한 <strong class="text-white font-semibold">2,000여 종</strong>의 유러피안 프리미엄 식자재.<br class="hidden md:block">
                 이제 중간 유통 마진 없는 합리적인 가격으로 만나보세요.
             </p>
             
-            <div class="animate-fade-in-up delay-300 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                <a href="products.html" class="bg-brand-orange hover:bg-orange-600 text-white text-lg font-bold px-10 py-4 rounded-xl shadow-xl shadow-orange-900/20 transition-all transform hover:-translate-y-1 hover:shadow-2xl flex items-center justify-center gap-2">
-                    <span>상품 보러가기</span> <i class="fa-solid fa-arrow-right"></i>
+            <div class="animate-fade-in-up delay-300 flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-20">
+                <a href="products.html" class="group relative px-8 py-4 bg-brand-gold text-brand-navy font-bold rounded-full overflow-hidden shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] transition-all duration-300">
+                    <span class="absolute inset-0 w-full h-full bg-white/20 group-hover:translate-x-full transition-transform duration-500 ease-out -translate-x-full skew-x-12"></span>
+                    <span class="relative flex items-center gap-2">상품 보러가기 <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i></span>
                 </a>
-                <a href="Gourmet_회사소개서.pdf" target="_blank" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 text-lg font-medium px-10 py-4 rounded-xl transition-all flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-book-open"></i> 회사소개서 보기
+                <a href="Gourmet_회사소개서.pdf" target="_blank" class="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/20 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300 flex items-center gap-2">
+                    <i class="fa-solid fa-download"></i> 회사소개서 보기
                 </a>
             </div>
 
-            <div class="animate-fade-in-up delay-300 mt-16 grid grid-cols-3 gap-8 md:gap-16 border-t border-white/10 pt-8 text-slate-300">
-                <div>
-                    <div class="text-2xl md:text-3xl font-bold text-white mb-1">10+</div>
-                    <div class="text-xs md:text-sm uppercase tracking-wider opacity-70">Global Suppliers</div>
+            <div class="animate-fade-in-up delay-500 w-full max-w-4xl glass-panel rounded-2xl p-8 md:p-10 grid grid-cols-3 gap-8 text-center border-t border-white/10">
+                <div class="flex flex-col items-center group">
+                    <div class="text-3xl md:text-5xl font-bold text-white mb-2 group-hover:text-brand-gold transition-colors duration-300">10<span class="text-2xl align-top">+</span></div>
+                    <div class="h-0.5 w-8 bg-white/20 mb-2 group-hover:w-12 group-hover:bg-brand-gold transition-all duration-300"></div>
+                    <div class="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest font-bold">Global Suppliers</div>
                 </div>
-                <div>
-                    <div class="text-2xl md:text-3xl font-bold text-white mb-1">300+</div>
-                    <div class="text-xs md:text-sm uppercase tracking-wider opacity-70">Jeju Partners</div>
+                <div class="flex flex-col items-center group border-l border-r border-white/10 px-4">
+                    <div class="text-3xl md:text-5xl font-bold text-white mb-2 group-hover:text-brand-gold transition-colors duration-300">300<span class="text-2xl align-top">+</span></div>
+                    <div class="h-0.5 w-8 bg-white/20 mb-2 group-hover:w-12 group-hover:bg-brand-gold transition-all duration-300"></div>
+                    <div class="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest font-bold">Jeju Partners</div>
                 </div>
-                <div>
-                    <div class="text-2xl md:text-3xl font-bold text-white mb-1">24<span class="text-sm">hr</span></div>
-                    <div class="text-xs md:text-sm uppercase tracking-wider opacity-70">Delivery System</div>
+                <div class="flex flex-col items-center group">
+                    <div class="text-3xl md:text-5xl font-bold text-white mb-2 group-hover:text-brand-gold transition-colors duration-300">24<span class="text-xl align-top">hr</span></div>
+                    <div class="h-0.5 w-8 bg-white/20 mb-2 group-hover:w-12 group-hover:bg-brand-gold transition-all duration-300"></div>
+                    <div class="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest font-bold">Delivery System</div>
                 </div>
             </div>
+        </div>
+        
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce text-white/50 text-2xl">
+            <i class="fa-solid fa-chevron-down"></i>
         </div>
     </section>
 
     <section class="bg-white py-20 border-b border-slate-100">
         <div class="container mx-auto px-6 text-center">
-            <span class="text-brand-navy/60 text-xs font-bold tracking-[0.2em] uppercase block mb-4">Client</span>
-            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800 mb-12 leading-snug break-keep max-w-4xl mx-auto">
+            <span class="text-brand-navy/60 text-xs font-bold tracking-[0.2em] uppercase block mb-4">Client & Partners</span>
+            
+            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800 mb-12 leading-snug break-keep max-w-5xl mx-auto">
                 신라, 롯데, SPC가 검증하고 300+ 제주 파트너가 선택한 기준,<br class="hidden md:block">
                 <span class="text-brand-navy">대한민국 1등의 주방</span>에서 제주의 미식 문화를 완성합니다
             </h2>
