@@ -409,7 +409,7 @@
                     'Beretta', 'Miccio', 'Bonomi', 'Leksands', 'Tako'
                 ],
 
-                // Step 1: 유제품(Dairy) + Step 2: 가공식품(Grocery) 데이터
+                // Step 1 + 2 + 3: 전체 상품 데이터 통합
                 products: [
                     // --- Dairy Products (Step 1) ---
                     { id: 1001, name: '이즈니 AOP 버터 롤 (가염)', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '250g', image: 'https://via.placeholder.com/150?text=Isigny+Salted', tag: 'BEST' },
@@ -452,8 +452,7 @@
                     { id: 9501, name: '오가닉밸리 유기농 기버터', brand: 'Organic Valley', category: 'dairy', spec: '212g', image: 'https://via.placeholder.com/150?text=Ghee+Butter', tag: '유기농' },
                     { id: 9502, name: '오가닉밸리 스트링 치즈', brand: 'Organic Valley', category: 'dairy', spec: '170g', image: 'https://via.placeholder.com/150?text=Org+String', tag: '유기농' },
 
-                    // --- Grocery Products (Step 2: Added) ---
-                    // [Divella] - 파스타, 오일, 밀가루
+                    // --- Grocery Products (Step 2) ---
                     { id: 3001, name: '디벨라 스파게티 1.75mm (업소용)', brand: 'Divella', category: 'grocery', spec: '5kg', image: 'https://via.placeholder.com/150?text=Spaghetti+5kg', tag: '대용량' },
                     { id: 3002, name: '디벨라 스파게티니 1.55mm', brand: 'Divella', category: 'grocery', spec: '500g', image: 'https://via.placeholder.com/150?text=Spaghettini', tag: '' },
                     { id: 3003, name: '디벨라 링귀네', brand: 'Divella', category: 'grocery', spec: '500g', image: 'https://via.placeholder.com/150?text=Linguine', tag: '' },
@@ -464,34 +463,47 @@
                     { id: 3008, name: '디벨라 포마스 올리브오일 (조리용)', brand: 'Divella', category: 'grocery', spec: '1L', image: 'https://via.placeholder.com/150?text=Pomace+Oil', tag: '튀김용' },
                     { id: 3009, name: '디벨라 홀 토마토 (캔)', brand: 'Divella', category: 'grocery', spec: '2.5kg', image: 'https://via.placeholder.com/150?text=Whole+Tomato', tag: '업소용' },
                     { id: 3010, name: '디벨라 세몰리나 밀가루', brand: 'Divella', category: 'grocery', spec: '1kg', image: 'https://via.placeholder.com/150?text=Semolina', tag: '파스타용' },
-                    
-                    // [Star] - 스톡, 소스
                     { id: 3101, name: '스타 다도 클래식 (비프 스톡)', brand: 'Star', category: 'grocery', spec: '100g (10ea)', image: 'https://via.placeholder.com/150?text=Dado+Beef', tag: '육수' },
                     { id: 3102, name: '스타 다도 베지탈레 (야채 스톡)', brand: 'Star', category: 'grocery', spec: '100g (10ea)', image: 'https://via.placeholder.com/150?text=Dado+Veg', tag: '비건' },
                     { id: 3103, name: '스타 라구 소스 (볼로네제)', brand: 'Star', category: 'grocery', spec: '180g x 2', image: 'https://via.placeholder.com/150?text=Ragu+Sauce', tag: '' },
                     { id: 3104, name: '스타 구스토 포르치니 (버섯 스톡)', brand: 'Star', category: 'grocery', spec: '500g', image: 'https://via.placeholder.com/150?text=Porcini+Stock', tag: '리조또' },
-
-                    // [Polli] - 절임, 페스토
                     { id: 3201, name: '폴리 바질 페스토', brand: 'Polli', category: 'grocery', spec: '190g', image: 'https://via.placeholder.com/150?text=Polli+Pesto', tag: '인기' },
                     { id: 3202, name: '폴리 씨없는 블랙 올리브', brand: 'Polli', category: 'grocery', spec: '130g', image: 'https://via.placeholder.com/150?text=Black+Olive', tag: '슬라이스' },
                     { id: 3203, name: '폴리 케이퍼 (식초 절임)', brand: 'Polli', category: 'grocery', spec: '100g', image: 'https://via.placeholder.com/150?text=Capers', tag: '연어용' },
                     { id: 3204, name: '폴리 아티초크 오일 절임', brand: 'Polli', category: 'grocery', spec: '285g', image: 'https://via.placeholder.com/150?text=Artichoke', tag: '안티파스토' },
-
-                    // [Cannamela] - 향신료
                     { id: 3301, name: '칸나멜라 흑후추 그라인더', brand: 'Cannamela', category: 'grocery', spec: '28g', image: 'https://via.placeholder.com/150?text=Black+Pepper', tag: '통후추' },
                     { id: 3302, name: '칸나멜라 핑크 히말라야 소금', brand: 'Cannamela', category: 'grocery', spec: '60g', image: 'https://via.placeholder.com/150?text=Pink+Salt', tag: '그라인더' },
                     { id: 3303, name: '칸나멜라 유기농 오레가노', brand: 'Cannamela', category: 'grocery', spec: '10g', image: 'https://via.placeholder.com/150?text=Oregano', tag: '허브' },
                     { id: 3304, name: '칸나멜라 페페론치노 (홀)', brand: 'Cannamela', category: 'grocery', spec: '21g', image: 'https://via.placeholder.com/150?text=Peperoncino', tag: '매운맛' },
-
-                    // [Selektia Tartufi] - 트러플
                     { id: 3401, name: '셀렉티아 화이트 트러플 오일', brand: 'Selektia Tartufi', category: 'grocery', spec: '250ml', image: 'https://via.placeholder.com/150?text=Truffle+Oil', tag: '고급' },
                     { id: 3402, name: '셀렉티아 트러플 소스 (타르투파타)', brand: 'Selektia Tartufi', category: 'grocery', spec: '500g', image: 'https://via.placeholder.com/150?text=Truffle+Sauce', tag: '업소용' },
-                    
-                    // [Other Brands]
                     { id: 3501, name: '데니그리스 발사믹 식초', brand: 'De Nigris', category: 'grocery', spec: '500ml', image: 'https://via.placeholder.com/150?text=Balsamic', tag: '' },
                     { id: 3502, name: '빌라모데나 화이트 발사믹', brand: 'Villa Modena', category: 'grocery', spec: '250ml', image: 'https://via.placeholder.com/150?text=White+Balsamic', tag: '드레싱' },
                     { id: 3503, name: '프란토이오 비안코 바질페스토', brand: 'Frantoio Bianco', category: 'grocery', spec: '500g', image: 'https://via.placeholder.com/150?text=Genovese+Pesto', tag: '프리미엄' },
-                    { id: 3504, name: '에밀레 노엘 유기농 아보카도 오일', brand: 'Emile Noel', category: 'grocery', spec: '250ml', image: 'https://via.placeholder.com/150?text=Avocado+Oil', tag: '유기농' }
+                    { id: 3504, name: '에밀레 노엘 유기농 아보카도 오일', brand: 'Emile Noel', category: 'grocery', spec: '250ml', image: 'https://via.placeholder.com/150?text=Avocado+Oil', tag: '유기농' },
+
+                    // --- Meat Products (Step 3: Added) ---
+                    { id: 4001, name: '베레타 밀라노 살라미', brand: 'Beretta', category: 'meat', spec: '227g', image: 'https://via.placeholder.com/150?text=Milano+Salami', tag: '살라미' },
+                    { id: 4002, name: '베레타 프로슈토 슬라이스', brand: 'Beretta', category: 'meat', spec: '85g', image: 'https://via.placeholder.com/150?text=Prosciutto', tag: '안주용' },
+                    { id: 4003, name: '베레타 판세타 슬라이스', brand: 'Beretta', category: 'meat', spec: '85g', image: 'https://via.placeholder.com/150?text=Pancetta', tag: '베이컨' },
+                    { id: 4101, name: '에스푸나 하몽 세라노 슬라이스', brand: 'Espuna', category: 'meat', spec: '100g', image: 'https://via.placeholder.com/150?text=Serrano+Ham', tag: '스페인' },
+                    { id: 4102, name: '에스푸나 초리조 엑스트라 (슬라이스)', brand: 'Espuna', category: 'meat', spec: '100g', image: 'https://via.placeholder.com/150?text=Chorizo', tag: '매콤' },
+                    { id: 4103, name: '에스푸나 살치촌 엑스트라', brand: 'Espuna', category: 'meat', spec: '100g', image: 'https://via.placeholder.com/150?text=Salchichon', tag: '' },
+                    { id: 4201, name: '토레온 이베리코 베요타 하몽', brand: 'Torreon', category: 'meat', spec: '80g', image: 'https://via.placeholder.com/150?text=Iberico+Ham', tag: '최고급' },
+
+                    // --- Dessert/Beverage Products (Step 3: Added) ---
+                    { id: 5001, name: '반데모르텔 버터 크루아상 생지', brand: 'Vandemoortele', category: 'dessert', spec: '60g x 76ea', image: 'https://via.placeholder.com/150?text=Croissant', tag: '냉동생지' },
+                    { id: 5002, name: '반데모르텔 미니 애플 턴오버', brand: 'Vandemoortele', category: 'dessert', spec: '40g x 150ea', image: 'https://via.placeholder.com/150?text=Apple+Turnover', tag: '뷔페용' },
+                    { id: 5101, name: '보노미 사보이아르디 (레이디핑거)', brand: 'Bonomi', category: 'dessert', spec: '400g', image: 'https://via.placeholder.com/150?text=Savoiardi', tag: '티라미수' },
+                    { id: 5201, name: 'TSC 오레오 밀크 스낵', brand: 'TSC', category: 'dessert', spec: '30g', image: 'https://via.placeholder.com/150?text=Oreo+Snack', tag: '냉장디저트' },
+                    { id: 5202, name: 'TSC 밀카 밀크 스낵', brand: 'TSC', category: 'dessert', spec: '32g', image: 'https://via.placeholder.com/150?text=Milka+Snack', tag: '냉장디저트' },
+                    { id: 5301, name: '타코 수박 주스 (100% 착즙)', brand: 'Tako', category: 'dessert', spec: '330ml', image: 'https://via.placeholder.com/150?text=Watermelon', tag: '태국' },
+                    { id: 5401, name: '로리나 스파클링 레모네이드', brand: 'Lorina', category: 'dessert', spec: '330ml', image: 'https://via.placeholder.com/150?text=Lemonade', tag: '탄산' },
+                    { id: 5501, name: '니피스 오렌지 주스', brand: 'Nippy\'s', category: 'dessert', spec: '1L', image: 'https://via.placeholder.com/150?text=Orange+Juice', tag: '무가당' },
+                    { id: 5601, name: '알랭 밀리아 딸기잼', brand: 'Alain Milliat', category: 'dessert', spec: '300g', image: 'https://via.placeholder.com/150?text=Strawberry+Jam', tag: '프리미엄' },
+                    { id: 5602, name: '알랭 밀리아 살구잼', brand: 'Alain Milliat', category: 'dessert', spec: '300g', image: 'https://via.placeholder.com/150?text=Apricot+Jam', tag: '호텔조식' },
+                    { id: 5701, name: '카라멜 디즈니 솔티드 버터 카라멜', brand: 'Caramels d\'Isigny', category: 'dessert', spec: '150g', image: 'https://via.placeholder.com/150?text=Caramels', tag: '이즈니버터' },
+                    { id: 5801, name: '리고니 유기농 과일잼 (딸기)', brand: 'Rigoni di Asiago', category: 'dessert', spec: '250g', image: 'https://via.placeholder.com/150?text=Organic+Jam', tag: '유기농' }
                 ],
 
                 // Computed Logic
