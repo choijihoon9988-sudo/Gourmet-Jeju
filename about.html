@@ -100,121 +100,6 @@
             </div>
         </section>
 
-        <section class="py-20 bg-white">
-            <div class="container mx-auto px-6 max-w-5xl" x-data="{ tab: 'today' }">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-brand-navy mb-4">History & Vision</h2>
-                    <div class="flex justify-center gap-2 p-1 bg-slate-100 rounded-full inline-flex">
-                        <button @click="tab = 'yesterday'" :class="tab === 'yesterday' ? 'bg-white text-brand-navy shadow-sm' : 'text-slate-500 hover:text-slate-700'" class="px-6 py-2 rounded-full font-bold text-sm transition-all">어제 (History)</button>
-                        <button @click="tab = 'today'" :class="tab === 'today' ? 'bg-white text-brand-navy shadow-sm' : 'text-slate-500 hover:text-slate-700'" class="px-6 py-2 rounded-full font-bold text-sm transition-all">오늘 (Present)</button>
-                        <button @click="tab = 'tomorrow'" :class="tab === 'tomorrow' ? 'bg-white text-brand-navy shadow-sm' : 'text-slate-500 hover:text-slate-700'" class="px-6 py-2 rounded-full font-bold text-sm transition-all">내일 (Future)</button>
-                    </div>
-                </div>
-
-                <div class="bg-brand-light rounded-3xl p-8 md:p-12 border border-slate-100 min-h-[300px] flex flex-col justify-between">
-                    <div x-show="tab === 'yesterday'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="w-full mb-8">
-                        <div class="flex flex-col md:flex-row items-center gap-8">
-                            <div class="w-full md:w-1/2">
-                                <span class="text-brand-orange font-bold text-lg mb-2 block">2015 - The Beginning</span>
-                                <h3 class="text-2xl font-bold text-slate-800 mb-4">제주 미식의 새로운 시작</h3>
-                                <p class="text-slate-600 leading-relaxed mb-4 text-justify break-keep">
-                                    구르메 제주는 2015년 7월, 유럽 프리미엄 식자재 전문 기업 '구르메 F&B'의 제주 대리점으로 첫발을 내디뎠습니다. 제주도 내 호텔과 레스토랑에 유럽 본토의 맛을 전달하는 가교 역할을 시작하며, 일본 식자재(모노마트)까지 영역을 확장해 왔습니다.
-                                </p>
-                            </div>
-                            <div class="w-full md:w-1/2 h-64 bg-slate-200 rounded-xl overflow-hidden shadow-inner relative">
-                                <img src="https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?q=80&w=2076&auto=format&fit=crop" alt="Beginning" class="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-500">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div x-show="tab === 'today'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="w-full mb-8">
-                        <div class="flex flex-col md:flex-row items-center gap-8">
-                            <div class="w-full md:w-1/2 order-2 md:order-1">
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div class="bg-white p-4 rounded-xl shadow-sm text-center border border-slate-100">
-                                        <span class="block text-3xl font-bold text-brand-navy mb-1">20+</span>
-                                        <span class="text-xs text-slate-500">글로벌 공급사</span>
-                                    </div>
-                                    <div class="bg-white p-4 rounded-xl shadow-sm text-center border border-slate-100">
-                                        <span class="block text-3xl font-bold text-brand-navy mb-1">300+</span>
-                                        <span class="text-xs text-slate-500">제주 파트너사</span>
-                                    </div>
-                                    <div class="bg-white p-4 rounded-xl shadow-sm text-center border border-slate-100 col-span-2">
-                                        <span class="block text-brand-orange font-bold mb-1">One-Stop Solution</span>
-                                        <span class="text-xs text-slate-500">양식부터 일식, 베이커리까지</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="w-full md:w-1/2 order-1 md:order-2">
-                                <span class="text-brand-navy font-bold text-lg mb-2 block">Present - Trusted Partner</span>
-                                <h3 class="text-2xl font-bold text-slate-800 mb-4">셰프가 가장 먼저 찾는 파트너</h3>
-                                <p class="text-slate-600 leading-relaxed text-justify break-keep">
-                                    현재 구르메 제주는 프랑스, 이탈리아, 미국 등 전 세계 20여 개 수입사의 엄선된 제품을 취급합니다. 신라, 롯데, 하얏트 등 특급 호텔부터 제주 전역의 유명 베이커리와 오너 셰프 키친까지, 가장 신선하고 트렌디한 식자재를 매일 공급하고 있습니다.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div x-show="tab === 'tomorrow'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="w-full mb-8">
-                        <div class="flex flex-col items-center text-center max-w-2xl mx-auto">
-                            <div class="w-16 h-16 bg-brand-navy rounded-full flex items-center justify-center text-white text-2xl mb-6 shadow-glow">
-                                <i class="fa-solid fa-rocket"></i>
-                            </div>
-                            <span class="text-brand-orange font-bold text-lg mb-2 block">Future - Digital Transformation</span>
-                            <h3 class="text-2xl font-bold text-slate-800 mb-4">온라인으로 연결되는 미식의 세계</h3>
-                            <p class="text-slate-600 leading-relaxed break-keep">
-                                2024년부터 온라인 비즈니스 확장을 통해 더 많은 고객님들과 만나려 합니다. 단순히 제품을 파는 것을 넘어, 유럽의 식문화와 건강한 자연식품을 소개하는 '제주 식문화 선구자'로서의 역할을 다하겠습니다.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="text-center mt-4 pt-8 border-t border-slate-200">
-                        <p class="text-sm text-slate-500 mb-4">구르메 제주에 대해 더 자세히 알고 싶으신가요?</p>
-                        <a href="Gourmet_회사소개서.pdf" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white border border-brand-navy text-brand-navy font-bold hover:bg-brand-navy hover:text-white transition-colors shadow-sm text-sm">
-                            <i class="fa-solid fa-book-open"></i> 구르메 제주 브랜드북 살펴보기
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-20 bg-brand-navy text-white relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-[128px] opacity-20"></div>
-            <div class="absolute bottom-0 left-0 w-96 h-96 bg-purple-500 rounded-full blur-[128px] opacity-20"></div>
-
-            <div class="container mx-auto px-6 relative z-10">
-                <div class="text-center mb-16">
-                    <span class="text-brand-gold font-bold tracking-widest text-xs uppercase mb-2 block">Infrastructure</span>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6">제주 현지 물류 시스템</h2>
-                    <p class="text-slate-300 max-w-2xl mx-auto">육지보다 더 신선하게, 더 빠르게.<br>구르메 제주만의 독보적인 물류 경쟁력입니다.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition duration-300">
-                        <div class="text-brand-gold text-4xl mb-6"><i class="fa-solid fa-warehouse"></i></div>
-                        <h3 class="text-xl font-bold mb-3">자체 물류 센터</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed break-keep">
-                            제주도 내 대형 냉장/냉동 물류 창고를 보유하여, 충분한 재고 확보 및 안정적인 수급이 가능합니다. 기상 악화 시에도 매장 운영에 차질이 없도록 지원합니다.
-                        </p>
-                    </div>
-                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition duration-300">
-                        <div class="text-brand-gold text-4xl mb-6"><i class="fa-solid fa-temperature-arrow-down"></i></div>
-                        <h3 class="text-xl font-bold mb-3">Full Cold-Chain</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed break-keep">
-                            입고부터 출고, 배송까지 전 과정 콜드체인 시스템을 가동합니다. 온도에 민감한 치즈, 버터, 초콜릿의 최상 컨디션을 고객님의 주방까지 유지합니다.
-                        </p>
-                    </div>
-                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition duration-300">
-                        <div class="text-brand-gold text-4xl mb-6"><i class="fa-solid fa-truck-fast"></i></div>
-                        <h3 class="text-xl font-bold mb-3">직영 배송 서비스</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed break-keep">
-                            외주 용달이 아닌 구르메 제주 소속 배송 매니저가 직접 배송합니다. 식자재에 대한 이해도가 높은 전문 인력이 안전하게 전달해 드립니다.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section class="py-24 bg-slate-50 bg-pattern">
             <div class="container mx-auto px-6">
                 <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-slate-200 pb-6">
@@ -331,6 +216,121 @@
                         <p>다이닝 전부 빼기</p>
                         <p>다이닝 전부 빼기</p>
                         <p>다이닝 전부 빼기</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6 max-w-5xl" x-data="{ tab: 'today' }">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-brand-navy mb-4">History & Vision</h2>
+                    <div class="flex justify-center gap-2 p-1 bg-slate-100 rounded-full inline-flex">
+                        <button @click="tab = 'yesterday'" :class="tab === 'yesterday' ? 'bg-white text-brand-navy shadow-sm' : 'text-slate-500 hover:text-slate-700'" class="px-6 py-2 rounded-full font-bold text-sm transition-all">어제 (History)</button>
+                        <button @click="tab = 'today'" :class="tab === 'today' ? 'bg-white text-brand-navy shadow-sm' : 'text-slate-500 hover:text-slate-700'" class="px-6 py-2 rounded-full font-bold text-sm transition-all">오늘 (Present)</button>
+                        <button @click="tab = 'tomorrow'" :class="tab === 'tomorrow' ? 'bg-white text-brand-navy shadow-sm' : 'text-slate-500 hover:text-slate-700'" class="px-6 py-2 rounded-full font-bold text-sm transition-all">내일 (Future)</button>
+                    </div>
+                </div>
+
+                <div class="bg-brand-light rounded-3xl p-8 md:p-12 border border-slate-100 min-h-[300px] flex flex-col justify-between">
+                    <div x-show="tab === 'yesterday'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="w-full mb-8">
+                        <div class="flex flex-col md:flex-row items-center gap-8">
+                            <div class="w-full md:w-1/2">
+                                <span class="text-brand-orange font-bold text-lg mb-2 block">2015 - The Beginning</span>
+                                <h3 class="text-2xl font-bold text-slate-800 mb-4">제주 미식의 새로운 시작</h3>
+                                <p class="text-slate-600 leading-relaxed mb-4 text-justify break-keep">
+                                    구르메 제주는 2015년 7월, 유럽 프리미엄 식자재 전문 기업 '구르메 F&B'의 제주 대리점으로 첫발을 내디뎠습니다. 제주도 내 호텔과 레스토랑에 유럽 본토의 맛을 전달하는 가교 역할을 시작하며, 일본 식자재(모노마트)까지 영역을 확장해 왔습니다.
+                                </p>
+                            </div>
+                            <div class="w-full md:w-1/2 h-64 bg-slate-200 rounded-xl overflow-hidden shadow-inner relative">
+                                <img src="https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?q=80&w=2076&auto=format&fit=crop" alt="Beginning" class="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div x-show="tab === 'today'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="w-full mb-8">
+                        <div class="flex flex-col md:flex-row items-center gap-8">
+                            <div class="w-full md:w-1/2 order-2 md:order-1">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="bg-white p-4 rounded-xl shadow-sm text-center border border-slate-100">
+                                        <span class="block text-3xl font-bold text-brand-navy mb-1">20+</span>
+                                        <span class="text-xs text-slate-500">글로벌 공급사</span>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-xl shadow-sm text-center border border-slate-100">
+                                        <span class="block text-3xl font-bold text-brand-navy mb-1">300+</span>
+                                        <span class="text-xs text-slate-500">제주 파트너사</span>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-xl shadow-sm text-center border border-slate-100 col-span-2">
+                                        <span class="block text-brand-orange font-bold mb-1">One-Stop Solution</span>
+                                        <span class="text-xs text-slate-500">양식부터 일식, 베이커리까지</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full md:w-1/2 order-1 md:order-2">
+                                <span class="text-brand-navy font-bold text-lg mb-2 block">Present - Trusted Partner</span>
+                                <h3 class="text-2xl font-bold text-slate-800 mb-4">셰프가 가장 먼저 찾는 파트너</h3>
+                                <p class="text-slate-600 leading-relaxed text-justify break-keep">
+                                    현재 구르메 제주는 프랑스, 이탈리아, 미국 등 전 세계 20여 개 수입사의 엄선된 제품을 취급합니다. 신라, 롯데, 하얏트 등 특급 호텔부터 제주 전역의 유명 베이커리와 오너 셰프 키친까지, 가장 신선하고 트렌디한 식자재를 매일 공급하고 있습니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div x-show="tab === 'tomorrow'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="w-full mb-8">
+                        <div class="flex flex-col items-center text-center max-w-2xl mx-auto">
+                            <div class="w-16 h-16 bg-brand-navy rounded-full flex items-center justify-center text-white text-2xl mb-6 shadow-glow">
+                                <i class="fa-solid fa-rocket"></i>
+                            </div>
+                            <span class="text-brand-orange font-bold text-lg mb-2 block">Future - Digital Transformation</span>
+                            <h3 class="text-2xl font-bold text-slate-800 mb-4">온라인으로 연결되는 미식의 세계</h3>
+                            <p class="text-slate-600 leading-relaxed break-keep">
+                                2024년부터 온라인 비즈니스 확장을 통해 더 많은 고객님들과 만나려 합니다. 단순히 제품을 파는 것을 넘어, 유럽의 식문화와 건강한 자연식품을 소개하는 '제주 식문화 선구자'로서의 역할을 다하겠습니다.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4 pt-8 border-t border-slate-200">
+                        <p class="text-sm text-slate-500 mb-4">구르메 제주에 대해 더 자세히 알고 싶으신가요?</p>
+                        <a href="Gourmet_회사소개서.pdf" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white border border-brand-navy text-brand-navy font-bold hover:bg-brand-navy hover:text-white transition-colors shadow-sm text-sm">
+                            <i class="fa-solid fa-book-open"></i> 구르메 제주 브랜드북 살펴보기
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-brand-navy text-white relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-[128px] opacity-20"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-purple-500 rounded-full blur-[128px] opacity-20"></div>
+
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-16">
+                    <span class="text-brand-gold font-bold tracking-widest text-xs uppercase mb-2 block">Infrastructure</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">제주 현지 물류 시스템</h2>
+                    <p class="text-slate-300 max-w-2xl mx-auto">육지보다 더 신선하게, 더 빠르게.<br>구르메 제주만의 독보적인 물류 경쟁력입니다.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition duration-300">
+                        <div class="text-brand-gold text-4xl mb-6"><i class="fa-solid fa-warehouse"></i></div>
+                        <h3 class="text-xl font-bold mb-3">자체 물류 센터</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed break-keep">
+                            제주도 내 대형 냉장/냉동 물류 창고를 보유하여, 충분한 재고 확보 및 안정적인 수급이 가능합니다. 기상 악화 시에도 매장 운영에 차질이 없도록 지원합니다.
+                        </p>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition duration-300">
+                        <div class="text-brand-gold text-4xl mb-6"><i class="fa-solid fa-temperature-arrow-down"></i></div>
+                        <h3 class="text-xl font-bold mb-3">Full Cold-Chain</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed break-keep">
+                            입고부터 출고, 배송까지 전 과정 콜드체인 시스템을 가동합니다. 온도에 민감한 치즈, 버터, 초콜릿의 최상 컨디션을 고객님의 주방까지 유지합니다.
+                        </p>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition duration-300">
+                        <div class="text-brand-gold text-4xl mb-6"><i class="fa-solid fa-truck-fast"></i></div>
+                        <h3 class="text-xl font-bold mb-3">직영 배송 서비스</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed break-keep">
+                            외주 용달이 아닌 구르메 제주 소속 배송 매니저가 직접 배송합니다. 식자재에 대한 이해도가 높은 전문 인력이 안전하게 전달해 드립니다.
+                        </p>
                     </div>
                 </div>
             </div>
