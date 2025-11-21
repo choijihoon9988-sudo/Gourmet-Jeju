@@ -165,7 +165,7 @@
                             <div class="relative h-40 bg-slate-50 p-4 flex items-center justify-center overflow-hidden">
                                 <img :src="product.image" :alt="product.name" 
                                      class="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-500"
-                                     onerror="this.src='https://via.placeholder.com/150?text=No+Image'">
+                                     onerror="this.src='https://via.placeholder.com/150?text=Gourmet+Jeju'">
                             </div>
 
                             <div class="p-4 flex flex-col flex-grow">
@@ -379,23 +379,20 @@
                     { id: 'meat', name: '샤퀴테리/육가공' }
                 ],
 
-                // Step 1: 통합된 브랜드 목록 (3개 파일 전체)
+                // Brands List
                 brands: [
-                    // 이탈리아 식자재
                     'Divella', 'Verrigni', 'Bia', 'Star', 'Polli', 'Cannamela', 'Selektia Tartufi', 
                     'Riunione', 'Cosimar', 'Edmond Fallot', 'Bruno', 'Merlini', 'Terra Maris', 
                     'Emile Noel', 'Grissin Bon', 'Agrisicilia', 'Sperlari', 'Rigoni di Asiago', 
                     'Frantoio Bianco', 'Ecosac', 'Gandules', 'De Nigris', 'Villa Modena', 
-                    'Petruzzelli', 'Centonze',
-                    // 유럽/미국 치즈 및 기타
-                    'Isigny Ste-Mère', 'Savencia', 'Mila', 'Brimi', 'Brelat', 'Nonno Nanni', 
-                    'Kolios', 'Schlierbacher', 'Cache Valley', 'Emborg', 'Euro Gout', 'Germain', 
-                    'Bons Mayennais', 'Fromager d\'Affinois', 'Mon Ami', 'Briette', 'Vagne', 
-                    'Davoine', 'Antico Caseificio', 'Farnese', 'Albiero', 'Ferrarini', 'Fallini', 
-                    'Emmi', 'L\'angelo', 'Coombe Castle', 'Hajdu', 'Lactima', 'Schipper Cheese', 
-                    'Fromage de Gourmet', 'IFC', 'Primula', 'Liberty Lane', 'Elle & Vire', 
-                    'Lescure', 'Le Gall', 'Briois', 'Devon Cream Company', 'Fage', 'Kri Kri', 
-                    'Rougie', 'Torreon', 'Espuna', 'Ars Italica', 'Calvisius', 'Almas', 
+                    'Petruzzelli', 'Centonze', 'Isigny Ste-Mère', 'Savencia', 'Mila', 'Brimi', 
+                    'Brelat', 'Nonno Nanni', 'Kolios', 'Schlierbacher', 'Cache Valley', 'Emborg', 
+                    'Euro Gout', 'Germain', 'Bons Mayennais', 'Fromager d\'Affinois', 'Mon Ami', 
+                    'Briette', 'Vagne', 'Davoine', 'Antico Caseificio', 'Farnese', 'Albiero', 
+                    'Ferrarini', 'Fallini', 'Emmi', 'L\'angelo', 'Coombe Castle', 'Hajdu', 'Lactima', 
+                    'Schipper Cheese', 'Fromage de Gourmet', 'IFC', 'Primula', 'Liberty Lane', 
+                    'Elle & Vire', 'Lescure', 'Le Gall', 'Briois', 'Devon Cream Company', 'Fage', 
+                    'Kri Kri', 'Rougie', 'Torreon', 'Espuna', 'Ars Italica', 'Calvisius', 'Almas', 
                     'Pescaviar', 'Plantin', 'Santagata', 'Beaufor', 'Percheron freres', 
                     'Casa Rinaldi', 'Belberry', 'Alain Milliat', 'Jam for Cheese', 'Rana', 
                     'Vandemoortele', 'Sofrabrick', 'Sundown', 'Dilecce', 'Le Nostrane', 'FOS', 
@@ -409,101 +406,119 @@
                     'Beretta', 'Miccio', 'Bonomi', 'Leksands', 'Tako'
                 ],
 
-                // Step 1 + 2 + 3: 전체 상품 데이터 통합
+                // Product Data
                 products: [
-                    // --- Dairy Products (Step 1) ---
-                    { id: 1001, name: '이즈니 AOP 버터 롤 (가염)', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '250g', image: 'https://via.placeholder.com/150?text=Isigny+Salted', tag: 'BEST' },
-                    { id: 1002, name: '이즈니 AOP 버터 롤 (무염)', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '250g', image: 'https://via.placeholder.com/150?text=Isigny+Unsalted', tag: 'BEST' },
-                    { id: 1003, name: '이즈니 포션 버터 (컵)', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '10g x 60ea', image: 'https://via.placeholder.com/150?text=Portion+Cup', tag: '호텔납품' },
-                    { id: 1004, name: '이즈니 브리 치즈', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '1kg', image: 'https://via.placeholder.com/150?text=Isigny+Brie', tag: '' },
-                    { id: 1005, name: '이즈니 까망베르 노르망디', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '250g', image: 'https://via.placeholder.com/150?text=Camembert', tag: 'AOP' },
-                    { id: 1006, name: '이즈니 미몰레뜨 (6개월)', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '210g', image: 'https://via.placeholder.com/150?text=Mimolette', tag: '' },
-                    { id: 1007, name: '이즈니 생메르 크렘 프레쉬', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '200ml', image: 'https://via.placeholder.com/150?text=Creme+Fraiche', tag: '소스용' },
-                    { id: 2001, name: '벨지오이오소 부라타 (4 balls)', brand: 'BelGioioso', category: 'dairy', spec: '226g', image: 'https://via.placeholder.com/150?text=Burrata', tag: '인기' },
-                    { id: 2002, name: '벨지오이오소 후레쉬 모짜렐라 로그', brand: 'BelGioioso', category: 'dairy', spec: '453g', image: 'https://via.placeholder.com/150?text=Mozzarella+Log', tag: '' },
-                    { id: 2003, name: '벨지오이오소 슬라이스 모짜렐라', brand: 'BelGioioso', category: 'dairy', spec: '907g', image: 'https://via.placeholder.com/150?text=Sliced+Mozz', tag: '업소용' },
-                    { id: 2004, name: '벨지오이오소 리코타', brand: 'BelGioioso', category: 'dairy', spec: '453g', image: 'https://via.placeholder.com/150?text=Ricotta', tag: '' },
-                    { id: 2005, name: '벨지오이오소 마스카포네', brand: 'BelGioioso', category: 'dairy', spec: '226g', image: 'https://via.placeholder.com/150?text=Mascarpone', tag: '티라미수' },
-                    { id: 2006, name: '벨지오이오소 파마산 쉐이브드 컵', brand: 'BelGioioso', category: 'dairy', spec: '113g', image: 'https://via.placeholder.com/150?text=Parmesan+Cup', tag: '' },
-                    { id: 3001, name: '암브로시 마스카포네', brand: 'Ambrosi', category: 'dairy', spec: '500g', image: 'https://via.placeholder.com/150?text=Ambrosi+Masc', tag: '' },
-                    { id: 3002, name: '암브로시 고르곤졸라 피칸테', brand: 'Ambrosi', category: 'dairy', spec: '150g', image: 'https://via.placeholder.com/150?text=Gorgonzola', tag: '블루치즈' },
-                    { id: 3003, name: '암브로시 그라나 파다노', brand: 'Ambrosi', category: 'dairy', spec: '1kg', image: 'https://via.placeholder.com/150?text=Grana+Padano', tag: '블록' },
-                    { id: 3004, name: '암브로시 파르미지아노 레지아노', brand: 'Ambrosi', category: 'dairy', spec: '150g', image: 'https://via.placeholder.com/150?text=Parmigiano', tag: 'DOP' },
-                    { id: 4001, name: '엠보그 모짜렐라 슬라이스', brand: 'Emborg', category: 'dairy', spec: '150g', image: 'https://via.placeholder.com/150?text=Emborg+Mozz', tag: '샌드위치' },
-                    { id: 4002, name: '엠보그 에멘탈 슬라이스', brand: 'Emborg', category: 'dairy', spec: '150g', image: 'https://via.placeholder.com/150?text=Emmental+Slice', tag: '' },
-                    { id: 4003, name: '엠보그 하바티 슬라이스', brand: 'Emborg', category: 'dairy', spec: '150g', image: 'https://via.placeholder.com/150?text=Havarti', tag: '' },
-                    { id: 4004, name: '엠보그 크림치즈', brand: 'Emborg', category: 'dairy', spec: '1.36kg', image: 'https://via.placeholder.com/150?text=Cream+Cheese', tag: '대용량' },
-                    { id: 4005, name: '엠보그 브리', brand: 'Emborg', category: 'dairy', spec: '125g', image: 'https://via.placeholder.com/150?text=Emborg+Brie', tag: '캔치즈' },
-                    { id: 4006, name: '엠보그 까망베르', brand: 'Emborg', category: 'dairy', spec: '125g', image: 'https://via.placeholder.com/150?text=Emborg+Cam', tag: '캔치즈' },
-                    { id: 5001, name: '조트 바이에른탈러 에멘탈', brand: 'Zott', category: 'dairy', spec: '200g', image: 'https://via.placeholder.com/150?text=Bayerntaler', tag: '' },
-                    { id: 5002, name: '조트 모짜렐라 슬라이스', brand: 'Zott', category: 'dairy', spec: '200g', image: 'https://via.placeholder.com/150?text=Zott+Mozz', tag: '' },
-                    { id: 5003, name: '조트 타이거 스트링 치즈', brand: 'Zott', category: 'dairy', spec: '84g', image: 'https://via.placeholder.com/150?text=Tiger+String', tag: '키즈' },
-                    { id: 6001, name: '올덴버거 멸균 우유', brand: 'Oldenburger', category: 'dairy', spec: '1L', image: 'https://via.placeholder.com/150?text=UHT+Milk', tag: '멸균' },
-                    { id: 6002, name: '올덴버거 휘핑크림', brand: 'Oldenburger', category: 'dairy', spec: '1L', image: 'https://via.placeholder.com/150?text=Whipping+Cream', tag: '제과용' },
-                    { id: 6003, name: '올덴버거 고다 슬라이스', brand: 'Oldenburger', category: 'dairy', spec: '150g', image: 'https://via.placeholder.com/150?text=Gouda+Slice', tag: '' },
-                    { id: 7001, name: '그랑도르 고다 미니', brand: 'Grand\'Or', category: 'dairy', spec: '100g', image: 'https://via.placeholder.com/150?text=Mini+Gouda', tag: '스낵' },
-                    { id: 7002, name: '그랑도르 스모크 치즈', brand: 'Grand\'Or', category: 'dairy', spec: '200g', image: 'https://via.placeholder.com/150?text=Smoked+Cheese', tag: '안주' },
-                    { id: 7003, name: '그랑도르 에담 슬라이스', brand: 'Grand\'Or', category: 'dairy', spec: '160g', image: 'https://via.placeholder.com/150?text=Edam+Slice', tag: '' },
-                    { id: 8001, name: '브리미 모짜렐라 볼', brand: 'Brimi', category: 'dairy', spec: '125g', image: 'https://via.placeholder.com/150?text=Brimi+Mozz', tag: '이탈리아' },
-                    { id: 8002, name: '브리미 리코타', brand: 'Brimi', category: 'dairy', spec: '250g', image: 'https://via.placeholder.com/150?text=Brimi+Ricotta', tag: '' },
-                    { id: 8003, name: '브리미 모짜렐라 블록', brand: 'Brimi', category: 'dairy', spec: '1kg', image: 'https://via.placeholder.com/150?text=Mozz+Block', tag: '피자용' },
-                    { id: 9001, name: '파예 그릭 요거트 (무지방)', brand: 'Fage', category: 'dairy', spec: '170g', image: 'https://via.placeholder.com/150?text=Fage+0', tag: '다이어트' },
-                    { id: 9002, name: '파예 그릭 요거트 (허니)', brand: 'Fage', category: 'dairy', spec: '170g', image: 'https://via.placeholder.com/150?text=Fage+Honey', tag: '' },
-                    { id: 9501, name: '오가닉밸리 유기농 기버터', brand: 'Organic Valley', category: 'dairy', spec: '212g', image: 'https://via.placeholder.com/150?text=Ghee+Butter', tag: '유기농' },
-                    { id: 9502, name: '오가닉밸리 스트링 치즈', brand: 'Organic Valley', category: 'dairy', spec: '170g', image: 'https://via.placeholder.com/150?text=Org+String', tag: '유기농' },
+                    // --- Dairy Products (Cheese, Butter, Cream, Yoghurt, Milk Snacks) ---
+                    { id: 10001, name: '이즈니 AOP 버터 롤 (가염)', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '250g', image: 'https://via.placeholder.com/150?text=Isigny+Butter', tag: 'AOP' },
+                    { id: 10002, name: '이즈니 AOP 버터 롤 (무염)', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '250g', image: 'https://via.placeholder.com/150?text=Isigny+Unsalted', tag: 'AOP' },
+                    { id: 10003, name: '이즈니 포션 버터 (컵)', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '10g x 60ea', image: 'https://via.placeholder.com/150?text=Portion+Butter', tag: '호텔납품' },
+                    { id: 10004, name: '이즈니 생메르 크렘 프레쉬 AOP', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '200ml', image: 'https://via.placeholder.com/150?text=Creme+Fraiche', tag: '소스용' },
+                    { id: 10005, name: '이즈니 브리 치즈', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '1kg', image: 'https://via.placeholder.com/150?text=Brie+1kg', tag: '업소용' },
+                    { id: 10006, name: '이즈니 까망베르 노르망디', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '250g', image: 'https://via.placeholder.com/150?text=Camembert', tag: 'AOP' },
+                    { id: 10007, name: '이즈니 미몰레뜨 (6개월)', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '210g', image: 'https://via.placeholder.com/150?text=Mimolette', tag: '숙성치즈' },
+                    { id: 10008, name: '이즈니 AOP 버터 브릭', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '250g', image: 'https://via.placeholder.com/150?text=Butter+Brick', tag: 'AOP' },
+                    { id: 10009, name: '이즈니 오가닉 버터 브릭', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '200g', image: 'https://via.placeholder.com/150?text=Organic+Butter', tag: '유기농' },
+                    { id: 10010, name: '이즈니 냉동 버터 벌크', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '10kg', image: 'https://via.placeholder.com/150?text=Bulk+Butter', tag: '대용량/냉동' },
+                    
+                    { id: 10011, name: '벨지오 모짜렐라 로그 슬라이스', brand: 'BelGioioso', category: 'dairy', spec: '907g', image: 'https://via.placeholder.com/150?text=Mozz+Log', tag: '업소용' },
+                    { id: 10012, name: '벨지오 부라타 (4 balls)', brand: 'BelGioioso', category: 'dairy', spec: '226g', image: 'https://via.placeholder.com/150?text=Burrata', tag: 'BEST' },
+                    { id: 10013, name: '벨지오 마스카포네', brand: 'BelGioioso', category: 'dairy', spec: '226g', image: 'https://via.placeholder.com/150?text=Mascarpone', tag: '티라미수' },
+                    { id: 10014, name: '벨지오 리코타 미니 컵', brand: 'BelGioioso', category: 'dairy', spec: '142g', image: 'https://via.placeholder.com/150?text=Ricotta', tag: '미니' },
+                    { id: 10015, name: '벨지오 스트라치아렐라', brand: 'BelGioioso', category: 'dairy', spec: '226g', image: 'https://via.placeholder.com/150?text=Stracciatella', tag: '부라타속' },
+                    { id: 10016, name: '벨지오 파마산 쉐이브드 컵', brand: 'BelGioioso', category: 'dairy', spec: '113g', image: 'https://via.placeholder.com/150?text=Parmesan', tag: '토핑용' },
+                    
+                    { id: 10017, name: '암브로시 마스카포네', brand: 'Ambrosi', category: 'dairy', spec: '500g', image: 'https://via.placeholder.com/150?text=Ambrosi+Masc', tag: '이탈리아' },
+                    { id: 10018, name: '암브로시 고르곤졸라 피칸테', brand: 'Ambrosi', category: 'dairy', spec: '150g', image: 'https://via.placeholder.com/150?text=Gorgonzola', tag: '블루치즈' },
+                    { id: 10019, name: '암브로시 그라나 파다노', brand: 'Ambrosi', category: 'dairy', spec: '1kg', image: 'https://via.placeholder.com/150?text=Grana+Padano', tag: '경성치즈' },
+                    { id: 10020, name: '암브로시 파르미지아노 레지아노', brand: 'Ambrosi', category: 'dairy', spec: '150g', image: 'https://via.placeholder.com/150?text=Parmigiano', tag: 'DOP' },
+                    
+                    { id: 10021, name: '엠보그 모짜렐라 슬라이스', brand: 'Emborg', category: 'dairy', spec: '150g', image: 'https://via.placeholder.com/150?text=Emborg+Mozz', tag: '슬라이스' },
+                    { id: 10022, name: '엠보그 에멘탈 슬라이스', brand: 'Emborg', category: 'dairy', spec: '150g', image: 'https://via.placeholder.com/150?text=Emmental', tag: '슬라이스' },
+                    { id: 10023, name: '엠보그 크림치즈', brand: 'Emborg', category: 'dairy', spec: '1.36kg', image: 'https://via.placeholder.com/150?text=Cream+Cheese', tag: '대용량' },
+                    { id: 10024, name: '엠보그 휘핑크림', brand: 'Emborg', category: 'dairy', spec: '1L', image: 'https://via.placeholder.com/150?text=Whipping+Cream', tag: '제과용' },
+                    { id: 10025, name: '엠보그 사우어 크림', brand: 'Emborg', category: 'dairy', spec: '1L', image: 'https://via.placeholder.com/150?text=Sour+Cream', tag: '업소용' },
+                    
+                    { id: 10026, name: '오가닉밸리 유기농 기 버터', brand: 'Organic Valley', category: 'dairy', spec: '212g', image: 'https://via.placeholder.com/150?text=Ghee', tag: '유기농' },
+                    { id: 10027, name: '오가닉밸리 유기농 스트링 치즈', brand: 'Organic Valley', category: 'dairy', spec: '170g', image: 'https://via.placeholder.com/150?text=String+Cheese', tag: '키즈' },
+                    { id: 10028, name: '오가닉밸리 유기농 크림치즈', brand: 'Organic Valley', category: 'dairy', spec: '226g', image: 'https://via.placeholder.com/150?text=Org+Cream+Cheese', tag: '유기농' },
+                    
+                    { id: 10029, name: '퍼시픽 콜비잭 치즈', brand: 'Pacific Cheese', category: 'dairy', spec: '227g', image: 'https://via.placeholder.com/150?text=Colby+Jack', tag: '미국' },
+                    { id: 10030, name: '퍼시픽 마일드 체다 치즈', brand: 'Pacific Cheese', category: 'dairy', spec: '227g', image: 'https://via.placeholder.com/150?text=Mild+Cheddar', tag: '미국' },
+                    { id: 10031, name: '퍼시픽 몬테레이 잭', brand: 'Pacific Cheese', category: 'dairy', spec: '226g', image: 'https://via.placeholder.com/150?text=Monterey+Jack', tag: '미국' },
+                    
+                    { id: 10032, name: '조트 바이에른탈러 에멘탈', brand: 'Zott', category: 'dairy', spec: '200g', image: 'https://via.placeholder.com/150?text=Zott+Emmental', tag: '독일' },
+                    { id: 10033, name: '조트 모짜렐라 슬라이스', brand: 'Zott', category: 'dairy', spec: '200g', image: 'https://via.placeholder.com/150?text=Zott+Mozz', tag: '슬라이스' },
+                    { id: 10034, name: '조트 타이거 스트링 치즈', brand: 'Zott', category: 'dairy', spec: '84g', image: 'https://via.placeholder.com/150?text=Tiger+String', tag: '키즈' },
+                    
+                    { id: 10035, name: '올덴버거 멸균 우유', brand: 'Oldenburger', category: 'dairy', spec: '1L', image: 'https://via.placeholder.com/150?text=UHT+Milk', tag: '멸균' },
+                    { id: 10036, name: '올덴버거 휘핑크림', brand: 'Oldenburger', category: 'dairy', spec: '1L', image: 'https://via.placeholder.com/150?text=Whipping', tag: '가성비' },
+                    
+                    { id: 10037, name: '그랑도르 고다 미니', brand: 'Grand\'Or', category: 'dairy', spec: '100g', image: 'https://via.placeholder.com/150?text=Mini+Gouda', tag: '스낵' },
+                    { id: 10038, name: '그랑도르 스모크 치즈', brand: 'Grand\'Or', category: 'dairy', spec: '200g', image: 'https://via.placeholder.com/150?text=Smoked', tag: '안주' },
+                    { id: 10039, name: '그랑도르 에담 슬라이스', brand: 'Grand\'Or', category: 'dairy', spec: '160g', image: 'https://via.placeholder.com/150?text=Edam+Slice', tag: '슬라이스' },
+                    
+                    { id: 10040, name: '브리미 모짜렐라 블록', brand: 'Brimi', category: 'dairy', spec: '1kg', image: 'https://via.placeholder.com/150?text=Mozz+Block', tag: '피자용' },
+                    { id: 10041, name: '브리미 리코타', brand: 'Brimi', category: 'dairy', spec: '250g', image: 'https://via.placeholder.com/150?text=Ricotta', tag: '프레쉬' },
+                    { id: 10042, name: '브리미 모짜렐라 락토스 프리', brand: 'Brimi', category: 'dairy', spec: '125g', image: 'https://via.placeholder.com/150?text=Lactose+Free', tag: '락토프리' },
+                    
+                    { id: 10043, name: '파예 클래식 그릭 요거트', brand: 'Fage', category: 'dairy', spec: '450g', image: 'https://via.placeholder.com/150?text=Fage+Classic', tag: '대용량' },
+                    { id: 10044, name: '파예 무지방 그릭 요거트', brand: 'Fage', category: 'dairy', spec: '170g', image: 'https://via.placeholder.com/150?text=Fage+0', tag: '다이어트' },
+                    { id: 10045, name: '파예 그릭 요거트 (허니)', brand: 'Fage', category: 'dairy', spec: '170g', image: 'https://via.placeholder.com/150?text=Fage+Honey', tag: '디저트' },
+                    
+                    { id: 10046, name: '크리크리 그릭 프로즌 요거트 플레인', brand: 'Kri Kri', category: 'dairy', spec: '320g', image: 'https://via.placeholder.com/150?text=Frozen+Yogurt', tag: '아이스크림' },
+                    
+                    { id: 10047, name: '티에스씨 오레오 밀크 스낵', brand: 'TSC', category: 'dairy', spec: '30g', image: 'https://via.placeholder.com/150?text=Oreo+Snack', tag: '냉장디저트' },
+                    { id: 10048, name: '티에스씨 밀카 밀크 스낵', brand: 'TSC', category: 'dairy', spec: '32g', image: 'https://via.placeholder.com/150?text=Milka+Snack', tag: '냉장디저트' },
+                    
+                    { id: 10049, name: '달몰리스 냉동 부라타', brand: 'Dal Molise', category: 'dairy', spec: '125g', image: 'https://via.placeholder.com/150?text=Frozen+Burrata', tag: '냉동' },
+                    { id: 10050, name: '달몰리스 냉동 모짜렐라', brand: 'Dal Molise', category: 'dairy', spec: '125g', image: 'https://via.placeholder.com/150?text=Frozen+Mozz', tag: '냉동' },
+                    { id: 10051, name: '달몰리스 냉동 트러플 부라타', brand: 'Dal Molise', category: 'dairy', spec: '125g', image: 'https://via.placeholder.com/150?text=Truffle+Burrata', tag: '트러플' },
+                    
+                    { id: 10052, name: '쁘띠구르망 그라나파다노 눈꽃 슈레드', brand: 'Petit Gourmand', category: 'dairy', spec: '200g', image: 'https://via.placeholder.com/150?text=Grana+Shred', tag: '토핑용' },
+                    { id: 10053, name: '쁘띠구르망 4프로마쥬 슈레드 치즈', brand: 'Petit Gourmand', category: 'dairy', spec: '800g', image: 'https://via.placeholder.com/150?text=4Cheese+Shred', tag: '피자용' },
+                    
+                    { id: 10054, name: '브라잘레 알프스 버터 포션 컵', brand: 'Brazzale', category: 'dairy', spec: '10g', image: 'https://via.placeholder.com/150?text=Butter+Cup', tag: '호텔납품' },
+                    { id: 10055, name: '에푸아스', brand: 'Germain', category: 'dairy', spec: '250g', image: 'https://via.placeholder.com/150?text=Epoisses', tag: '워시치즈' },
+                    { id: 10056, name: '랑그르', brand: 'Germain', category: 'dairy', spec: '180g', image: 'https://via.placeholder.com/150?text=Langres', tag: '워시치즈' },
+                    { id: 10057, name: '브리 60%', brand: 'Isigny Ste-Mère', category: 'dairy', spec: '1kg', image: 'https://via.placeholder.com/150?text=Brie+60', tag: '브리' },
+                    { id: 10058, name: '일드 프랑스 미니 브리', brand: 'Ile De France', category: 'dairy', spec: '125g', image: 'https://via.placeholder.com/150?text=Mini+Brie', tag: '스낵' },
+                    { id: 10059, name: '일드 프랑스 샤브루', brand: 'Ile De France', category: 'dairy', spec: '150g', image: 'https://via.placeholder.com/150?text=Chavroux', tag: '염소치즈' },
+                    { id: 10060, name: '생 앙드레', brand: 'Savencia', category: 'dairy', spec: '200g', image: 'https://via.placeholder.com/150?text=Saint+Andre', tag: '트리플크림' },
+                    { id: 10061, name: '생 아구르 크림', brand: 'Savencia', category: 'dairy', spec: '150g', image: 'https://via.placeholder.com/150?text=Saint+Agur', tag: '블루크림' },
+                    { id: 10062, name: '엘르&비르 고메 버터 (무염)', brand: 'Elle & Vire', category: 'dairy', spec: '200g', image: 'https://via.placeholder.com/150?text=Elle+Butter', tag: '프랑스' },
+                    { id: 10063, name: '르 갈 크림치즈', brand: 'Le Gall', category: 'dairy', spec: '1kg', image: 'https://via.placeholder.com/150?text=Cream+Cheese', tag: '대용량' },
+                    { id: 10064, name: '페타치즈 허브 앤 스파이스', brand: 'Almito', category: 'dairy', spec: '280g', image: 'https://via.placeholder.com/150?text=Feta+Herb', tag: '오일절임' },
+                    { id: 10065, name: '체리페퍼 위드 크림치즈', brand: 'Almito', category: 'dairy', spec: '280g', image: 'https://via.placeholder.com/150?text=Cherry+Pepper', tag: '안주' },
 
-                    // --- Grocery Products (Step 2) ---
+                    // --- Grocery Products (Existing) ---
                     { id: 3001, name: '디벨라 스파게티 1.75mm (업소용)', brand: 'Divella', category: 'grocery', spec: '5kg', image: 'https://via.placeholder.com/150?text=Spaghetti+5kg', tag: '대용량' },
                     { id: 3002, name: '디벨라 스파게티니 1.55mm', brand: 'Divella', category: 'grocery', spec: '500g', image: 'https://via.placeholder.com/150?text=Spaghettini', tag: '' },
                     { id: 3003, name: '디벨라 링귀네', brand: 'Divella', category: 'grocery', spec: '500g', image: 'https://via.placeholder.com/150?text=Linguine', tag: '' },
                     { id: 3004, name: '디벨라 페투치네', brand: 'Divella', category: 'grocery', spec: '500g', image: 'https://via.placeholder.com/150?text=Fettuccine', tag: '크림파스타' },
-                    { id: 3005, name: '디벨라 펜네 (Penne Ziti Rigate)', brand: 'Divella', category: 'grocery', spec: '500g', image: 'https://via.placeholder.com/150?text=Penne', tag: '숏파스타' },
+                    { id: 3005, name: '디벨라 펜네', brand: 'Divella', category: 'grocery', spec: '500g', image: 'https://via.placeholder.com/150?text=Penne', tag: '숏파스타' },
                     { id: 3006, name: '디벨라 푸질리', brand: 'Divella', category: 'grocery', spec: '500g', image: 'https://via.placeholder.com/150?text=Fusilli', tag: '샐러드용' },
                     { id: 3007, name: '디벨라 엑스트라 버진 올리브오일', brand: 'Divella', category: 'grocery', spec: '1L', image: 'https://via.placeholder.com/150?text=Olive+Oil', tag: '엑스트라버진' },
                     { id: 3008, name: '디벨라 포마스 올리브오일 (조리용)', brand: 'Divella', category: 'grocery', spec: '1L', image: 'https://via.placeholder.com/150?text=Pomace+Oil', tag: '튀김용' },
                     { id: 3009, name: '디벨라 홀 토마토 (캔)', brand: 'Divella', category: 'grocery', spec: '2.5kg', image: 'https://via.placeholder.com/150?text=Whole+Tomato', tag: '업소용' },
                     { id: 3010, name: '디벨라 세몰리나 밀가루', brand: 'Divella', category: 'grocery', spec: '1kg', image: 'https://via.placeholder.com/150?text=Semolina', tag: '파스타용' },
-                    { id: 3101, name: '스타 다도 클래식 (비프 스톡)', brand: 'Star', category: 'grocery', spec: '100g (10ea)', image: 'https://via.placeholder.com/150?text=Dado+Beef', tag: '육수' },
-                    { id: 3102, name: '스타 다도 베지탈레 (야채 스톡)', brand: 'Star', category: 'grocery', spec: '100g (10ea)', image: 'https://via.placeholder.com/150?text=Dado+Veg', tag: '비건' },
-                    { id: 3103, name: '스타 라구 소스 (볼로네제)', brand: 'Star', category: 'grocery', spec: '180g x 2', image: 'https://via.placeholder.com/150?text=Ragu+Sauce', tag: '' },
-                    { id: 3104, name: '스타 구스토 포르치니 (버섯 스톡)', brand: 'Star', category: 'grocery', spec: '500g', image: 'https://via.placeholder.com/150?text=Porcini+Stock', tag: '리조또' },
+                    { id: 3101, name: '스타 다도 클래식 (비프 스톡)', brand: 'Star', category: 'grocery', spec: '100g', image: 'https://via.placeholder.com/150?text=Dado+Beef', tag: '육수' },
                     { id: 3201, name: '폴리 바질 페스토', brand: 'Polli', category: 'grocery', spec: '190g', image: 'https://via.placeholder.com/150?text=Polli+Pesto', tag: '인기' },
-                    { id: 3202, name: '폴리 씨없는 블랙 올리브', brand: 'Polli', category: 'grocery', spec: '130g', image: 'https://via.placeholder.com/150?text=Black+Olive', tag: '슬라이스' },
-                    { id: 3203, name: '폴리 케이퍼 (식초 절임)', brand: 'Polli', category: 'grocery', spec: '100g', image: 'https://via.placeholder.com/150?text=Capers', tag: '연어용' },
-                    { id: 3204, name: '폴리 아티초크 오일 절임', brand: 'Polli', category: 'grocery', spec: '285g', image: 'https://via.placeholder.com/150?text=Artichoke', tag: '안티파스토' },
                     { id: 3301, name: '칸나멜라 흑후추 그라인더', brand: 'Cannamela', category: 'grocery', spec: '28g', image: 'https://via.placeholder.com/150?text=Black+Pepper', tag: '통후추' },
-                    { id: 3302, name: '칸나멜라 핑크 히말라야 소금', brand: 'Cannamela', category: 'grocery', spec: '60g', image: 'https://via.placeholder.com/150?text=Pink+Salt', tag: '그라인더' },
-                    { id: 3303, name: '칸나멜라 유기농 오레가노', brand: 'Cannamela', category: 'grocery', spec: '10g', image: 'https://via.placeholder.com/150?text=Oregano', tag: '허브' },
-                    { id: 3304, name: '칸나멜라 페페론치노 (홀)', brand: 'Cannamela', category: 'grocery', spec: '21g', image: 'https://via.placeholder.com/150?text=Peperoncino', tag: '매운맛' },
                     { id: 3401, name: '셀렉티아 화이트 트러플 오일', brand: 'Selektia Tartufi', category: 'grocery', spec: '250ml', image: 'https://via.placeholder.com/150?text=Truffle+Oil', tag: '고급' },
-                    { id: 3402, name: '셀렉티아 트러플 소스 (타르투파타)', brand: 'Selektia Tartufi', category: 'grocery', spec: '500g', image: 'https://via.placeholder.com/150?text=Truffle+Sauce', tag: '업소용' },
-                    { id: 3501, name: '데니그리스 발사믹 식초', brand: 'De Nigris', category: 'grocery', spec: '500ml', image: 'https://via.placeholder.com/150?text=Balsamic', tag: '' },
-                    { id: 3502, name: '빌라모데나 화이트 발사믹', brand: 'Villa Modena', category: 'grocery', spec: '250ml', image: 'https://via.placeholder.com/150?text=White+Balsamic', tag: '드레싱' },
-                    { id: 3503, name: '프란토이오 비안코 바질페스토', brand: 'Frantoio Bianco', category: 'grocery', spec: '500g', image: 'https://via.placeholder.com/150?text=Genovese+Pesto', tag: '프리미엄' },
-                    { id: 3504, name: '에밀레 노엘 유기농 아보카도 오일', brand: 'Emile Noel', category: 'grocery', spec: '250ml', image: 'https://via.placeholder.com/150?text=Avocado+Oil', tag: '유기농' },
 
-                    // --- Meat Products (Step 3: Added) ---
+                    // --- Meat Products (Existing) ---
                     { id: 4001, name: '베레타 밀라노 살라미', brand: 'Beretta', category: 'meat', spec: '227g', image: 'https://via.placeholder.com/150?text=Milano+Salami', tag: '살라미' },
                     { id: 4002, name: '베레타 프로슈토 슬라이스', brand: 'Beretta', category: 'meat', spec: '85g', image: 'https://via.placeholder.com/150?text=Prosciutto', tag: '안주용' },
-                    { id: 4003, name: '베레타 판세타 슬라이스', brand: 'Beretta', category: 'meat', spec: '85g', image: 'https://via.placeholder.com/150?text=Pancetta', tag: '베이컨' },
                     { id: 4101, name: '에스푸나 하몽 세라노 슬라이스', brand: 'Espuna', category: 'meat', spec: '100g', image: 'https://via.placeholder.com/150?text=Serrano+Ham', tag: '스페인' },
-                    { id: 4102, name: '에스푸나 초리조 엑스트라 (슬라이스)', brand: 'Espuna', category: 'meat', spec: '100g', image: 'https://via.placeholder.com/150?text=Chorizo', tag: '매콤' },
-                    { id: 4103, name: '에스푸나 살치촌 엑스트라', brand: 'Espuna', category: 'meat', spec: '100g', image: 'https://via.placeholder.com/150?text=Salchichon', tag: '' },
+                    { id: 4102, name: '에스푸나 초리조 엑스트라', brand: 'Espuna', category: 'meat', spec: '100g', image: 'https://via.placeholder.com/150?text=Chorizo', tag: '매콤' },
                     { id: 4201, name: '토레온 이베리코 베요타 하몽', brand: 'Torreon', category: 'meat', spec: '80g', image: 'https://via.placeholder.com/150?text=Iberico+Ham', tag: '최고급' },
 
-                    // --- Dessert/Beverage Products (Step 3: Added) ---
+                    // --- Dessert Products (Existing) ---
                     { id: 5001, name: '반데모르텔 버터 크루아상 생지', brand: 'Vandemoortele', category: 'dessert', spec: '60g x 76ea', image: 'https://via.placeholder.com/150?text=Croissant', tag: '냉동생지' },
-                    { id: 5002, name: '반데모르텔 미니 애플 턴오버', brand: 'Vandemoortele', category: 'dessert', spec: '40g x 150ea', image: 'https://via.placeholder.com/150?text=Apple+Turnover', tag: '뷔페용' },
-                    { id: 5101, name: '보노미 사보이아르디 (레이디핑거)', brand: 'Bonomi', category: 'dessert', spec: '400g', image: 'https://via.placeholder.com/150?text=Savoiardi', tag: '티라미수' },
-                    { id: 5201, name: 'TSC 오레오 밀크 스낵', brand: 'TSC', category: 'dessert', spec: '30g', image: 'https://via.placeholder.com/150?text=Oreo+Snack', tag: '냉장디저트' },
-                    { id: 5202, name: 'TSC 밀카 밀크 스낵', brand: 'TSC', category: 'dessert', spec: '32g', image: 'https://via.placeholder.com/150?text=Milka+Snack', tag: '냉장디저트' },
-                    { id: 5301, name: '타코 수박 주스 (100% 착즙)', brand: 'Tako', category: 'dessert', spec: '330ml', image: 'https://via.placeholder.com/150?text=Watermelon', tag: '태국' },
+                    { id: 5101, name: '보노미 사보이아르디', brand: 'Bonomi', category: 'dessert', spec: '400g', image: 'https://via.placeholder.com/150?text=Savoiardi', tag: '티라미수' },
+                    { id: 5301, name: '타코 수박 주스', brand: 'Tako', category: 'dessert', spec: '330ml', image: 'https://via.placeholder.com/150?text=Watermelon', tag: '태국' },
                     { id: 5401, name: '로리나 스파클링 레모네이드', brand: 'Lorina', category: 'dessert', spec: '330ml', image: 'https://via.placeholder.com/150?text=Lemonade', tag: '탄산' },
-                    { id: 5501, name: '니피스 오렌지 주스', brand: 'Nippy\'s', category: 'dessert', spec: '1L', image: 'https://via.placeholder.com/150?text=Orange+Juice', tag: '무가당' },
-                    { id: 5601, name: '알랭 밀리아 딸기잼', brand: 'Alain Milliat', category: 'dessert', spec: '300g', image: 'https://via.placeholder.com/150?text=Strawberry+Jam', tag: '프리미엄' },
-                    { id: 5602, name: '알랭 밀리아 살구잼', brand: 'Alain Milliat', category: 'dessert', spec: '300g', image: 'https://via.placeholder.com/150?text=Apricot+Jam', tag: '호텔조식' },
-                    { id: 5701, name: '카라멜 디즈니 솔티드 버터 카라멜', brand: 'Caramels d\'Isigny', category: 'dessert', spec: '150g', image: 'https://via.placeholder.com/150?text=Caramels', tag: '이즈니버터' },
-                    { id: 5801, name: '리고니 유기농 과일잼 (딸기)', brand: 'Rigoni di Asiago', category: 'dessert', spec: '250g', image: 'https://via.placeholder.com/150?text=Organic+Jam', tag: '유기농' }
+                    { id: 5601, name: '알랭 밀리아 딸기잼', brand: 'Alain Milliat', category: 'dessert', spec: '300g', image: 'https://via.placeholder.com/150?text=Strawberry+Jam', tag: '프리미엄' }
                 ],
 
                 // Computed Logic
