@@ -21,10 +21,8 @@
         [x-cloak] { display: none !important; }
         body { font-family: 'Pretendard', system-ui, sans-serif; }
         
-        /* Typography Utility */
         .font-serif-eng { font-family: 'Playfair Display', serif; }
 
-        /* Animations */
         .animate-fade-in-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(30px); }
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
         
@@ -32,7 +30,6 @@
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
         
-        /* Warm Premium Overlay (Same as Index) */
         .hero-overlay { 
             background: linear-gradient(
                 to bottom, 
@@ -42,7 +39,6 @@
             ); 
         }
 
-        /* Glassmorphism */
         .glass-panel {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
@@ -50,7 +46,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        /* Background Pattern */
         .bg-pattern { background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 24px 24px; }
     </style>
 
@@ -68,9 +63,6 @@
                     boxShadow: {
                         'glow': '0 0 25px rgba(212, 175, 55, 0.25)',
                         'card': '0 10px 40px -10px rgba(0, 0, 0, 0.08)'
-                    },
-                    letterSpacing: {
-                        'widest-xl': '0.3em',
                     }
                 }
             }
@@ -128,9 +120,9 @@
                 <span class="h-[1px] w-12 bg-brand-gold"></span>
             </div>
             
-            <h1 class="animate-fade-in-up delay-100 text-4xl md:text-6xl font-extrabold mb-8 leading-tight drop-shadow-xl font-serif-eng italic">
-                Bringing the World's<br>
-                <span class="not-italic font-sans text-white">Finest Tastes to Jeju</span>
+            <h1 class="animate-fade-in-up delay-100 text-4xl md:text-6xl font-extrabold mb-8 leading-tight drop-shadow-xl break-keep">
+                세계의 미식을<br>
+                <span class="font-serif-eng italic text-brand-gold pr-2">Jeju</span>제주의 식탁으로
             </h1>
             
             <p class="animate-fade-in-up delay-200 text-slate-200 text-lg md:text-xl font-light max-w-2xl mx-auto break-keep leading-relaxed">
@@ -146,8 +138,8 @@
         <div class="container mx-auto px-6 relative z-10">
             <div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-slate-200/60 pb-8">
                 <div>
-                    <span class="text-brand-orange font-bold tracking-widest text-xs uppercase mb-2 block">Resources</span>
-                    <h2 class="text-3xl md:text-4xl font-bold text-brand-navy font-serif-eng italic">E-Catalog <span class="not-italic font-sans">Center</span></h2>
+                    <span class="text-brand-orange font-bold tracking-widest text-xs uppercase mb-2 block">Data Archive</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-brand-navy">E-카탈로그 센터</h2>
                 </div>
                 <p class="text-slate-500 text-sm md:text-base mt-4 md:mt-0 max-w-md text-right break-keep">
                     최신 상품 정보와 프로모션을 담은 카탈로그를 다운로드하세요.<br>
@@ -162,15 +154,15 @@
                             <i class="fa-solid fa-book-open text-7xl"></i>
                         </div>
                         <div class="absolute bottom-4 left-4 right-4">
-                            <span class="bg-brand-navy/90 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors">Company Profile</span>
+                            <span class="bg-brand-navy/90 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors">회사소개서</span>
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="font-bold text-xl text-slate-800 mb-2 group-hover:text-brand-navy transition-colors">구르메 제주 회사소개서</h3>
+                        <h3 class="font-bold text-xl text-slate-800 mb-2 group-hover:text-brand-navy transition-colors">구르메 제주 회사소개</h3>
                         <p class="text-xs text-slate-500 mb-6 line-clamp-2">브랜드 포트폴리오, 연혁, 물류 시스템 등 구르메 제주의 모든 정보를 담았습니다.</p>
                         <div class="mt-auto">
                             <a href="Gourmet_회사소개서.pdf" target="_blank" class="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-slate-200 text-slate-600 font-bold text-sm group-hover:bg-brand-navy group-hover:text-white group-hover:border-transparent transition-all duration-300">
-                                <i class="fa-solid fa-download"></i> Download PDF
+                                <i class="fa-solid fa-download"></i> 다운로드
                             </a>
                         </div>
                     </div>
@@ -182,7 +174,7 @@
                             <i class="fa-solid fa-wheat-awn text-7xl"></i>
                         </div>
                         <div class="absolute bottom-4 left-4 right-4">
-                            <span class="bg-brand-navy/90 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors">Grocery</span>
+                            <span class="bg-brand-navy/90 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors">가공식품</span>
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -190,7 +182,7 @@
                         <p class="text-xs text-slate-500 mb-6 line-clamp-2">디벨라, 모노마트, 칸나멜라 등 파스타 및 글로벌 식자재 컬렉션.</p>
                         <div class="mt-auto">
                             <a href="파스타,오일,향신료 외.pdf" target="_blank" class="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-slate-200 text-slate-600 font-bold text-sm group-hover:bg-brand-navy group-hover:text-white group-hover:border-transparent transition-all duration-300">
-                                <i class="fa-solid fa-eye"></i> View Catalog
+                                <i class="fa-solid fa-eye"></i> 카탈로그 보기
                             </a>
                         </div>
                     </div>
@@ -202,7 +194,7 @@
                             <i class="fa-solid fa-cheese text-7xl"></i>
                         </div>
                         <div class="absolute bottom-4 left-4 right-4">
-                            <span class="bg-brand-navy/90 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors">USA Cheese</span>
+                            <span class="bg-brand-navy/90 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors">미국 치즈</span>
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -210,7 +202,7 @@
                         <p class="text-xs text-slate-500 mb-6 line-clamp-2">벨지오이오소 부라타, 모짜렐라 등 미국 프리미엄 치즈 라인업.</p>
                         <div class="mt-auto">
                             <a href="미국치즈_부라타 외.pdf" target="_blank" class="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-slate-200 text-slate-600 font-bold text-sm group-hover:bg-brand-navy group-hover:text-white group-hover:border-transparent transition-all duration-300">
-                                <i class="fa-solid fa-eye"></i> View Catalog
+                                <i class="fa-solid fa-eye"></i> 카탈로그 보기
                             </a>
                         </div>
                     </div>
@@ -222,7 +214,7 @@
                             <i class="fa-solid fa-earth-europe text-7xl"></i>
                         </div>
                         <div class="absolute bottom-4 left-4 right-4">
-                            <span class="bg-brand-navy/90 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors">European Cheese</span>
+                            <span class="bg-brand-navy/90 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors">유럽 식자재</span>
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -230,7 +222,7 @@
                         <p class="text-xs text-slate-500 mb-6 line-clamp-2">이즈니 버터, 암브로시, 루지에 등 유럽 정통 식자재 모음.</p>
                         <div class="mt-auto">
                             <a href="유럽치즈외.pdf" target="_blank" class="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-slate-200 text-slate-600 font-bold text-sm group-hover:bg-brand-navy group-hover:text-white group-hover:border-transparent transition-all duration-300">
-                                <i class="fa-solid fa-eye"></i> View Catalog
+                                <i class="fa-solid fa-eye"></i> 카탈로그 보기
                             </a>
                         </div>
                     </div>
@@ -242,17 +234,17 @@
     <section class="py-24 bg-white border-b border-slate-100">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <span class="text-brand-gold font-serif-eng italic text-2xl mb-2 block">Our Clients</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-brand-navy">Trusted Partners</h2>
+                <span class="text-brand-gold font-serif-eng italic text-2xl mb-2 block">Together</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-brand-navy">주요 파트너사</h2>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
                 <div class="bg-brand-light/50 p-8 rounded-3xl border border-slate-100 hover:border-brand-gold/30 transition-colors duration-300">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-10 h-10 bg-brand-navy rounded-full flex items-center justify-center text-brand-gold">
                             <i class="fa-solid fa-hotel"></i>
                         </div>
-                        <h4 class="font-serif-eng italic text-2xl text-brand-navy">Hotels</h4>
+                        <h4 class="font-bold text-xl text-brand-navy">호텔 & 리조트</h4>
                     </div>
                     <ul class="space-y-3 text-slate-600 font-medium text-sm">
                         <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-gold rounded-full"></span> 신라호텔 제주</li>
@@ -267,7 +259,7 @@
                         <div class="w-10 h-10 bg-brand-navy rounded-full flex items-center justify-center text-brand-gold">
                             <i class="fa-solid fa-cart-shopping"></i>
                         </div>
-                        <h4 class="font-serif-eng italic text-2xl text-brand-navy">Marts</h4>
+                        <h4 class="font-bold text-xl text-brand-navy">대형마트 & 유통</h4>
                     </div>
                     <ul class="space-y-3 text-slate-600 font-medium text-sm">
                         <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-gold rounded-full"></span> 이마트 (제주 전점)</li>
@@ -282,28 +274,13 @@
                         <div class="w-10 h-10 bg-brand-navy rounded-full flex items-center justify-center text-brand-gold">
                             <i class="fa-solid fa-mug-hot"></i>
                         </div>
-                        <h4 class="font-serif-eng italic text-2xl text-brand-navy">Bakery</h4>
+                        <h4 class="font-bold text-xl text-brand-navy">베이커리 & 카페</h4>
                     </div>
                     <ul class="space-y-3 text-slate-600 font-medium text-sm">
                         <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-gold rounded-full"></span> 메종드 쁘띠푸르</li>
                         <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-gold rounded-full"></span> 봉주르 마담</li>
                         <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-gold rounded-full"></span> 버터모닝</li>
                         <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-gold rounded-full"></span> 티나 케이크</li>
-                    </ul>
-                </div>
-
-                <div class="bg-brand-light/50 p-8 rounded-3xl border border-slate-100 hover:border-brand-gold/30 transition-colors duration-300">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 bg-brand-navy rounded-full flex items-center justify-center text-brand-gold">
-                            <i class="fa-solid fa-utensils"></i>
-                        </div>
-                        <h4 class="font-serif-eng italic text-2xl text-brand-navy">Dining</h4>
-                    </div>
-                    <ul class="space-y-3 text-slate-600 font-medium text-sm">
-                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-gold rounded-full"></span> (준비중)</li>
-                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-gold rounded-full"></span> (준비중)</li>
-                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-gold rounded-full"></span> (준비중)</li>
-                        <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-gold rounded-full"></span> (준비중)</li>
                     </ul>
                 </div>
             </div>
@@ -319,17 +296,17 @@
                     <button @click="tab = 'yesterday'" 
                             :class="tab === 'yesterday' ? 'bg-brand-navy text-white shadow-lg' : 'text-slate-500 hover:text-slate-800'" 
                             class="px-8 py-2.5 rounded-full font-bold text-sm transition-all duration-300">
-                        Yesterday
+                        도약 (Since 2015)
                     </button>
                     <button @click="tab = 'today'" 
                             :class="tab === 'today' ? 'bg-brand-navy text-white shadow-lg' : 'text-slate-500 hover:text-slate-800'" 
                             class="px-8 py-2.5 rounded-full font-bold text-sm transition-all duration-300">
-                        Today
+                        성장 (Present)
                     </button>
                     <button @click="tab = 'tomorrow'" 
                             :class="tab === 'tomorrow' ? 'bg-brand-navy text-white shadow-lg' : 'text-slate-500 hover:text-slate-800'" 
                             class="px-8 py-2.5 rounded-full font-bold text-sm transition-all duration-300">
-                        Tomorrow
+                        미래 (Future)
                     </button>
                 </div>
             </div>
@@ -340,7 +317,7 @@
                 <div x-show="tab === 'yesterday'" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="w-full">
                     <div class="flex flex-col md:flex-row items-center gap-12">
                         <div class="w-full md:w-1/2 space-y-6">
-                            <span class="text-brand-orange font-bold text-sm tracking-widest uppercase">Since 2015</span>
+                            <span class="text-brand-orange font-bold text-sm tracking-widest uppercase">설립 배경</span>
                             <h3 class="text-3xl font-bold text-slate-800 leading-tight">제주 미식의<br>새로운 기준을 세우다</h3>
                             <p class="text-slate-600 leading-relaxed text-justify break-keep">
                                 구르메 제주는 2015년 7월, 유럽 프리미엄 식자재 전문 기업 '구르메 F&B'의 제주 대리점으로 첫발을 내디뎠습니다. <br><br>
@@ -375,7 +352,7 @@
                             </div>
                         </div>
                         <div class="w-full md:w-1/2 order-1 md:order-2 space-y-6">
-                            <span class="text-brand-navy font-bold text-sm tracking-widest uppercase">Present</span>
+                            <span class="text-brand-navy font-bold text-sm tracking-widest uppercase">현재 (Present)</span>
                             <h3 class="text-3xl font-bold text-slate-800 leading-tight">셰프가 가장 먼저<br>찾는 파트너</h3>
                             <p class="text-slate-600 leading-relaxed break-keep">
                                 현재 구르메 제주는 프랑스, 이탈리아, 미국 등 전 세계 20여 개 수입사의 엄선된 제품을 취급합니다. <br><br>
@@ -390,7 +367,7 @@
                         <div class="w-20 h-20 bg-brand-navy rounded-full flex items-center justify-center text-brand-gold text-3xl mb-8 shadow-glow animate-bounce">
                             <i class="fa-solid fa-rocket"></i>
                         </div>
-                        <span class="text-brand-orange font-bold text-sm tracking-widest uppercase mb-4">Future Vision</span>
+                        <span class="text-brand-orange font-bold text-sm tracking-widest uppercase mb-4">미래 비전</span>
                         <h3 class="text-3xl md:text-4xl font-bold text-slate-800 mb-6 leading-tight font-serif-eng italic">Digital Transformation</h3>
                         <p class="text-slate-600 leading-relaxed break-keep text-lg mb-8">
                             2024년부터 <strong>온라인 비즈니스 확장</strong>을 통해 더 많은 고객님들과 만나려 합니다. <br>
@@ -403,7 +380,7 @@
         </div>
     </section>
 
-    <section class="py-24 bg-brand-navy relative overflow-hidden">
+    <section class="py-24 bg-brand-navy text-white relative overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
         <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-brand-gold rounded-full opacity-10 blur-3xl"></div>
         <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-brand-orange rounded-full opacity-10 blur-3xl"></div>
@@ -411,7 +388,7 @@
         <div class="container mx-auto px-6 relative z-10">
             <div class="text-center mb-16">
                 <span class="text-brand-gold font-bold tracking-[0.2em] text-xs uppercase mb-3 block">Core Competency</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-white font-serif-eng italic">Jeju Local <span class="not-italic font-sans">Infrastructure</span></h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-white">제주 현지 물류 시스템</h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -448,53 +425,43 @@
         </div>
     </section>
 
-    <footer class="bg-slate-900 text-slate-400 py-16 border-t border-slate-800">
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
         <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                 <div class="col-span-1 md:col-span-2">
-                    <a href="index.html" class="text-2xl font-bold text-white flex items-center gap-2 mb-6">
-                         <img src="images/logo.png" alt="Gourmet Jeju Logo" class="w-8 h-8 rounded-lg object-cover grayscale opacity-80">
-                        <span class="font-serif-eng italic">Gourmet Jeju</span>
+                    <a href="index.html" class="text-xl font-bold text-white flex items-center gap-2 mb-4">
+                        <img src="images/logo.png" alt="Logo" class="w-6 h-6 rounded object-cover">
+                        Gourmet Jeju
                     </a>
-                    <p class="text-sm leading-relaxed mb-6 max-w-md text-slate-500">
-                        구르메 제주는 전 세계 프리미엄 식자재를 제주 지역 호텔, 레스토랑, 카페에 공급하는 전문 유통 파트너입니다. 최상의 품질과 합리적인 가격으로 제주 미식 문화 발전에 기여합니다.
+                    <p class="text-xs leading-relaxed mb-4 max-w-md">
+                        제주특별자치도 제주시 00로 000<br>
+                        사업자등록번호: 000-00-00000 | 대표: OOO<br>
+                        통신판매업신고: 제2024-제주00-0000호
                     </p>
-                    <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-brand-orange hover:text-white transition-colors duration-300"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-brand-orange hover:text-white transition-colors duration-300"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="http://pf.kakao.com/_sJAuxb" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#FAE100] hover:text-[#371D1E] transition-colors duration-300"><i class="fa-solid fa-comment"></i></a>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4 text-sm">Contact</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><i class="fa-solid fa-phone text-brand-gold w-4"></i> 010-0000-0000</li>
+                        <li><i class="fa-solid fa-envelope text-brand-gold w-4"></i> contact@gourmetjeju.com</li>
+                        <li><i class="fa-solid fa-clock text-brand-gold w-4"></i> Mon-Fri: 09:00 - 18:00</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4 text-sm">Follow Us</h4>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-brand-orange hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-brand-orange hover:text-white transition"><i class="fa-brands fa-facebook"></i></a>
                     </div>
                 </div>
-                
-                <div>
-                    <h4 class="text-white font-bold mb-6 font-serif-eng italic text-lg">Quick Links</h4>
-                    <ul class="space-y-3 text-sm">
-                        <li><a href="about.html" class="hover:text-brand-gold transition-colors">About Company</a></li>
-                        <li><a href="products.html" class="hover:text-brand-gold transition-colors">Products Catalog</a></li>
-                        <li><a href="journal.html" class="hover:text-brand-gold transition-colors">Food Journal</a></li>
-                        <li><a href="#" class="hover:text-brand-gold transition-colors">Terms of Service</a></li>
-                        <li><a href="#" class="hover:text-brand-gold transition-colors">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="text-white font-bold mb-6 font-serif-eng italic text-lg">Contact Us</h4>
-                    <ul class="space-y-3 text-sm">
-                        <li class="flex items-start gap-3"><i class="fa-solid fa-location-dot mt-1 text-brand-gold"></i> 제주특별자치도 서귀포시 일주서로 1156-60</li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-phone text-brand-gold"></i> 010-0000-0000</li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-envelope text-brand-gold"></i> contact@gourmetjeju.com</li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-clock text-brand-gold"></i> Mon-Fri: 09:00 - 18:00</li>
-                    </ul>
-                </div>
             </div>
-            
-            <div class="border-t border-slate-800 pt-8 text-center text-xs text-slate-600">
-                <p>&copy; 2025 Gourmet Jeju. All Rights Reserved. | Designed for Jeju's Finest.</p>
+            <div class="border-t border-slate-800 pt-6 text-center text-[10px]">
+                <p>&copy; 2025 Gourmet Jeju. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
-    <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="fixed bottom-8 right-8 z-50 bg-[#FAE100] hover:bg-[#F9E000] text-[#371D1E] w-14 h-14 rounded-full shadow-xl flex items-center justify-center transition-all hover:scale-110 hover:-translate-y-1 animate-bounce">
+    <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="fixed bottom-6 right-6 z-40 bg-[#FAE100] hover:bg-[#F9E000] text-[#371D1E] w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-110 hover:shadow-xl animate-bounce">
         <i class="fa-solid fa-comment text-2xl"></i>
     </a>
 
