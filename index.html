@@ -52,6 +52,12 @@
             -webkit-backdrop-filter: blur(10px);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
+
+        /* Custom Scrollbar for Modal - Copied from about.html */
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 
     <script>
@@ -77,7 +83,7 @@
         }
     </script>
 </head>
-<body class="bg-brand-light text-slate-800 antialiased" x-data="{ open: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+<body class="bg-brand-light text-slate-800 antialiased" x-data="mainPageData()" :class="{ 'overflow-hidden': legalModal.isOpen }" @scroll.window="scrolled = (window.pageYOffset > 20)">
 
     <header :class="scrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-3' : 'bg-transparent py-6'" class="fixed w-full z-50 transition-all duration-500">
         <nav class="container mx-auto px-6 flex justify-between items-center">
@@ -428,8 +434,8 @@
                         <li><a href="about.html" class="hover:text-brand-gold transition">회사 소개</a></li>
                         <li><a href="Gourmet_회사소개서.pdf" target="_blank" class="hover:text-brand-gold transition">회사소개서 & 카탈로그</a></li>
                         <li><a href="journal.html" class="hover:text-brand-gold transition">구르메 저널</a></li>
-                        <li><a href="#" class="hover:text-brand-gold transition">이용약관</a></li>
-                        <li><a href="#" class="hover:text-brand-gold transition">개인정보처리방침</a></li>
+                        <li><button @click.prevent="openLegalModal('terms')" class="hover:text-brand-gold transition cursor-pointer">이용약관</button></li>
+                        <li><button @click.prevent="openLegalModal('privacy')" class="hover:text-brand-gold transition cursor-pointer">개인정보처리방침</button></li>
                     </ul>
                 </div>
                 
@@ -456,8 +462,8 @@
                     </div>
                     <div class="flex flex-col md:items-end justify-end gap-2">
                         <div class="flex gap-4">
-                            <a href="#" class="hover:text-white transition underline cursor-pointer">이용약관</a>
-                            <a href="#" class="hover:text-white transition underline font-bold cursor-pointer">개인정보처리방침</a>
+                            <button @click.prevent="openLegalModal('terms')" class="hover:text-white transition underline cursor-pointer">이용약관</button>
+                            <button @click.prevent="openLegalModal('privacy')" class="hover:text-white transition underline font-bold cursor-pointer">개인정보처리방침</button>
                         </div>
                         <p>Designed for Jeju's Finest.</p>
                     </div>
@@ -466,9 +472,107 @@
         </div>
     </footer>
 
+    <div x-show="legalModal.isOpen" class="fixed inset-0 z-[100] flex items-center justify-center px-4" x-cloak>
+        <div class="absolute inset-0 bg-slate-900/80 backdrop-blur-sm transition-opacity" @click="closeLegalModal()"></div>
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl relative z-10 flex flex-col max-h-[80vh] overflow-hidden" 
+             x-transition:enter="transition ease-out duration-300" 
+             x-transition:enter-start="opacity-0 scale-90" 
+             x-transition:enter-end="opacity-100 scale-100">
+            
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 class="text-lg font-bold text-brand-navy" x-text="legalModal.title"></h3>
+                <button @click="closeLegalModal()" class="text-slate-400 hover:text-slate-600 transition p-1">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto custom-scroll text-sm text-slate-600 leading-relaxed whitespace-pre-line" x-text="legalModal.content">
+                </div>
+            
+            <div class="p-4 border-t border-slate-100 bg-slate-50 text-right">
+                <button @click="closeLegalModal()" class="px-6 py-2 bg-brand-navy text-white rounded-lg font-bold hover:bg-slate-800 transition text-sm">확인</button>
+            </div>
+        </div>
+    </div>
+
     <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="fixed bottom-6 right-6 z-40 bg-[#FAE100] hover:bg-[#F9E000] text-[#371D1E] w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-110 hover:shadow-xl animate-bounce">
         <i class="fa-solid fa-comment text-2xl"></i>
     </a>
+
+<script>
+    // Alpine.js setup for main page, combining scroll logic and modal logic
+    function mainPageData() {
+        return {
+            open: false,
+            scrolled: false,
+
+            // Legal Modal State (Copied from about.html)
+            legalModal: {
+                isOpen: false,
+                title: '',
+                content: ''
+            },
+
+            // Mock Data for Legal Content (Copied from about.html and adjusted for index.html footer info)
+            legalContent: {
+                terms: `제1조 (목적)
+본 약관은 구르메 제주(이하 "회사")가 운영하는 웹사이트에서 제공하는 서비스(이하 "서비스")를 이용함에 있어 회사와 이용자의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.
+
+제2조 (용어의 정의)
+1. "이용자"란 사이트에 접속하여 본 약관에 따라 회사가 제공하는 서비스를 받는 회원 및 비회원을 말합니다.
+2. "회원"이란 회사에 개인정보를 제공하여 회원등록을 한 자로서, 회사의 정보를 지속적으로 제공받으며 서비스를 이용할 수 있는 자를 말합니다.
+
+제3조 (약관의 효력 및 변경)
+1. 본 약관은 서비스 화면에 게시하거나 기타의 방법으로 공지함으로써 효력이 발생합니다.
+2. 회사는 합리적인 사유가 발생할 경우 관련 법령에 위배되지 않는 범위 내에서 본 약관을 개정할 수 있습니다.
+
+제4조 (서비스의 제공 및 변경)
+회사는 다음과 같은 업무를 수행합니다.
+1. 재화 또는 용역에 대한 정보 제공 및 구매 계약의 체결
+2. 구매 계약이 체결된 재화 또는 용역의 배송
+3. 기타 회사가 정하는 업무
+
+[부칙]
+본 약관은 2025년 1월 1일부터 시행됩니다.`,
+                
+                privacy: `1. 개인정보의 수집 및 이용 목적
+구르메 제주는 견적 문의, 상담, 서비스 신청 등을 위해 아래와 같은 개인정보를 수집하고 있습니다.
+- 수집 항목: 이름, 연락처, 이메일, 회사명, 문의내용
+- 이용 목적: 견적 상담, 서비스 제공에 따른 본인 식별, 고지사항 전달
+
+2. 개인정보의 보유 및 이용 기간
+원칙적으로 개인정보 수집 및 이용 목적이 달성된 후에는 해당 정보를 지체 없이 파기합니다. 단, 관련 법령에 의거하여 보존할 필요가 있는 경우 일정 기간 동안 보존합니다.
+- 보존 항목: 이름, 연락처, 이메일, 회사명
+- 보존 근거: 전자상거래 등에서의 소비자보호에 관한 법률
+- 보존 기간: 3년 (계약 또는 청약철회 등에 관한 기록)
+
+3. 개인정보의 파기 절차 및 방법
+회사는 원칙적으로 개인정보 수집 및 이용 목적이 달성된 후에는 해당 정보를 지체 없이 파기합니다. 전자적 파일 형태의 정보는 기록을 재생할 수 없는 기술적 방법을 사용하여 삭제합니다.
+
+4. 이용자 및 법정대리인의 권리와 행사 방법
+이용자는 언제든지 등록되어 있는 자신의 개인정보를 조회하거나 수정할 수 있으며 가입 해지를 요청할 수도 있습니다.
+
+5. 개인정보 보호책임자
+- 성명: 홍길동
+- 이메일: gofreshjeju@naver.com`
+            },
+
+            init() {
+                // Original scroll logic in index.html, handled by @scroll.window on body.
+            },
+
+            openLegalModal(type) {
+                this.legalModal.title = type === 'terms' ? '이용약관' : '개인정보처리방침';
+                this.legalModal.content = this.legalContent[type];
+                this.legalModal.isOpen = true;
+            },
+
+            closeLegalModal() {
+                this.legalModal.isOpen = false;
+            }
+        }
+    }
+</script>
 
 </body>
 </html>
