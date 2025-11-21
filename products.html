@@ -41,6 +41,9 @@
         .receipt-paper { background-color: #fff; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); position: relative; }
         .receipt-top { background: radial-gradient(circle, transparent, transparent 50%, #fff 50%, #fff 100%) -7px -8px / 15px 15px repeat-x; height: 10px; width: 100%; position: absolute; top: -10px; left: 0; }
         .receipt-bottom { background: radial-gradient(circle, transparent, transparent 50%, #fff 50%, #fff 100%) -7px -2px / 15px 15px repeat-x; height: 10px; width: 100%; position: absolute; bottom: -10px; left: 0; transform: rotate(180deg); }
+
+        /* 브랜드 카드 호버 효과 */
+        .brand-card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
     </style>
 </head>
 <body class="bg-brand-light text-slate-800 antialiased pb-24 md:pb-0" x-data="app()">
@@ -48,6 +51,7 @@
     <header class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm py-3 transition-all duration-300">
         <nav class="container mx-auto px-4 flex justify-between items-center">
             <a href="index.html" class="text-2xl font-bold text-brand-navy flex items-center gap-2">
+                <img src="images/logo.png" alt="Logo" class="w-8 h-8 rounded object-cover">
                 Gourmet Jeju
             </a>
             <div class="flex items-center gap-4">
@@ -62,10 +66,11 @@
 
     <main class="pt-24 container mx-auto px-4 md:px-6 max-w-7xl">
         
-        <div class="text-center mb-10">
+        <div class="text-center mb-8">
             <h1 class="text-3xl md:text-4xl font-extrabold text-brand-navy mb-4">Product Catalog</h1>
+            <p class="text-slate-500 mb-6 text-sm">셰프님이 찾는 모든 식자재, 여기서 검색하세요.</p>
             <div class="relative max-w-lg mx-auto">
-                <input type="text" x-model="searchQuery" placeholder="찾으시는 상품이나 브랜드를 검색하세요" 
+                <input type="text" x-model="searchQuery" placeholder="상품명, 브랜드 (예: 파스타, 이즈니)" 
                        class="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-slate-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-navy transition-all">
                 <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
             </div>
@@ -82,7 +87,7 @@
                                 <li>
                                     <button @click="setCategory(cat.id)" 
                                             :class="filterCategory === cat.id ? 'bg-brand-navy text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'" 
-                                            class="w-full text-left px-3 py-2 rounded-lg transition-all text-sm flex justify-between items-center group">
+                                            class="w-full text-left px-3 py-2.5 rounded-lg transition-all text-sm flex justify-between items-center group">
                                         <span x-text="cat.name"></span>
                                         <span :class="filterCategory === cat.id ? 'text-white/70' : 'text-slate-300 group-hover:text-slate-500'" class="text-[10px] font-mono" x-text="getProductCount(cat.id)"></span>
                                     </button>
@@ -93,7 +98,7 @@
                 </template>
             </aside>
 
-            <div class="flex-1 w-full">
+            <div class="flex-1 w-full overflow-hidden">
                 
                 <div class="lg:hidden mb-6 overflow-x-auto no-scrollbar flex gap-2 pb-2">
                     <button @click="setCategory('all')" :class="filterCategory === 'all' ? 'bg-brand-navy text-white' : 'bg-white border border-slate-200 text-slate-600'" class="whitespace-nowrap px-4 py-2 rounded-full text-sm font-bold shadow-sm">전체 보기</button>
@@ -104,27 +109,52 @@
                     </template>
                 </div>
 
-                <div class="mb-8" x-show="availableBrands.length > 0">
-                    <div class="flex items-center gap-2 mb-3">
-                        <i class="fa-solid fa-filter text-brand-orange"></i>
-                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Brand Filter</span>
+                <div class="mb-10" x-show="availableBrands.length > 0">
+                    <div class="flex items-center justify-between mb-3 px-1">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-star text-brand-orange"></i>
+                            <span class="text-sm font-bold text-slate-600 uppercase tracking-wider">Popular Brands</span>
+                        </div>
+                        <span class="text-xs text-slate-400" x-text="filterBrand ? '브랜드 필터 적용중' : '전체 브랜드'"></span>
                     </div>
-                    <div class="flex flex-wrap gap-2">
+                    
+                    <div class="flex overflow-x-auto gap-3 pb-4 px-1 no-scrollbar snap-x">
                         <button @click="filterBrand = ''" 
-                                :class="filterBrand === '' ? 'bg-brand-navy text-white border-brand-navy ring-2 ring-brand-navy ring-offset-1' : 'bg-white text-slate-500 border-slate-200 hover:border-brand-navy'"
-                                class="px-3 py-1.5 rounded-lg text-xs border font-bold transition-all shadow-sm">
-                            All Brands
+                                :class="filterBrand === '' ? 'ring-2 ring-brand-navy ring-offset-2' : 'border-slate-100 hover:border-brand-navy'"
+                                class="brand-card shrink-0 w-24 h-28 bg-white rounded-xl border flex flex-col items-center justify-center gap-2 transition-all snap-start">
+                            <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-border-all"></i>
+                            </div>
+                            <span class="text-xs font-bold text-slate-600">All</span>
                         </button>
+
                         <template x-for="brand in availableBrands" :key="brand">
                             <button @click="filterBrand === brand ? filterBrand = '' : filterBrand = brand" 
-                                    :class="filterBrand === brand ? 'bg-brand-navy text-white border-brand-navy ring-2 ring-brand-navy ring-offset-1' : 'bg-white text-slate-600 border-slate-200 hover:border-brand-navy hover:text-brand-navy'"
-                                    class="px-3 py-1.5 rounded-lg text-xs border font-medium transition-all shadow-sm" x-text="brand"></button>
+                                    :class="filterBrand === brand ? 'ring-2 ring-brand-navy ring-offset-2 border-transparent' : 'border-slate-100 hover:border-brand-navy'"
+                                    class="brand-card shrink-0 w-24 h-28 bg-white rounded-xl border flex flex-col items-center justify-center p-2 transition-all snap-start relative overflow-hidden">
+                                
+                                <div class="w-12 h-12 rounded-full flex items-center justify-center mb-2 overflow-hidden shadow-sm bg-white relative z-10">
+                                    <img :src="getBrandLogoUrl(brand)" 
+                                         class="w-full h-full object-contain p-1" 
+                                         @error="$el.style.display='none'; $el.nextElementSibling.style.display='flex'">
+                                    
+                                    <div class="w-full h-full hidden items-center justify-center text-white font-bold text-lg"
+                                         :style="`background-color: ${getBrandColor(brand)}`"
+                                         x-text="brand.substring(0, 1).toUpperCase()">
+                                    </div>
+                                </div>
+                                
+                                <span class="text-[10px] font-bold text-slate-700 text-center leading-tight w-full truncate px-1" x-text="brand"></span>
+                            </button>
                         </template>
                     </div>
                 </div>
 
-                <div class="flex justify-between items-end mb-4">
-                    <span class="text-sm text-slate-500">검색 결과 <strong class="text-brand-navy" x-text="filteredProducts.length"></strong>개</span>
+                <div class="flex justify-between items-end mb-4 px-1">
+                    <span class="text-sm text-slate-500">
+                        <span x-show="filterBrand" class="font-bold text-brand-navy" x-text="filterBrand"></span>
+                        검색 결과 <strong class="text-brand-navy" x-text="filteredProducts.length"></strong>개
+                    </span>
                 </div>
 
                 <div id="products" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-20">
@@ -141,7 +171,9 @@
                             </div>
 
                             <div class="p-4 flex flex-col flex-grow">
-                                <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wide mb-1" x-text="product.brand"></div>
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wide" x-text="product.brand"></span>
+                                </div>
                                 <h3 class="font-bold text-slate-800 text-sm leading-snug mb-1 line-clamp-2 group-hover:text-brand-navy transition-colors" x-text="product.name"></h3>
                                 <p class="text-xs text-slate-500 mb-3 font-mono" x-text="product.spec"></p>
                                 
@@ -349,7 +381,7 @@
                     ...(typeof dessertData !== 'undefined' ? dessertData : [])
                 ],
 
-                // [CATEGORY STRUCTURE] 세분화된 카테고리 구조 정의
+                // [CATEGORY STRUCTURE] 세분화된 카테고리 구조
                 categoryGroups: [
                     {
                         title: '유제품 (Dairy)',
@@ -395,18 +427,13 @@
                         const matchSearch = p.name.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
                                           p.brand.toLowerCase().includes(this.searchQuery.toLowerCase());
                         
-                        // 2. 카테고리 필터 (전체보기 or 세부카테고리 or 대분류 그룹핑 로직 필요시 확장 가능)
-                        // 여기서는 'all'이 아니면 정확히 일치하는 category 값만 보여줍니다.
-                        // 만약 'dairy'를 눌렀을 때 하위 cheese, butter 등을 다 보여주려면 로직 수정 필요하지만,
-                        // 현재는 세분화된 버튼을 직접 누르는 구조이므로 exact match가 맞습니다.
+                        // 2. 카테고리 필터
                         let matchCat = true;
                         if (this.filterCategory !== 'all') {
-                            // 만약 상위 카테고리 개념이 필요하다면 여기서 처리
-                            // 현재 데이터는 세분화된 키값(cheese, butter...)을 가지고 있음
                              matchCat = p.category === this.filterCategory;
                         }
 
-                        // 3. 브랜드 필터 (동적 필터에서 선택된 경우)
+                        // 3. 브랜드 필터 (동적 필터)
                         const matchBrand = this.filterBrand === '' || p.brand === this.filterBrand;
 
                         return matchSearch && matchCat && matchBrand;
@@ -417,14 +444,14 @@
                     });
                 },
 
-                // [COMPUTED] 현재 선택된 카테고리에 존재하는 브랜드 목록 추출 (동적 필터용)
+                // [COMPUTED] 현재 선택된 카테고리의 브랜드 목록 (동적 추출)
                 get availableBrands() {
-                    // 현재 카테고리(검색어 제외)에 해당하는 상품들만 추출
+                    // 현재 카테고리에 해당하는 상품만 추출
                     const currentCatProducts = this.products.filter(p => {
                         return this.filterCategory === 'all' || p.category === this.filterCategory;
                     });
                     
-                    // 브랜드 추출 및 중복 제거, 정렬
+                    // 브랜드 추출 및 중복 제거, 알파벳순 정렬
                     const brands = [...new Set(currentCatProducts.map(p => p.brand))].sort();
                     return brands;
                 },
@@ -432,27 +459,42 @@
                 // [METHOD] 카테고리 변경 시 브랜드 필터 초기화
                 setCategory(id) {
                     this.filterCategory = id;
-                    this.filterBrand = ''; // 브랜드 필터 초기화
+                    this.filterBrand = ''; 
                 },
 
-                // [METHOD] 카테고리별 상품 개수 계산
+                // [METHOD] 스마트 로고 배경색 생성 (브랜드명 해시 기반)
+                getBrandColor(brand) {
+                    const colors = ['#ea580c', '#0f172a', '#d4af37', '#059669', '#2563eb', '#7c3aed', '#db2777'];
+                    let hash = 0;
+                    for (let i = 0; i < brand.length; i++) {
+                        hash = brand.charCodeAt(i) + ((hash << 5) - hash);
+                    }
+                    return colors[Math.abs(hash) % colors.length];
+                },
+                
+                // [METHOD] 실제 로고 파일 경로 반환 (매칭 안되면 error 발생 -> 위에서 처리)
+                getBrandLogoUrl(brand) {
+                    // 브랜드명을 소문자, 띄어쓰기 제거 후 파일명 매칭 시도
+                    // 예: Isigny Ste-Mère -> isignyste-mère.png (파일명 규칙에 따름)
+                    // 여기서는 예시로 폴더 구조에 맞게 매핑하거나 단순화
+                    const simpleName = brand.split(' ')[0].toLowerCase(); 
+                    return `images/logos/${simpleName}.png`;
+                },
+
+                // ... 기존 메소드 유지 (getProductCount, resetFilters, cart logic ...)
                 getProductCount(catId) {
                     if (catId === 'all') return this.products.length;
                     return this.products.filter(p => p.category === catId).length;
                 },
-                
                 resetFilters() {
                     this.searchQuery = '';
                     this.filterCategory = 'all';
                     this.filterBrand = '';
                     this.sortBy = 'default';
                 },
-
-                // ... (장바구니 관련 메소드는 기존과 동일) ...
                 addToCart(product) { if (!this.isInCart(product)) this.cart.push(product); },
                 removeFromCart(index) { this.cart.splice(index, 1); },
                 isInCart(product) { return this.cart.some(item => item.id === product.id); },
-
                 generateReceipt() {
                     if (!this.userInfo.company || !this.userInfo.contact) {
                         alert('업체명과 연락처를 입력해주세요.');
@@ -461,7 +503,6 @@
                     this.showReceipt = true;
                     this.showKakaoLink = false;
                 },
-
                 saveImage() {
                     this.isProcessing = true;
                     const element = document.getElementById('receipt-capture');
