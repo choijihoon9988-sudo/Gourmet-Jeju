@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="제주도 수입 식자재 유통 전문, 호텔, 레스토랑, 베이커리 납품. 이즈니 버터, 디벨라 파스타 등 프리미엄 식재료 서울 본사 직거래.">
-    <meta property="og:title" content="구르메 제주 - 프리미엄 식자재 파트너">
-    <meta property="og:description" content="서울 본사 직거래 단가, 제주 전지역 익일 배송 시스템.">
-    <title>구르메 제주 - Jeju No.1 Premium Food Partner</title>
     
+    <title>구르메 제주 - 제주도 수입 식자재 & 치즈 전문 유통 (호텔/카페 납품)</title>
+    <meta name="description" content="제주도 수입 식자재 유통 전문 기업 구르메 제주. 미국/유럽 자연 치즈, 이즈니 버터, 파스타 등 프리미엄 식재료를 서울 본사 직거래 단가로 제주 전역에 익일 배송합니다.">
+    <meta name="keywords" content="구르메 제주, 제주도 치즈, 제주도 식자재, 제주도 수입식품, 제주도 버터, 제주도 파스타, 제주도 호텔 납품, 제주도 카페 재료">
+    <meta name="author" content="Gourmet Jeju">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="구르메 제주 - 제주도 No.1 치즈 & 수입 식자재 파트너">
+    <meta property="og:description" content="서울 본사 직거래 단가, 제주 전지역 익일 냉동 탑차 배송. 셰프님을 위한 최고의 식자재 파트너가 되겠습니다.">
+    <meta property="og:image" content="images/image_2c8320.jpg">
+    <meta property="og:url" content="https://www.gourmetjeju.com"> <meta property="og:site_name" content="구르메 제주">
+
+    <meta name="naver-site-verification" content="여기에_네이버_인증키를_입력하세요" />
+
     <link rel="icon" type="image/png" href="images/favicon.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,6 +27,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WholesaleStore",
+      "name": "구르메 제주",
+      "image": "images/logo.png",
+      "description": "제주도 프리미엄 수입 식자재 및 치즈 전문 유통 기업",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "일주서로 1156-60",
+        "addressLocality": "Seogwipo-si",
+        "addressRegion": "Jeju-do",
+        "postalCode": "63535",
+        "addressCountry": "KR"
+      },
+      "telephone": "010-2068-3621",
+      "email": "gofreshjeju@naver.com",
+      "openingHours": "Mo-Fri 09:00-18:00",
+      "priceRange": "$$"
+    }
+    </script>
 
     <style>
         [x-cloak] { display: none !important; }
@@ -91,7 +123,7 @@
     <header :class="scrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-3' : 'bg-transparent py-6'" class="fixed w-full z-50 transition-all duration-500">
         <nav class="container mx-auto px-6 flex justify-between items-center">
             <a href="index.html" class="text-2xl font-bold flex items-center gap-3 group">
-                <img src="images/logo.png" alt="Gourmet Jeju Logo" class="w-10 h-10 rounded-lg object-cover group-hover:rotate-12 transition-transform duration-500 shadow-lg">
+                <img src="images/logo.png" alt="구르메 제주 - 제주도 식자재 유통 로고" class="w-10 h-10 rounded-lg object-cover group-hover:rotate-12 transition-transform duration-500 shadow-lg">
                 <div class="flex flex-col">
                     <span :class="scrolled ? 'text-brand-navy' : 'text-white'" class="font-serif-eng italic text-lg leading-none">Gourmet Jeju</span>
                     <span :class="scrolled ? 'text-brand-gold' : 'text-white/70'" class="text-[10px] tracking-widest uppercase font-medium">Premium Food Partner</span>
@@ -124,7 +156,7 @@
 
     <section class="relative h-screen min-h-[800px] flex flex-col justify-center items-center text-center text-white overflow-hidden">
         <div class="absolute inset-0">
-            <img src="images/image_2c8320.jpg" class="w-full h-full object-cover scale-105 animate-[pulse_10s_ease-in-out_infinite_alternate]" alt="Premium Food Background" style="animation-duration: 20s;">
+            <img src="images/image_2c8320.jpg" class="w-full h-full object-cover scale-105 animate-[pulse_10s_ease-in-out_infinite_alternate]" alt="제주도 프리미엄 치즈와 식자재" style="animation-duration: 20s;">
         </div>
         
         <div class="absolute inset-0 hero-overlay"></div>
@@ -139,7 +171,7 @@
             
             <div class="animate-fade-in-up delay-100 flex items-center gap-3 mb-8 opacity-80">
                 <span class="h-[1px] w-12 bg-white/50"></span>
-                <span class="text-white text-[10px] md:text-xs font-medium tracking-[0.4em] uppercase">Jeju Local Partner</span>
+                <h2 class="text-white text-[10px] md:text-xs font-medium tracking-[0.4em] uppercase">Jeju Food & Cheese Partner</h2>
                 <span class="h-[1px] w-12 bg-white/50"></span>
             </div>
             
@@ -150,7 +182,7 @@
             
             <p class="animate-fade-in-up delay-300 text-sm md:text-lg text-white/80 max-w-3xl mx-auto mb-12 font-light leading-relaxed break-keep drop-shadow-lg">
                 셰프님의 열정이 온전히 <strong class="text-white font-medium border-b border-brand-gold/50 pb-0.5">'맛'</strong>으로만 기억될 수 있도록<br class="hidden md:block"> 
-                구르메 제주는 가장 합리적인 가격으로 최고의 미식을 지원합니다.
+                구르메 제주는 가장 합리적인 가격으로 제주도 전역에 치즈와 식자재를 공급합니다.
             </p>
             
             <div class="animate-fade-in-up delay-500 flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-20">
@@ -194,13 +226,13 @@
             <span class="text-brand-navy/60 text-xs font-bold tracking-[0.2em] uppercase block mb-4">Client & Partners</span>
             
             <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800 mb-12 leading-snug break-keep max-w-5xl mx-auto">
-                신라, 롯데, SPC가 검증하고 300+ 제주 파트너가 선택한 기준,<br class="hidden md:block">
+                신라, 롯데, 하얏트가 검증하고 300+ 제주 파트너가 선택한 기준,<br class="hidden md:block">
                 <span class="text-brand-navy font-serif-eng italic text-4xl mr-2">No.1</span> <span class="text-brand-navy">대한민국 1등의 주방</span>에서 제주의 미식 문화를 완성합니다
             </h2>
             
             <div class="max-w-5xl mx-auto px-4">
                 <img src="images/client_logos.png" 
-                     alt="Partner Logos" 
+                     alt="제주도 호텔 및 레스토랑 파트너 로고" 
                      class="w-full h-auto object-contain mx-auto hover:opacity-100 transition-opacity duration-300">
             </div>
         </div>
@@ -287,7 +319,7 @@
                 
                 <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="group flex flex-col items-center justify-center p-6 border border-slate-100 rounded-2xl hover:bg-brand-navy transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-48 bg-white relative overflow-hidden">
                     <div class="w-full h-24 flex items-center justify-center mb-2">
-                        <img src="images/logos/isigny.png" onerror="this.src='https://via.placeholder.com/150x80?text=Isigny+Logo'" alt="Isigny Ste-Mère Logo" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
+                        <img src="images/logos/isigny.png" onerror="this.src='https://via.placeholder.com/150x80?text=Isigny+Logo'" alt="이즈니 버터 로고" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
                     </div>
                     <div class="text-center z-10">
                         <span class="font-serif-eng italic font-bold text-lg text-slate-700 group-hover:text-white transition-colors duration-300 block">Isigny Ste-Mère</span>
@@ -297,7 +329,7 @@
 
                 <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="group flex flex-col items-center justify-center p-6 border border-slate-100 rounded-2xl hover:bg-brand-navy transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-48 bg-white relative overflow-hidden">
                     <div class="w-full h-24 flex items-center justify-center mb-2">
-                        <img src="images/logos/divella.png" onerror="this.src='https://via.placeholder.com/150x80?text=Divella+Logo'" alt="Divella Logo" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
+                        <img src="images/logos/divella.png" onerror="this.src='https://via.placeholder.com/150x80?text=Divella+Logo'" alt="디벨라 파스타 로고" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
                     </div>
                     <div class="text-center z-10">
                         <span class="font-serif-eng italic font-bold text-lg text-slate-700 group-hover:text-white transition-colors duration-300 block">Divella</span>
@@ -307,7 +339,7 @@
 
                 <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="group flex flex-col items-center justify-center p-6 border border-slate-100 rounded-2xl hover:bg-brand-navy transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-48 bg-white relative overflow-hidden">
                     <div class="w-full h-24 flex items-center justify-center mb-2">
-                        <img src="images/logos/belgioioso.png" onerror="this.src='https://via.placeholder.com/150x80?text=BelGioioso'" alt="BelGioioso Logo" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
+                        <img src="images/logos/belgioioso.png" onerror="this.src='https://via.placeholder.com/150x80?text=BelGioioso'" alt="벨지오이오소 치즈 로고" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
                     </div>
                     <div class="text-center z-10">
                         <span class="font-serif-eng italic font-bold text-lg text-slate-700 group-hover:text-white transition-colors duration-300 block">BelGioioso</span>
@@ -317,7 +349,7 @@
 
                 <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="group flex flex-col items-center justify-center p-6 border border-slate-100 rounded-2xl hover:bg-brand-navy transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-48 bg-white relative overflow-hidden">
                     <div class="w-full h-24 flex items-center justify-center mb-2">
-                        <img src="images/logos/ambrosi.png" onerror="this.src='https://via.placeholder.com/150x80?text=Ambrosi'" alt="Ambrosi Logo" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
+                        <img src="images/logos/ambrosi.png" onerror="this.src='https://via.placeholder.com/150x80?text=Ambrosi'" alt="암브로시 치즈 로고" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
                     </div>
                     <div class="text-center z-10">
                         <span class="font-serif-eng italic font-bold text-lg text-slate-700 group-hover:text-white transition-colors duration-300 block">Ambrosi</span>
@@ -327,7 +359,7 @@
 
                  <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="group flex flex-col items-center justify-center p-6 border border-slate-100 rounded-2xl hover:bg-brand-navy transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-48 bg-white relative overflow-hidden">
                     <div class="w-full h-24 flex items-center justify-center mb-2">
-                        <img src="images/logos/rougie.png" onerror="this.src='https://via.placeholder.com/150x80?text=Rougie'" alt="Rougie Logo" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
+                        <img src="images/logos/rougie.png" onerror="this.src='https://via.placeholder.com/150x80?text=Rougie'" alt="루지에 푸아그라 로고" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
                     </div>
                     <div class="text-center z-10">
                         <span class="font-serif-eng italic font-bold text-lg text-slate-700 group-hover:text-white transition-colors duration-300 block">Rougié</span>
@@ -337,7 +369,7 @@
 
                 <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="group flex flex-col items-center justify-center p-6 border border-slate-100 rounded-2xl hover:bg-brand-navy transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-48 bg-white relative overflow-hidden">
                     <div class="w-full h-24 flex items-center justify-center mb-2">
-                        <img src="images/logos/beretta.png" onerror="this.src='https://via.placeholder.com/150x80?text=Beretta'" alt="Beretta Logo" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
+                        <img src="images/logos/beretta.png" onerror="this.src='https://via.placeholder.com/150x80?text=Beretta'" alt="베레타 샤퀴테리 로고" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
                     </div>
                     <div class="text-center z-10">
                         <span class="font-serif-eng italic font-bold text-lg text-slate-700 group-hover:text-white transition-colors duration-300 block">Beretta</span>
@@ -347,7 +379,7 @@
 
                 <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="group flex flex-col items-center justify-center p-6 border border-slate-100 rounded-2xl hover:bg-brand-navy transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-48 bg-white relative overflow-hidden">
                     <div class="w-full h-24 flex items-center justify-center mb-2">
-                        <img src="images/logos/monomart.png" onerror="this.src='https://via.placeholder.com/150x80?text=Monomart'" alt="Monomart Logo" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
+                        <img src="images/logos/monomart.png" onerror="this.src='https://via.placeholder.com/150x80?text=Monomart'" alt="모노마트 로고" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
                     </div>
                     <div class="text-center z-10">
                         <span class="font-serif-eng italic font-bold text-lg text-slate-700 group-hover:text-white transition-colors duration-300 block">Monomart</span>
@@ -357,7 +389,7 @@
 
                 <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="group flex flex-col items-center justify-center p-6 border border-slate-100 rounded-2xl hover:bg-brand-navy transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-48 bg-white relative overflow-hidden">
                     <div class="w-full h-24 flex items-center justify-center mb-2">
-                        <img src="images/logos/cannamela.png" onerror="this.src='https://via.placeholder.com/150x80?text=Cannamela'" alt="Cannamela Logo" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
+                        <img src="images/logos/cannamela.png" onerror="this.src='https://via.placeholder.com/150x80?text=Cannamela'" alt="칸나멜라 향신료 로고" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
                     </div>
                     <div class="text-center z-10">
                         <span class="font-serif-eng italic font-bold text-lg text-slate-700 group-hover:text-white transition-colors duration-300 block">Cannamela</span>
@@ -367,7 +399,7 @@
 
                 <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="group flex flex-col items-center justify-center p-6 border border-slate-100 rounded-2xl hover:bg-brand-navy transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-48 bg-white relative overflow-hidden">
                     <div class="w-full h-24 flex items-center justify-center mb-2">
-                        <img src="images/logos/tsc.png" onerror="this.src='https://via.placeholder.com/150x80?text=TSC'" alt="TSC Logo" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
+                        <img src="images/logos/tsc.png" onerror="this.src='https://via.placeholder.com/150x80?text=TSC'" alt="TSC 디저트 로고" class="max-w-[80%] max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert transition-all duration-500">
                     </div>
                     <div class="text-center z-10">
                         <span class="font-serif-eng italic font-bold text-lg text-slate-700 group-hover:text-white transition-colors duration-300 block">TSC</span>
