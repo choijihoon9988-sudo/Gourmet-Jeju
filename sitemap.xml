@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.gourmetjeju.com/</loc>
+    <lastmod>2025-11-22</lastmod>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://www.gourmetjeju.com/index.html</loc>
+    <lastmod>2025-11-22</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://www.gourmetjeju.com/about.html</loc>
+    <lastmod>2025-11-22</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://www.gourmetjeju.com/journal.html</loc>
+    <lastmod>2025-11-22</lastmod>
+    <priority>0.80</priority>
+  </url>
+</urlset>
