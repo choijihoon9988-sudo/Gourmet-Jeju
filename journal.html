@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="구르메 제주 저널. 셰프와 사장님을 위한 식자재 트렌드, 레시피, 비즈니스 인사이트.">
-    <meta property="og:title" content="구르메 제주 - F&B 인사이트 저널">
-    <title>Journal - 구르메 제주</title>
+    <meta name="description" content="구르메 제주 푸드 매거진. 셰프와 사장님을 위한 식자재 트렌드, 레시피, 비즈니스 인사이트.">
+    <meta property="og:title" content="구르메 제주 - F&B 인사이트 매거진">
+    <title>Food Magazine - 구르메 제주</title>
     
     <link rel="icon" type="image/png" href="images/favicon.png">
     
@@ -21,7 +21,6 @@
         [x-cloak] { display: none !important; }
         body { font-family: 'Pretendard', system-ui, sans-serif; }
         
-        /* Typography Utility */
         .font-serif-eng { font-family: 'Playfair Display', serif; }
         
         /* Animations */
@@ -88,8 +87,8 @@
             </a>
 
             <div class="hidden md:flex items-center space-x-10">
-                <a href="about.html" :class="scrolled ? 'text-slate-600 hover:text-brand-navy' : 'text-white/90 hover:text-white'" class="font-bold text-xs uppercase tracking-widest hover:underline decoration-brand-gold underline-offset-4 transition-all">About</a>
-                <a href="journal.html" :class="scrolled ? 'text-brand-navy' : 'text-white'" class="font-bold text-xs uppercase tracking-widest border-b-2 border-brand-gold pb-1 transition-all">Journal</a>
+                <a href="about.html" :class="scrolled ? 'text-slate-600 hover:text-brand-navy' : 'text-white/90 hover:text-white'" class="font-bold text-sm uppercase tracking-tight hover:underline decoration-brand-gold underline-offset-4 transition-all">회사소개</a>
+                <a href="journal.html" :class="scrolled ? 'text-brand-navy' : 'text-white'" class="font-bold text-sm uppercase tracking-tight border-b-2 border-brand-gold pb-1 transition-all">푸드 매거진</a>
                 <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="bg-brand-orange hover:bg-orange-600 text-white px-7 py-2.5 rounded-full font-bold shadow-lg hover:shadow-orange-500/40 transition-all transform hover:-translate-y-0.5 text-sm flex items-center gap-2">
                     <span class="tracking-tight">견적 문의</span> <i class="fa-solid fa-chevron-right text-xs"></i>
                 </a>
@@ -106,7 +105,7 @@
             <div class="flex flex-col p-5 space-y-3">
                 <a href="about.html" class="block px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-xl font-bold">회사 소개</a>
                 <a href="Gourmet_회사소개서.pdf" target="_blank" class="block px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-xl font-bold">제품 카탈로그</a>
-                <a href="journal.html" class="block px-4 py-3 bg-brand-navy text-white rounded-xl font-bold">저널 & 뉴스</a>
+                <a href="journal.html" class="block px-4 py-3 bg-brand-navy text-white rounded-xl font-bold">푸드 매거진</a>
                 <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="block px-4 py-3 bg-brand-orange text-white text-center rounded-xl font-bold mt-2">견적 요청하기</a>
             </div>
         </div>
@@ -218,7 +217,7 @@
                     <ul class="space-y-3 text-sm">
                         <li><a href="about.html" class="hover:text-brand-gold transition">회사 소개</a></li>
                         <li><a href="Gourmet_회사소개서.pdf" target="_blank" class="hover:text-brand-gold transition">회사소개서 & 카탈로그</a></li>
-                        <li><a href="journal.html" class="hover:text-brand-gold transition">구르메 저널</a></li>
+                        <li><a href="journal.html" class="hover:text-brand-gold transition">푸드 매거진</a></li>
                     </ul>
                 </div>
                 
@@ -259,6 +258,47 @@
         <i class="fa-solid fa-comment text-2xl"></i>
     </a>
     
+    <div x-show="selectedJournal" class="fixed inset-0 z-[60] flex items-center justify-center px-4" x-cloak>
+        <div class="absolute inset-0 bg-slate-900/90 backdrop-blur-md transition-opacity" @click="closeJournal()"></div>
+        
+        <template x-if="selectedJournal">
+            <div class="bg-white w-full max-w-4xl h-[85vh] rounded-3xl shadow-2xl relative z-10 flex flex-col overflow-hidden" 
+                 x-transition:enter="transition ease-out duration-300" 
+                 x-transition:enter-start="opacity-0 scale-95 translate-y-4" 
+                 x-transition:enter-end="opacity-100 scale-100 translate-y-0">
+                
+                <div class="relative h-64 md:h-80 flex-shrink-0">
+                    <img :src="selectedJournal.image" :alt="selectedJournal.title" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+                    
+                    <button @click="closeJournal()" class="absolute top-4 right-4 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white hover:text-slate-900 transition-all duration-300 z-20">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+
+                    <div class="absolute bottom-0 left-0 w-full p-8 text-white">
+                        <span :class="getCategoryColor(selectedJournal.category)" class="text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm backdrop-blur-sm mb-3 inline-block" x-text="getCategoryLabel(selectedJournal.category)"></span>
+                        <h2 class="text-2xl md:text-4xl font-bold leading-tight mb-2 break-keep" x-text="selectedJournal.title"></h2>
+                        <div class="flex items-center gap-4 text-sm text-slate-300 font-medium">
+                            <span class="flex items-center gap-1"><i class="fa-regular fa-calendar"></i> <span x-text="selectedJournal.date"></span></span>
+                            <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> <span x-text="selectedJournal.readTime"></span> read</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-grow overflow-y-auto custom-scroll p-8 md:p-12 bg-white">
+                    <div class="prose prose-lg max-w-none article-content" x-html="selectedJournal.content"></div>
+                    
+                    <div class="mt-12 pt-8 border-t border-slate-100 text-center">
+                        <p class="text-slate-500 text-sm mb-4">이 콘텐츠가 도움이 되셨나요?</p>
+                        <a href="http://pf.kakao.com/_sJAuxb" target="_blank" class="inline-flex items-center gap-2 bg-brand-navy text-white px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl">
+                            <i class="fa-solid fa-comment-dots"></i> 제품 문의하기
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+
     <div x-show="legalModal.isOpen" class="fixed inset-0 z-[100] flex items-center justify-center px-4" x-cloak>
         <div class="absolute inset-0 bg-slate-900/80 backdrop-blur-sm transition-opacity" @click="closeLegalModal()"></div>
         <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl relative z-10 flex flex-col max-h-[80vh] overflow-hidden" 
